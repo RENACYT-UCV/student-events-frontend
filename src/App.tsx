@@ -1,24 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import HeaderBar from "./components/HeaderBar";
+import LoginScreen from "./components/LoginScreen";
+import RegisterScreen from "./components/RegisterScreen";
+import RecoverAccountScreen from "./components/RecoverAccountScreen";
+import ResetPasswordScreen from "./components/ResetPasswordScreen";
+import Home from "./components/Home";
+import EventosAcademico from "./components/EventosAcademico";
 
-function App() {
+import MainLayout from "./components/MainLayout";
+
+function App(): JSX.Element {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        {/* Rutas públicas CON HeaderBar */}
+        <Route
+          path="/login"
+          element={
+            <>
+              <HeaderBar />
+              <LoginScreen />
+            </>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <>
+              <HeaderBar />
+              <RegisterScreen />
+            </>
+          }
+        />
+        <Route
+          path="/recover-account"
+          element={
+            <>
+              <HeaderBar />
+              <RecoverAccountScreen />
+            </>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <>
+              <HeaderBar />
+              <ResetPasswordScreen />
+            </>
+          }
+        />
+
+        {/* Rutas privadas SIN HeaderBar */}
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          {<Route path="eventos/academico" element={<EventosAcademico />} />
+}
+        </Route>
+      </Routes>
     </div>
   );
 }
