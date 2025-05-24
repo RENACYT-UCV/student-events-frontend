@@ -4,6 +4,7 @@ import Login from '@pages/auth/Login'
 import Home from '@pages/Home'
 import EventList from '@components/eventos/EventList'
 import EventDetail from '@components/eventos/EventDetail'
+import EventSuccess from '@components/eventos/EventSuccess'
 
 export default function AppRouter() {
   return (
@@ -18,6 +19,7 @@ export default function AppRouter() {
           <Route index element={<Home />} />
           <Route path="eventos" element={<EventList />} />
           <Route path="eventos/:id" element={<EventDetail />} />
+          <Route path="eventos/success" element={<EventSuccess />} />
         </Route>
       </Routes>
     </Router>
