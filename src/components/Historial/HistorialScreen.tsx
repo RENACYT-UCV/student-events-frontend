@@ -25,7 +25,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   };
 
   const handleNotificationClick = () => {
-    console.log('Abrir notificaciones');
+    navigate('/notificaciones');
   };
 
   const handleProfileClick = () => {

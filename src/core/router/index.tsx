@@ -8,6 +8,7 @@ import Home from '@pages/Home'
 import EventList from '@components/eventos/EventList'
 import EventDetail from '@components/eventos/EventDetail'
 import EventSuccess from '@components/eventos/EventSuccess'
+import NotificationApp from '@components/NotificationApp'
 
 export default function AppRouter() {
   return (
@@ -25,6 +26,7 @@ export default function AppRouter() {
           <Route path="eventos" element={<EventList />} />
           <Route path="eventos/:id" element={<EventDetail />} />
           <Route path="eventos/success" element={<EventSuccess />} />
+          <Route path="notificaciones" element={<NotificationApp />} />
         </Route>
       </Routes>
     </Router>
