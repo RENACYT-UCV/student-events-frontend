@@ -1,36 +1,32 @@
-import React, { useState } from 'react'
-import './LoginScreen.css'
-import imagenLogin from '../assets/imagen-login.png'
-import fondo from '../assets/mi-fondo.jpeg'
-import { useNavigate } from 'react-router-dom'
-import { useLogin } from '../hooks/auth/use-login'
+import React, { useState } from 'react';
+import './LoginScreen.css';
+import imagenLogin from '../assets/imagen-login.png';
+import fondo from '../assets/mi-fondo.jpeg';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginScreenProps {}
 
 const LoginScreen: React.FC<LoginScreenProps> = () => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { loginAsync } = useLogin()
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = (): void => {
-    console.log('Iniciando sesión con:', { email, password })
-    loginAsync({ email, password })
-    alert(`Login con email: ${email}`)
-  }
+    console.log('Iniciando sesión con:', { email, password });
+    alert(`Login con email: ${email}`);
+  };
 
   const handleRegister = (): void => {
-    console.log('Navegando a registro')
-    navigate('/register')
-  }
+    console.log('Navegando a registro');
+    navigate('/register');
+  };
 
   const handleForgotPassword = (): void => {
-    console.log('Navegando a recuperar contraseña')
-    navigate('/recover-account')
-  }
+    console.log('Navegando a recuperar contraseña');
+    navigate('/recover-account');
+  };
 
   return (
     <div
@@ -44,7 +40,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
       <div className="decoration-top-right"></div>
       <div className="decoration-bottom-left"></div>
       <div className="decoration-bottom-right"></div>
-
+      
       {/* Contenido principal */}
       <div className="login-content">
         {/* Ilustración principal */}
@@ -69,7 +65,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
                 className="input-field"
                 placeholder="example@gmail.com"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -84,7 +80,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
                 className="input-field"
                 placeholder="••••••"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -93,27 +89,37 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
               >
                 {showPassword ? '👁️' : '🙈'}
               </button>
+              
             </div>
           </div>
 
           {/* Enlace de olvidaste contraseña */}
-          <button className="forgot-password-link" onClick={handleForgotPassword}>
+          <button 
+            className="forgot-password-link"
+            onClick={handleForgotPassword}
+          >
             ¿Olvidaste tu contraseña?
           </button>
 
           {/* Botón de iniciar sesión */}
-          <button className="login-button" onClick={handleLogin}>
+          <button 
+            className="login-button"
+            onClick={handleLogin}
+          >
             INICIAR SESIÓN
           </button>
 
           {/* Botón de registro */}
-          <button className="register-button" onClick={handleRegister}>
+          <button 
+            className="register-button"
+            onClick={handleRegister}
+          >
             REGISTRARSE 👥
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginScreen
+export default LoginScreen;
