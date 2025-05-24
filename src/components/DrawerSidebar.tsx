@@ -14,7 +14,7 @@ export default function DrawerSidebar({ open, onClose }: DrawerSidebarProps) {
     <>
       {/* Backdrop */}
       <div
-        className={cn('fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300', {
+        className={cn('fixed inset-0 bg-black bg-opacity-50 z-[90] transition-opacity duration-300', {
           'opacity-100 pointer-events-auto': open,
           'opacity-0 pointer-events-none': !open
         })}
@@ -24,7 +24,7 @@ export default function DrawerSidebar({ open, onClose }: DrawerSidebarProps) {
       {/* Sidebar */}
       <div
         className={cn(
-          'fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300',
+          'fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-[100] transform transition-transform duration-300',
           {
             'translate-x-0': open,
             '-translate-x-full': !open

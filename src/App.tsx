@@ -20,7 +20,7 @@ function App(): JSX.Element {
           path="/login"
           element={
             <>
-              <HeaderBar />
+              <HeaderBar title="Ingresar"/>
               <LoginScreen />
             </>
           }
@@ -29,7 +29,7 @@ function App(): JSX.Element {
           path="/register"
           element={
             <>
-              <HeaderBar />
+              <HeaderBar title="Registrar" />
               <RegisterScreen />
             </>
           }
@@ -38,7 +38,7 @@ function App(): JSX.Element {
           path="/recover-account"
           element={
             <>
-              <HeaderBar />
+              <HeaderBar title="Recuperar Cuenta"/>
               <RecoverAccountScreen />
             </>
           }
@@ -47,14 +47,24 @@ function App(): JSX.Element {
           path="/reset-password/:token"
           element={
             <>
-              <HeaderBar />
+              <HeaderBar title="Restablecer Contraseña"/>
               <ResetPasswordScreen />
             </>
           }
         />
+        <Route
+          path="/profile/:token"
+          element={
+            <>
+
+            </>
+          }
+          
+        />
 
         {/* Rutas privadas SIN HeaderBar */}
         <Route path="/" element={<MainLayout />}>
+          {/* <Route element={<HeaderBar title="Inicio"/>}/> */}
           <Route index element={<Home />} />
           {<Route path="eventos/academico" element={<EventosAcademico />} />}
         </Route>

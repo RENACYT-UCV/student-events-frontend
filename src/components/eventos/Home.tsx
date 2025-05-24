@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getAllEvents, Event } from '../../services/eventService'
 
-import DrawerSidebar from '../DrawerSidebar'
-
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false)
-
   const [allEvents, setAllEvents] = useState<Event[]>([])
 
   useEffect(() => {
@@ -27,36 +23,8 @@ export default function Home() {
   const proximosEventos: Event[] = allEvents // For now, display all events as upcoming
 
   return (
-    <div>
-      {/* Barra de navegación */}
-      <div className="bg-red-600">
-        <div className="flex items-center justify-between px-4 py-2">
-          <button onClick={() => setMenuOpen(true)} className="text-white">
-            {/* <MenuIcon /> */}
-          </button>
-          <h1 className="text-white text-lg font-semibold text-center flex-grow">Inicio</h1>
-          <div className="flex items-center gap-4">
-            <button className="relative text-white">
-              {/* <NotificationsIcon /> */}
-              <span className="absolute -top-1 -right-1 bg-pink-500 text-xs text-white rounded-full px-1">
-                1
-              </span>
-            </button>
-            <div className="ml-2 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">
-              U
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className='home-events-container'>
 
-      {/* Drawer lateral */}
-      <DrawerSidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
-
-      {/* Saludo */}
-      <div className="bg-red-600 text-white p-6 pb-10 rounded-b-[40px] text-center">
-        <h2 className="text-xl font-bold">Hola, XXXXXXXX</h2>
-        <p className="text-sm">¿Qué haremos hoy?</p>
-      </div>
 
       {/* Contenedor principal */}
       <div className="bg-white rounded-xl mt-[-1rem] p-6 mx-4 shadow-md">

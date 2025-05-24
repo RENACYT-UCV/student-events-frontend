@@ -13,4 +13,142 @@ code {
 }
  */
 
+
+ @font-face {
+  font-family: 'Karla';
+  src: url('/assets/fonts/Karla/Karla-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Light */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Light Italic */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Medium */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium Italic */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* SemiBold */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SemiBold Italic */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ExtraBold */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ExtraBold Italic */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ExtraLight */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ExtraLight Italic */
+@font-face {
+  font-family: 'Karla';
+  src: url('./assets/fonts/Karla/Karla-ExtraLightItalic.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+
+.main-page {
+  position: relative;
+  background-color: #DD2324;
+}
+
+.main-page-blue {
+  position: relative;
+  background-color: #005CFF;
+}
+
 @import 'tailwindcss';

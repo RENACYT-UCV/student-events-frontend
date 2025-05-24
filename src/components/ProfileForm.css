@@ -1,0 +1,135 @@
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  position: relative;
+  z-index: 10;
+  margin: -70px 10px 0 0; /* sobresale visualmente */
+  background-color: white;
+  width: 100%;
+  padding: 20px 30px;
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+}
+
+.profile-form label {
+  display: block;
+  font-weight: bold;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 10px 16px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  background-color: #eee;
+  box-sizing: border-box;
+  font-family: 'Karla', sans-serif;
+  font-weight: 400;
+}
+
+/* Estilo cuando estás editando */
+.profile-form.editing input {
+  border: 2px solid #DD2324; /* Azul corporativo o el color que tú elijas */
+}
+
+.edit-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+
+.edit-button {
+  display: inline-flex;           /* Alinea texto + icono horizontalmente */
+  align-items: center;           /* Centra verticalmente */
+  justify-content: center;      /* Centra todo dentro del botón */
+  margin-top: 10px;
+  text-decoration: none;
+  background-color: #DD2324;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 15px;
+  width:50%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+
+}
+
+.edit-button .icon-right {
+  margin-left: 8px;
+}
+
+.edit-button:hover {
+  transform: scale(1.02);
+  background-color: #af1818;
+  color: white;
+}
+
+
+/* Estilo especial para escritorio */
+@media screen and (min-width: 1024px) {
+  .profile-form {
+    padding: 40px 50dvh;
+  }
+
+  .edit-button{
+    width: 30%;
+  }
+}
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro con opacidad */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 30px;
+  margin-bottom: 100px;
+  width: 70%;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  text-align: center;
+  animation: fadeInScale 0.3s ease-in-out;
+}
+
+.popup-icon {
+  margin-bottom: 10px;
+}
+
+.popup-text {
+  font-family: 'Karla',sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

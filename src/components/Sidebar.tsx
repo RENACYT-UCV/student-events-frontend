@@ -27,9 +27,9 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
   }
 
   return (
-    <div className="w-[250px] h-screen flex flex-col">
+    <div className="w-full h-screen flex flex-col z-[100]">
       {/* Encabezado rojo con UniEventos y hamburguesa */}
-      <div className="bg-red-600 text-white p-3 flex items-center gap-2">
+      <div className="bg-[#DD2324] text-white p-[22px] flex items-center gap-2">
         {onClose && (
           <div onClick={onClose} className="cursor-pointer">
             {/* <MenuIcon /> */}
@@ -59,7 +59,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
         )}
 
         <SidebarItem icon={<div />} label="Historial" to="/historial" />
-        <SidebarItem icon={<div />} label="Mi Perfil" to="/perfil" />
+        <SidebarItem icon={<div />} label="Mi Perfil" to="/profile" />
 
         {/* Botón de cerrar sesión */}
         <div onClick={handleLogout} className="absolute bottom-5 left-5 cursor-pointer">
