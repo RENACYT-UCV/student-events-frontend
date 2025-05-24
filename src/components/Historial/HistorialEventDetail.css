@@ -1,0 +1,142 @@
+/* Contenedor principal del detalle del evento */
+.evento-detalle-container {
+  min-height: 100vh;
+  background: #faebee;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+/* Tarjeta de detalle del evento */
+.detalle-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 24px 18px 18px 18px;
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Botón de retroceso */
+.back-button {
+  background: none;
+  border: none;
+  color: #222;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  align-self: flex-start;
+}
+
+/* Imagen del detalle del evento */
+.detalle-image {
+  width: 100%;
+  max-width: 370px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Tipo de detalle */
+.detalle-type {
+  font-size: 15px;
+  color: #b0b0b0;
+  margin-bottom: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Título del detalle */
+.detalle-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 6px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Fecha y hora del detalle */
+.detalle-datetime {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #888;
+  font-size: 15px;
+  margin-bottom: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.detalle-datetime .icon {
+  margin-right: 2px;
+}
+
+/* Ubicación del detalle */
+.detalle-location {
+  color: #e57373;
+  font-size: 15px;
+}
+
+/* Descripción del detalle */
+.detalle-description {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 18px;
+  text-align: left;
+  width: 100%;
+}
+
+/* Etiquetas de estado en el detalle */
+.detalle-status {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.status-tag {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 22px;
+  border-radius: 18px;
+  border: 1.5px solid transparent;
+  background: #f5f5f5;
+  color: #333;
+  transition: background 0.2s;
+}
+
+/* Opcional: para agregar íconos si los usas en el JSX */
+.status-tag .status-icon {
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.status-tag.pending {
+  background: #fffbe6;
+  color: #b59f00;
+  border: 1.5px solid #ffe58f;
+}
+
+.status-tag.no-attend {
+  background: #fff1f0;
+  color: #d4380d;
+  border: 1.5px solid #ffa39e;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .detalle-card {
+    padding: 16px 6px 14px 6px;
+  }
+}
