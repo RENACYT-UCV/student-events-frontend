@@ -1,49 +1,26 @@
-import { useState, useEffect } from 'react'
-import { getAllEvents, Event } from '../../services/eventService'
-
+import { useState } from 'react'
 import DrawerSidebar from '../DrawerSidebar'
+import folclore from '../../assets/folclore.jpg'
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const [allEvents, setAllEvents] = useState<Event[]>([])
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const events = await getAllEvents()
-        setAllEvents(events)
-      } catch (error) {
-        // Handle error appropriately
-        console.error('Failed to fetch events:', error)
-      }
-    }
-
-    fetchEvents()
-  }, [])
-
-  // You might want to filter allEvents into eventosHoy and proximosEventos based on date
-  const eventosHoy: Event[] = [] // Filter logic here
-  const proximosEventos: Event[] = allEvents // For now, display all events as upcoming
-
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       {/* Barra de navegación */}
       <div className="bg-red-600">
         <div className="flex items-center justify-between px-4 py-2">
-          <button onClick={() => setMenuOpen(true)} className="text-white">
-            {/* <MenuIcon /> */}
+          <button onClick={() => setMenuOpen(true)} className="text-white text-xl">
+            ☰
           </button>
           <h1 className="text-white text-lg font-semibold text-center flex-grow">Inicio</h1>
           <div className="flex items-center gap-4">
             <button className="relative text-white">
-              {/* <NotificationsIcon /> */}
-              <span className="absolute -top-1 -right-1 bg-pink-500 text-xs text-white rounded-full px-1">
-                1
-              </span>
+              🔔
+              <span className="absolute -top-1 -right-1 bg-pink-500 text-xs text-white rounded-full px-1">1</span>
             </button>
             <div className="ml-2 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">
-              U
+              ●
             </div>
           </div>
         </div>
@@ -53,57 +30,42 @@ export default function Home() {
       <DrawerSidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       {/* Saludo */}
-      <div className="bg-red-600 text-white p-6 pb-10 rounded-b-[40px] text-center">
-        <h2 className="text-xl font-bold">Hola, XXX</h2>
+      <div className="bg-red-600 text-white p-6 pb-12 rounded-b-[40px] text-center relative">
+        <h2 className="text-2xl font-bold">Hola, XXXXXXXX</h2>
         <p className="text-sm">¿Qué haremos hoy?</p>
+        <div className="absolute top-2 right-2 opacity-20 text-[80px]">📍</div>
       </div>
 
-      {/* Contenedor principal */}
-      <div className="bg-white rounded-xl mt-[-1rem] p-6 mx-4 shadow-md">
+      {/* Contenido principal */}
+      <div className="bg-white rounded-xl -mt-8 p-6 mx-4 shadow-md z-10 relative">
         {/* Eventos de hoy */}
         <h2 className="text-lg font-bold text-red-600 mb-4">Mis Eventos de Hoy</h2>
         <div className="flex flex-col gap-4">
-          {eventosHoy.map(evento => (
-            <div key={evento.id} className="flex items-center shadow-md rounded-lg p-4">
-              {/* Imagen opcional aquí */}
-              <div>
-                <h3 className="text-indigo-600 font-semibold">{evento.name}</h3>
-                {/* Detalles opcionales aquí */}
+          <div className="flex items-center gap-4 shadow-md rounded-lg p-2 bg-white">
+            <img src={folclore} alt="evento" className="w-16 h-16 rounded-md object-cover" />
+            <div>
+              <h3 className="text-blue-700 font-semibold text-sm">Congreso Internacional de Psicoterapia</h3>
+              <div className="text-xs text-gray-600 flex gap-2 mt-1">
+                <span>📅 17 Junio</span>
+                <span>🕒 3:00 pm</span>
               </div>
             </div>
-          ))}
+          </div>
         </div>
 
         {/* Próximos eventos */}
         <h2 className="text-lg font-bold text-red-600 mt-8 mb-4">Mis Próximos Eventos</h2>
         <div className="flex flex-col gap-4">
-          {proximosEventos.map(evento => (
-            <div key={evento.id} className="flex items-start shadow-md rounded-lg p-4">
-              <div>
-                <h3 className="text-indigo-600 font-semibold">{evento.name}</h3>
-                {evento.eventDetails?.length > 0 && (
-                  <div className="mt-2 space-y-1 text-sm text-gray-600">
-                    <div className="flex items-center gap-1">
-                      {/* <CalendarMonthIcon className="w-4 h-4" /> */}
-                      <span>
-                        {evento.eventDetails[0].startDate} - {evento.eventDetails[0].endDate}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      {/* <AccessTimeIcon className="w-4 h-4" /> */}
-                      <span>
-                        {evento.eventDetails[0].startTime} - {evento.eventDetails[0].endTime}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      {/* <LocationOnIcon className="w-4 h-4" /> */}
-                      <span>{evento.eventDetails[0].location}</span>
-                    </div>
-                  </div>
-                )}
+          <div className="flex items-center gap-4 shadow-md rounded-lg p-2 bg-white">
+            <img src={folclore} alt="evento" className="w-16 h-16 rounded-md object-cover" />
+            <div>
+              <h3 className="text-blue-700 font-semibold text-sm">Taller de Dibujo, Anime y Más</h3>
+              <div className="text-xs text-gray-600 flex gap-2 mt-1">
+                <span>📅 17 Diciembre</span>
+                <span>🕒 3:00 pm</span>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
