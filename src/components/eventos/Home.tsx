@@ -1,172 +1,111 @@
-// src/components/Home.tsx
-import React, { useState, useEffect } from "react";
-import { getAllEvents, Event } from '../../services/eventService';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Box,
-  Avatar,
-  Card,
-  CardContent,
-  CardMedia,
-  Badge,
-  Container,
-  Paper,
-  Stack
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import DrawerSidebar from "../DrawerSidebar";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useState, useEffect } from 'react'
+import { getAllEvents, Event } from '../../services/eventService'
+
+import DrawerSidebar from '../DrawerSidebar'
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
 
-  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<Event[]>([])
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const events = await getAllEvents();
-        setAllEvents(events);
+        const events = await getAllEvents()
+        setAllEvents(events)
       } catch (error) {
         // Handle error appropriately
-        console.error('Failed to fetch events:', error);
+        console.error('Failed to fetch events:', error)
       }
-    };
+    }
 
-    fetchEvents();
-  }, []);
+    fetchEvents()
+  }, [])
 
   // You might want to filter allEvents into eventosHoy and proximosEventos based on date
-  const eventosHoy: Event[] = []; // Filter logic here
-  const proximosEventos: Event[] = allEvents; // For now, display all events as upcoming
+  const eventosHoy: Event[] = [] // Filter logic here
+  const proximosEventos: Event[] = allEvents // For now, display all events as upcoming
 
   return (
-    <Box>
+    <div>
       {/* Barra de navegación */}
-      <AppBar position="static" sx={{ bgcolor: "red" }}>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={() => setMenuOpen(true)}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-            Inicio
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={1} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <Avatar sx={{ ml: 2 }}>U</Avatar>
-        </Toolbar>
-      </AppBar>
+      <div className="bg-red-600">
+        <div className="flex items-center justify-between px-4 py-2">
+          <button onClick={() => setMenuOpen(true)} className="text-white">
+            {/* <MenuIcon /> */}
+          </button>
+          <h1 className="text-white text-lg font-semibold text-center flex-grow">Inicio</h1>
+          <div className="flex items-center gap-4">
+            <button className="relative text-white">
+              {/* <NotificationsIcon /> */}
+              <span className="absolute -top-1 -right-1 bg-pink-500 text-xs text-white rounded-full px-1">
+                1
+              </span>
+            </button>
+            <div className="ml-2 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">
+              U
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Drawer lateral */}
       <DrawerSidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      {/* Saludo con fondo rojo curvo */}
-      <Box
-        sx={{
-          bgcolor: "red",
-          color: "white",
-          p: 3,
-          pb: 6,
-          borderBottomLeftRadius: 40,
-          borderBottomRightRadius: 40,
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h5" fontWeight="bold">
-          Hola, XXXXXXXX
-        </Typography>
-        <Typography variant="subtitle1">¿Qué haremos hoy?</Typography>
-      </Box>
+      {/* Saludo */}
+      <div className="bg-red-600 text-white p-6 pb-10 rounded-b-[40px] text-center">
+        <h2 className="text-xl font-bold">Hola, XXXXXXXX</h2>
+        <p className="text-sm">¿Qué haremos hoy?</p>
+      </div>
 
-      {/* Contenedor principal con fondo blanco redondeado */}
-      <Paper
-        elevation={3}
-        sx={{
-          bgcolor: "white",
-          borderRadius: 4,
-          mt: -4,
-          p: 3,
-          mx: 2,
-        }}
-      >
+      {/* Contenedor principal */}
+      <div className="bg-white rounded-xl mt-[-1rem] p-6 mx-4 shadow-md">
         {/* Eventos de hoy */}
-        <Typography variant="h6" color="red" sx={{ mb: 2, fontWeight: "bold" }}>
-          Mis Eventos de Hoy
-        </Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {eventosHoy.map((evento) => (
-            <Card key={evento.id} sx={{ display: "flex", alignItems: "center", boxShadow: 2 }}>
-              {/* Assuming you have an image URL in eventDetails or event object */}
-              {/* <CardMedia
-                component="img"
-                sx={{ width: 100 }}
-                image={evento.img} // Replace with actual image source from event data
-                alt={evento.name}
-              /> */}
-              <CardContent>
-                <Typography variant="subtitle1" fontWeight="bold" color="primary">
-                  {evento.name}
-                </Typography>
-                {/* Display relevant event details like date, time, location from event.eventDetails */}
-                {/* <Typography variant="body2">
-                  {evento.date} - {evento.time}
-                </Typography> */}
-              </CardContent>
-            </Card>
+        <h2 className="text-lg font-bold text-red-600 mb-4">Mis Eventos de Hoy</h2>
+        <div className="flex flex-col gap-4">
+          {eventosHoy.map(evento => (
+            <div key={evento.id} className="flex items-center shadow-md rounded-lg p-4">
+              {/* Imagen opcional aquí */}
+              <div>
+                <h3 className="text-indigo-600 font-semibold">{evento.name}</h3>
+                {/* Detalles opcionales aquí */}
+              </div>
+            </div>
           ))}
-        </Box>
+        </div>
 
         {/* Próximos eventos */}
-        <Typography variant="h6" color="red" sx={{ mt: 4, mb: 2, fontWeight: "bold" }}>
-          Mis Próximos Eventos
-        </Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {proximosEventos.map((evento) => (
-            <Card key={evento.id} sx={{ display: "flex", alignItems: "center", boxShadow: 2 }}>
-               {/* Assuming you have an image URL in eventDetails or event object */}
-              {/* <CardMedia
-                component="img"
-                sx={{ width: 100 }}
-                image={evento.img} // Replace with actual image source from event data
-                alt={evento.name}
-              /> */}
-              <CardContent>
-                <Typography variant="subtitle1" fontWeight="bold" color="primary">
-                  {evento.name}
-                </Typography>
-                 {/* Display relevant event details like date, time, location from event.eventDetails */}
-                 {evento.eventDetails && evento.eventDetails.length > 0 && (
-                  <>
-                    <Stack direction="row" alignItems="center" spacing={1} mt={1}>
-                      <CalendarMonthIcon fontSize="small" />
-                      <Typography variant="body2">{evento.eventDetails[0].startDate} - {evento.eventDetails[0].endDate}</Typography>
-                    </Stack>
-
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                      <AccessTimeIcon fontSize="small" />
-                      <Typography variant="body2">{evento.eventDetails[0].startTime} - {evento.eventDetails[0].endTime}</Typography>
-                    </Stack>
-
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                      <LocationOnIcon fontSize="small" />
-                      <Typography variant="body2">{evento.eventDetails[0].location}</Typography>
-                    </Stack>
-                  </>
+        <h2 className="text-lg font-bold text-red-600 mt-8 mb-4">Mis Próximos Eventos</h2>
+        <div className="flex flex-col gap-4">
+          {proximosEventos.map(evento => (
+            <div key={evento.id} className="flex items-start shadow-md rounded-lg p-4">
+              <div>
+                <h3 className="text-indigo-600 font-semibold">{evento.name}</h3>
+                {evento.eventDetails?.length > 0 && (
+                  <div className="mt-2 space-y-1 text-sm text-gray-600">
+                    <div className="flex items-center gap-1">
+                      {/* <CalendarMonthIcon className="w-4 h-4" /> */}
+                      <span>
+                        {evento.eventDetails[0].startDate} - {evento.eventDetails[0].endDate}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {/* <AccessTimeIcon className="w-4 h-4" /> */}
+                      <span>
+                        {evento.eventDetails[0].startTime} - {evento.eventDetails[0].endTime}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {/* <LocationOnIcon className="w-4 h-4" /> */}
+                      <span>{evento.eventDetails[0].location}</span>
+                    </div>
+                  </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
-        </Box>
-      </Paper>
-    </Box>
-  );
+        </div>
+      </div>
+    </div>
+  )
 }

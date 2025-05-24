@@ -1,155 +1,95 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import {
-  Home as HomeIcon,
-  Event as EventIcon,
-  History as HistoryIcon,
-  Person as PersonIcon,
-  ExitToApp as ExitIcon,
-  ExpandMore,
-  ExpandLess,
-  School,
-  SportsSoccer,
-  Palette,
-  RecordVoiceOver,
-  VolunteerActivism,
-  EmojiPeople,
-  Work,
-  Menu as MenuIcon,
-} from "@mui/icons-material";
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 interface EventType {
-  name: string;
-  slug: string;
+  name: string
+  slug: string
 }
 
 export default function Sidebar({ onClose }: { onClose?: () => void }) {
-  const [showEventos, setShowEventos] = useState(false);
-  const [eventTypes, setEventTypes] = useState<EventType[]>([]);
-  const navigate = useNavigate();
+  const [showEventos, setShowEventos] = useState(false)
+  const [eventTypes, setEventTypes] = useState<EventType[]>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/events/types")
+    axios
+      .get('http://localhost:8080/api/events/types')
       .then(response => setEventTypes(response.data))
-      .catch(error => console.error("Error fetching event types:", error));
-  }, []);
+      .catch(error => console.error('Error fetching event types:', error))
+  }, [])
 
   const handleLogout = () => {
     // Aquí puedes limpiar datos del usuario si estás usando localStorage, cookies, etc.
     // localStorage.removeItem("token"); por ejemplo
-    navigate("/login"); // Redirige al login
-    if (onClose) onClose(); // Cierra el drawer si está abierto
-  };
+    navigate('/login') // Redirige al login
+    if (onClose) onClose() // Cierra el drawer si está abierto
+  }
 
   return (
-    <div
-      style={{
-        width: "250px",
-        height: "100vh",
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div className="w-[250px] h-screen flex flex-col">
       {/* Encabezado rojo con UniEventos y hamburguesa */}
-      <div
-        style={{
-          background: "red",
-          color: "white",
-          padding: "10px 15px",
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-        }}
-      >
+      <div className="bg-red-600 text-white p-3 flex items-center gap-2">
         {onClose && (
-          <MenuIcon onClick={onClose} style={{ cursor: "pointer" }} />
+          <div onClick={onClose} className="cursor-pointer">
+            {/* <MenuIcon /> */}
+          </div>
         )}
-        <span style={{ fontWeight: "bold", fontSize: "18px" }}>UniEventos</span>
+        <span className="font-bold text-lg">UniEventos</span>
       </div>
 
       {/* Menú blanco */}
-      <div
-        style={{
-          background: "white",
-          flex: 1,
-          padding: "20px",
-          overflowY: "auto",
-          position: "relative",
-        }}
-      >
-        <SidebarItem icon={<HomeIcon />} label="Inicio" to="/" />
-        <SidebarItem
-          icon={<EventIcon />}
-          label="Eventos"
-          onClick={() => setShowEventos(!showEventos)}
-        >
-          {showEventos ? <ExpandLess /> : <ExpandMore />}
+      <div className="bg-white flex-1 p-5 overflow-y-auto relative">
+        <SidebarItem icon={<div />} label="Inicio" to="/" />
+        <SidebarItem icon={<div />} label="Eventos" onClick={() => setShowEventos(!showEventos)}>
+          {showEventos ? <div /> : <div />}
         </SidebarItem>
 
         {showEventos && (
-          <div style={{ paddingLeft: "20px", color: "blue" }}>
+          <div className="pl-5 text-blue-600">
             {eventTypes.map((type, index) => (
-              <SidebarItem key={index} icon={<School />} label={type.name} to={`/eventos/${type.slug}`} />
+              <SidebarItem
+                key={index}
+                // icon={< />}
+                label={type.name}
+                to={`/eventos/${type.slug}`}
+              />
             ))}
           </div>
         )}
 
-        <SidebarItem icon={<HistoryIcon />} label="Historial" to="/historial" />
-        <SidebarItem icon={<PersonIcon />} label="Mi Perfil" to="/perfil" />
+        <SidebarItem icon={<div />} label="Historial" to="/historial" />
+        <SidebarItem icon={<div />} label="Mi Perfil" to="/perfil" />
 
         {/* Botón de cerrar sesión */}
-        <div
-          onClick={handleLogout}
-          style={{ position: "absolute", bottom: "20px", left: "20px", cursor: "pointer" }}
-        >
-          <SidebarItem icon={<ExitIcon />} label="Cerrar Sesión" red />
+        <div onClick={handleLogout} className="absolute bottom-5 left-5 cursor-pointer">
+          <SidebarItem icon={<div />} label="Cerrar Sesión" red />
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-function SidebarItem({
-  icon,
-  label,
-  to,
-  onClick,
-  children,
-  red = false,
-}: any) {
+function SidebarItem({ icon, label, to, onClick, children, red = false }: any) {
   return (
-    <div style={{ marginBottom: "10px" }} onClick={onClick}>
+    <div className="mb-2" onClick={onClick}>
       {to ? (
         <Link
           to={to}
-          style={{
-            textDecoration: "none",
-            color: red ? "red" : "blue",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
+          className={`no-underline flex items-center gap-2 ${
+            red ? 'text-red-600' : 'text-blue-600'
+          }`}
         >
           {icon}
           <span>{label}</span>
         </Link>
       ) : (
-        <div
-          style={{
-            color: "blue",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
+        <div className="text-blue-600 cursor-pointer flex items-center gap-2">
           {icon}
           <span>{label}</span>
           {children}
         </div>
       )}
     </div>
-  );
+  )
 }

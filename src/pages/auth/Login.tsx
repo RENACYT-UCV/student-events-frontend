@@ -1,3 +1,11 @@
+import HeaderBar from '@components/HeaderBar'
+import LoginScreen from '@components/LoginScreen'
+
 export default function Login() {
-  return <div className="min-h-screen mx-auto p-28">Login</div>
+  return (
+    <>
+      <HeaderBar />
+      <LoginScreen />
+    </>
+  )
 }
