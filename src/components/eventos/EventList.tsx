@@ -2,13 +2,13 @@ import { useState } from 'react'
 import Button from '../common/Button'
 import EventTypeSelect from './EventTypeSelect'
 import EventCard from './EventCard'
-import universidadImage from '../../assets/universidad.jpg'
+
 
 // Datos de ejemplo
 const mockEvents = [
   {
     id: 1,
-    image: universidadImage,
+  
     type: 'Académico',
     title: 'UCV Eventos Lima Norte',
     date: '21 Junio',

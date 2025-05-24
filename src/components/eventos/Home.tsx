@@ -54,7 +54,7 @@ export default function Home() {
 
       {/* Saludo */}
       <div className="bg-red-600 text-white p-6 pb-10 rounded-b-[40px] text-center">
-        <h2 className="text-xl font-bold">Hola, XXXXXXXX</h2>
+        <h2 className="text-xl font-bold">Hola, XXX</h2>
         <p className="text-sm">¿Qué haremos hoy?</p>
       </div>
 
