@@ -14,6 +14,7 @@ import {
   ChatBubbleLeftRightIcon,
   LightBulbIcon
 } from '@heroicons/react/24/outline'
+import { useEventTypes } from '../../../hooks/useEvents'
 
 type Props = {
   open: boolean
@@ -23,6 +24,7 @@ type Props = {
 export default function DrawerSidebar({ open, onClose }: Props) {
   const [showSubmenu, setShowSubmenu] = useState(false)
   const navigate = useNavigate() // <-- añadí esto
+  const { eventTypes, loading } = useEventTypes()
 
   const handleLogout = () => {
     // localStorage.removeItem('token') // si estás usando autenticación
@@ -69,55 +71,22 @@ export default function DrawerSidebar({ open, onClose }: Props) {
 
             {showSubmenu && (
               <div className="ml-6 mt-2 flex flex-col gap-2 text-sm">
-                <NavItem
-                  icon={<AcademicCapIcon className="w-4 h-4" />}
-                  to="/eventos/academico"
-                  onClick={onClose}
-                >
-                  Académico
-                </NavItem>
-                <NavItem
-                  icon={<SparklesIcon className="w-4 h-4" />}
-                  to="/eventos/deportivo"
-                  onClick={onClose}
-                >
-                  Deportivo
-                </NavItem>
-                <NavItem
-                  icon={<PresentationChartBarIcon className="w-4 h-4" />}
-                  to="/eventos/cultural"
-                  onClick={onClose}
-                >
-                  Cultural
-                </NavItem>
-                <NavItem
-                  icon={<ChatBubbleLeftRightIcon className="w-4 h-4" />}
-                  to="/eventos/charlas"
-                  onClick={onClose}
-                >
-                  Charlas
-                </NavItem>
-                <NavItem
-                  icon={<UsersIcon className="w-4 h-4" />}
-                  to="/eventos/voluntariados"
-                  onClick={onClose}
-                >
-                  Voluntariados
-                </NavItem>
-                <NavItem
-                  icon={<LightBulbIcon className="w-4 h-4" />}
-                  to="/eventos/orientacion"
-                  onClick={onClose}
-                >
-                  Orientación
-                </NavItem>
-                <NavItem
-                  icon={<PresentationChartBarIcon className="w-4 h-4" />}
-                  to="/eventos/pe"
-                  onClick={onClose}
-                >
-                  P y E
-                </NavItem>
+                {loading ? (
+                  <p>Cargando...</p>
+                ) : (
+                  <>
+                    {eventTypes.map(type => (
+                      <NavItem
+                        key={type.id}
+                        icon={<CalendarDaysIcon className="w-4 h-4" />} // Puedes personalizar el icono según el tipo de evento
+                        to={`/eventos/${type.id}`}
+                        onClick={onClose}
+                      >
+                        {type.title}
+                      </NavItem>
+                    ))}
+                  </>
+                )}
               </div>
             )}
           </div>
