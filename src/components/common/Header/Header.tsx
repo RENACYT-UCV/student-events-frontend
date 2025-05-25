@@ -1,40 +1,59 @@
 import React from 'react'
 import './Header.css'
+import { Menu, Bell, User } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 interface HeaderProps {
   title?: string
   onMenuClick?: () => void
-  onNotificationClick?: () => void
-  onProfileClick?: () => void
 }
 
 const Header: React.FC<HeaderProps> = ({
   title = 'Historial',
-  onMenuClick,
-  onNotificationClick,
-  onProfileClick
+  onMenuClick
 }) => {
+  const navigate = useNavigate()
+
+  const handleNotificationClick = () => {
+    navigate('/notifications')
+  }
+
+  const handleProfileClick = () => {
+    navigate('/profile')
+  }
+
   return (
-    <div className="mobile-header">
+    <header className="mobile-header" role="banner">
       <div className="header-left">
-        <button className="menu-button" onClick={onMenuClick}>
-          <div className="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+        <button
+          type="button"
+          className="menu-button"
+          onClick={onMenuClick}
+          aria-label="Abrir menú"
+        >
+          <Menu size={26} strokeWidth={2.5} />
         </button>
       </div>
       <h1 className="header-title">{title}</h1>
       <div className="header-right">
-        <button className="notification-button" onClick={onNotificationClick}>
-          <span className="notification-icon">🔔</span>
+        <button
+          type="button"
+          className="notification-button"
+          onClick={handleNotificationClick}
+          aria-label="Ver notificaciones"
+        >
+          <Bell size={26} strokeWidth={2.5} />
         </button>
-        <button className="profile-button" onClick={onProfileClick}>
-          <div className="profile-circle"></div>
+        <button
+          type="button"
+          className="profile-button"
+          onClick={handleProfileClick}
+          aria-label="Ver perfil"
+        >
+          <User size={26} strokeWidth={2.5} />
         </button>
       </div>
-    </div>
+    </header>
   )
 }
 
