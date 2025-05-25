@@ -1,5 +1,5 @@
-import HomeMain from '@components/eventos/Home'
+import EventList from '@components/eventos/EventList'
 
 export default function Home() {
-  return <HomeMain />
+  return <EventList />
 }

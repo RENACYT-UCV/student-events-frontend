@@ -1,4 +1,4 @@
-* {
+.historial-mobile-container * {
   margin: 0;
   padding: 0;
 }
@@ -6,7 +6,7 @@
 .historial-mobile-container {
   width: 100vw;
   min-height: 100vh;
-  background: #F0F0F0;
+  background: #f0f0f0;
   font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', sans-serif;
   position: relative;
   margin: 0;
@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #4A90E2;
+  background: #4a90e2;
   padding: 12px 16px;
   height: 60px;
   position: relative;
@@ -56,7 +56,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: #FF4444;
+  background: #ff4444;
 }
 
 .header-left {
@@ -102,7 +102,8 @@
   gap: 12px;
 }
 
-.notification-button, .profile-button {
+.notification-button,
+.profile-button {
   background: none;
   border: none;
   cursor: pointer;
@@ -118,13 +119,13 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #FFB74D, #FF8A65);
+  background: linear-gradient(135deg, #ffb74d, #ff8a65);
   border: 2px solid white;
 }
 
 /* Content */
 .mobile-content {
-  background: linear-gradient(135deg, #FFE0E6, #F3E5F5);
+  background: linear-gradient(135deg, #ffe0e6, #f3e5f5);
   min-height: 100vh;
   padding: 20px 16px;
   position: relative;
@@ -137,7 +138,7 @@
   border-radius: 14px;
   padding: 18px 16px 12px 16px;
   margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .title-section {
@@ -166,19 +167,19 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #E8F4FF;
-  border: 1px solid #B3D9FF;
+  background: #e8f4ff;
+  border: 1px solid #b3d9ff;
   border-radius: 16px;
   padding: 8px 14px;
   font-size: 14px;
-  color: #2196F3;
+  color: #2196f3;
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
 }
 
 .pdf-button:hover {
-  background: #D1E7FF;
+  background: #d1e7ff;
   transform: translateY(-1px);
 }
 
@@ -188,7 +189,7 @@
 
 /* Filter Section */
 .filter-section {
-  background: #FFF3C4;
+  background: #fff3c4;
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
@@ -214,7 +215,7 @@
 
 .dropdown-select {
   background: white;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 8px 32px 8px 12px;
   font-size: 14px;
@@ -372,7 +373,8 @@
   color: #666;
 }
 
-.calendar-icon, .clock-icon {
+.calendar-icon,
+.clock-icon {
   font-size: 12px;
 }
 
@@ -393,7 +395,7 @@
 }
 
 .event-type-tag {
-  background: #F5F5F5;
+  background: #f5f5f5;
   color: #666;
   font-size: 12px;
   padding: 4px 8px;
@@ -412,9 +414,9 @@
 }
 
 .status-tag.pending {
-  background: #FFF3CD;
+  background: #fff3cd;
   color: #856404;
-  border: 1px solid #FFEAA7;
+  border: 1px solid #ffeaa7;
 }
 
 .attendance-tag {
@@ -425,9 +427,9 @@
 }
 
 .attendance-tag.no-attend {
-  background: #F8D7DA;
-  color: #721C24;
-  border: 1px solid #F5C6CB;
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 /* Bottom Indicator */
@@ -448,7 +450,7 @@
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 104px);
-  background: linear-gradient(135deg, #FFE0E6, #F3E5F5);
+  background: linear-gradient(135deg, #ffe0e6, #f3e5f5);
   border-radius: 20px 20px 0 0;
 }
 
@@ -463,15 +465,19 @@
   width: 32px;
   height: 32px;
   border: 3px solid rgba(102, 102, 102, 0.3);
-  border-top: 3px solid #4A90E2;
+  border-top: 3px solid #4a90e2;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 12px;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-spinner p {
@@ -512,7 +518,8 @@
   .header-title {
     font-size: 16px;
   }
-  .header-right, .header-left {
+  .header-right,
+  .header-left {
     width: 40px;
     gap: 6px;
   }
@@ -522,10 +529,10 @@
   }
   .title-section {
     display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
-  gap: 12px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
   }
   .title-left h2 {
     font-size: 20px;
