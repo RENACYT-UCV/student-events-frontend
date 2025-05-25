@@ -27,7 +27,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
   }
 
   return (
-    <div className="w-full h-screen flex flex-col z-[100]">
+    <div className="w-full h-screen flex flex-col z-[100] ">
       {/* Encabezado rojo con UniEventos y hamburguesa */}
       <div className="bg-[#DD2324] text-white p-[22px] flex items-center gap-2">
         {onClose && (

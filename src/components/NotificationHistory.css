@@ -4,7 +4,6 @@
   top: 10px;
   position: relative;
   z-index: 2;
-  display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -30,7 +29,11 @@
   margin: 0;
   color: #030303;
   line-height: 1.1;
-  
+}
+
+.notification-item{
+  width: 100%;
+  background-color: #030303;
 }
 
 .notification-image-red {
@@ -38,3 +41,21 @@
   height: 60px;
   object-fit: cover;
 }
+
+.notification-list-container{
+  justify-content: center;
+  display: flex;
+  width: full;
+  height: 100%;
+}
+
+.notification-item{
+  height: 90px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  cursor: pointer;
+}
+

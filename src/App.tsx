@@ -20,7 +20,7 @@ function App(): JSX.Element {
           path="/login"
           element={
             <>
-              <HeaderBar title="Ingresar"/>
+              <HeaderBar title="Bienvenido a UniEventos"/>
               <LoginScreen />
             </>
           }

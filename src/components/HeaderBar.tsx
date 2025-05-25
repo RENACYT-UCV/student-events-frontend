@@ -9,36 +9,64 @@ interface HeaderBarProps {
 
 const HeaderBar: React.FC<HeaderBarProps> = ({ title }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation(); 
+  const location = useLocation();
+
+  const blueHeaderRoutes=['/notifications','/historial'];
+  const authRoutes = ['/login', '/register'];
+  const isAuthPage = authRoutes.includes(location.pathname);
 
   const getBackgroundColor = () => {
-    if (location.pathname.startsWith('/notifications')) {
+    if (blueHeaderRoutes.some(route=>location.pathname.startsWith(route))) {
       return '#005CFF';
     }
-    return '#DD2324'; 
+    return '#DD2324';
   };
 
   return (
     <div className="header-bar" style={{ background: getBackgroundColor() }}>
-      <DrawerSidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
+      {!isAuthPage && (
+        <DrawerSidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
+      )}
 
-      {/* Hacemos clickeable este div */}
-      <div className="left-section" onClick={() => setMenuOpen(true)} style={{ cursor: 'pointer' }}>
-        <img src="/assets/images/menuIcon_darkMode.svg" alt="Menú" width={30} className='menuIcon' />
-      </div>
+      {!isAuthPage && (
+        <div
+          className="left-section"
+          onClick={() => setMenuOpen(true)}
+          style={{ cursor: 'pointer' }}
+        >
+          <img
+            src="/assets/images/menuIcon_darkMode.svg"
+            alt="Menú"
+            width={30}
+            className="menuIcon"
+          />
+        </div>
+      )}
 
       <div className="center-section">
         <span className="header-title">{title}</span>
       </div>
 
-      <div className="right-section">
-        <Link to="/notifications">
-          <img src="/assets/images/notificationIcon_darkMode.svg" alt="Notificaciones" width={30} className='notificationIcon' />
-        </Link>
-        <Link to="/profile">
-          <img src="/assets/images/profileUserIcon.svg" alt="Perfil" width={30} className='profileIcon' />
-        </Link>
-      </div>
+      {!isAuthPage && (
+        <div className="right-section">
+          <Link to="/notifications">
+            <img
+              src="/assets/images/notificationIcon_darkMode.svg"
+              alt="Notificaciones"
+              width={30}
+              className="notificationIcon"
+            />
+          </Link>
+          <Link to="/profile">
+            <img
+              src="/assets/images/profileUserIcon.svg"
+              alt="Perfil"
+              width={30}
+              className="profileIcon"
+            />
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

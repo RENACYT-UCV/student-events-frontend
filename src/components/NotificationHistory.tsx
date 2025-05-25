@@ -20,7 +20,8 @@ const NotificationHistory: React.FC<NotificationHistoryProps> = ({ notifications
             <img src='/assets/images/notificationRedIcon.svg' alt="Fondo perfil" className="notification-image-red" />
 
         </div>
-      <div className="notification-list">
+      <div className="notification-list-container">
+        <div className='notification-list'>
         {notifications.map((n) => (
           <div key={n.id} className="notification-item">
             <img src={n.imageUrl} alt="preview" />
@@ -30,6 +31,7 @@ const NotificationHistory: React.FC<NotificationHistoryProps> = ({ notifications
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   )

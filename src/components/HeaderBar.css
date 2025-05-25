@@ -4,7 +4,8 @@
   top: 27px;
   width: full;
   background: #DD2324;
-  padding: 0px 25px 15px 25px;
+  padding: 0px 25px 20px 25px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: space-between;
