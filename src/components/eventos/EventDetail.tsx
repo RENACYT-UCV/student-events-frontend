@@ -28,34 +28,14 @@ export default function EventDetail() {
   if (loading || !event) return null
 
   return (
-    <div className="min-h-screen bg-pink-50">
-      {/* Header */}
-      <div className="bg-blue-600 p-4 flex items-center justify-between">
-        <button className="text-white">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-        <h1 className="text-white text-2xl font-normal">Eventos</h1>
-        <div className="flex items-center space-x-4">
-          <button className="text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-          </button>
-          <div className="w-6 h-6 rounded-full bg-white"></div>
-        </div>
-      </div>
+    <div className="justify-center min-h-screen bg-pink-50">
+
+      <img
+        src="/assets/images/white-bg(1).png"
+        alt=""
+        className="fixed sm:top-5 md:top-30 left-0 w-full top h-full opacity-25 object-cover z-0"
+      />
+      
 
       {/* Botón Regresar */}
       <div className="p-4">
@@ -68,13 +48,13 @@ export default function EventDetail() {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span>Regresar</span>
+          <span className='ml-2 cursor-pointer transform transition-transform duration-300 hover:scale-102'>Regresar</span>
         </button>
       </div>
 
       {/* Contenido del evento */}
-      <div className="px-4">
-        <div className="bg-white rounded-lg shadow p-4">
+      <div className="relative z-10 space-y-4 mt-6 mx-auto px-4 sm:px-6 md:px-1 lg:max-w-6xl cursor-pointer">
+        <div className="bg-white rounded-xl shadow p-4 transform transition-transform duration-300 hover:scale-102">
           <img
             src="/assets/universidad.jpg"
             alt={event.name}
@@ -148,7 +128,7 @@ export default function EventDetail() {
               )
               navigate('/eventos/success')
             }}
-            className="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            className="w-full mt-6 bg-[#3cbe83] text-white py-3 rounded-lg font-medium hover:bg-[bg-[#0f7a4a]] transition-colors cursor-pointer"
           >
             MARCAR ASISTENCIA
           </button>
