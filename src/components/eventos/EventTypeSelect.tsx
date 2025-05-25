@@ -9,7 +9,7 @@ export default function EventTypeSelect({ value, onChange, options }: EventTypeS
     <select
       value={value}
       onChange={e => onChange(e.target.value)}
-      className="w-full p-3 rounded-lg bg-white shadow-sm"
+      className="w-full p-5 relative z-10 rounded-lg bg-white shadow-sm "
     >
       {options.map(option => (
         <option key={option} value={option}>

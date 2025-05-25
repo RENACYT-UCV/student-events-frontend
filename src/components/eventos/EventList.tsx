@@ -46,7 +46,7 @@ export default function EventList() {
     <div className="min-h-screen bg-pink-50">
       
       {/* Main Content */}
-      <div className="px-4 py-4">
+      <div className="px-4 py-6 mx-auto max-w-5xl sm:px-6 md:px-8 ">
         <EventTypeSelect
           value={selectedFilter}
           onChange={setSelectedFilter}
@@ -54,7 +54,7 @@ export default function EventList() {
         />
 
         {/* Event Cards */}
-        <div className="space-y-4 mt-6">
+        <div className="space-y-4 mt-6 mx-auto px-4 sm:px-6 md:px-1 lg:max-w-6xl">
           {filteredEvents.map(event => (
             <EventCard
               key={event.id}

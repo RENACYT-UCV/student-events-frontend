@@ -13,7 +13,7 @@ export function useEventTypes() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/events/types') // Ensure the correct endpoint is used
+      .get('https://student-events-backend.onrender.com/api/events/types') // Ensure the correct endpoint is used
       .then(response => setEventTypes(response.data))
       .finally(() => setLoading(false))
   }, [])
