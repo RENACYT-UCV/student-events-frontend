@@ -8,9 +8,17 @@ const LoginScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const navigate = useNavigate()
 
-  const handleLogin = (): void => {
+  const handleLogin = async (): Promise<void> => {
     console.log('Iniciando sesión con:', { email, password })
-    alert(`Login con email: ${email}`)
+    // TODO: Implement actual credential verification logic here
+    // For now, simulate a successful login and get a dummy user ID
+    const dummyUserId = 123 // Replace with actual user ID from backend response
+
+    // Store user ID in memory (e.g., using localStorage or a state management library)
+    localStorage.setItem('userId', dummyUserId.toString())
+
+    // Navigate to Home screen
+    navigate('/home')
   }
 
   const handleRegister = (): void => {
@@ -44,11 +52,7 @@ const LoginScreen: React.FC = () => {
 
         {/* Logo o ilustración */}
         <div className="flex justify-center mb-4 relative z-10">
-          <img
-            src="/assets/logo.png"
-            alt="UniEventos Logo"
-            className="w-32 h-32 object-contain"
-          />
+          <img src="/assets/logo.png" alt="UniEventos Logo" className="w-32 h-32 object-contain" />
         </div>
 
         {/* Título */}
@@ -63,24 +67,20 @@ const LoginScreen: React.FC = () => {
             alt="Google"
             className="w-5 h-5"
           />
-          <span className="text-sm font-medium text-gray-700">
-            Continuar con Google
-          </span>
+          <span className="text-sm font-medium text-gray-700">Continuar con Google</span>
         </button>
 
         {/* Formulario */}
         <div className="space-y-4 relative z-10">
           {/* Email */}
           <div>
-            <label className="text-sm font-medium text-gray-700 block mb-1">
-              Correo
-            </label>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Correo</label>
             <div className="relative">
               <input
                 type="email"
                 placeholder="example@gmail.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pl-10"
               />
               <span className="absolute left-3 top-3.5 text-gray-400">📧</span>
@@ -89,15 +89,13 @@ const LoginScreen: React.FC = () => {
 
           {/* Contraseña */}
           <div>
-            <label className="text-sm font-medium text-gray-700 block mb-1">
-              Contraseña
-            </label>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Contraseña</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="••••••"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pr-10"
               />
               <button
@@ -113,10 +111,7 @@ const LoginScreen: React.FC = () => {
 
         {/* Olvidaste contraseña */}
         <div className="text-right mt-2 relative z-10">
-          <button
-            onClick={handleForgotPassword}
-            className="text-sm text-blue-500 hover:underline"
-          >
+          <button onClick={handleForgotPassword} className="text-sm text-blue-500 hover:underline">
             ¿Olvidaste tu contraseña?
           </button>
         </div>

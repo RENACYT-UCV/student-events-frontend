@@ -15,6 +15,7 @@ import EventSuccess from '@components/eventos/EventSuccess'
 import RegisterScreen from '@components/auth/RegisterScreen'
 import RecoverAccountScreen from '@components/auth/RecoverAccountScreen'
 import ResetPasswordScreen from '@components/auth/ResetPasswordScreen'
+import Home from '@pages/Home' // Import the Home component
 
 export default function AppRouter() {
   return (
@@ -29,6 +30,7 @@ export default function AppRouter() {
 
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="/home" element={<Home />} /> {/* Add the new route for Home */}
           <Route path="/notifications" element={<NotificationPage />} />
           <Route path="/historial" element={<HistorialPage />} />
           <Route path="/profile" element={<ProfilePage />} />
