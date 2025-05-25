@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import universidadImage from '../../assets/universidad.jpg'
 
 export default function EventDetail() {
   const navigate = useNavigate()
@@ -50,7 +49,7 @@ export default function EventDetail() {
       {/* Event Content */}
       <div className="p-4 space-y-4">
         <img
-          src={universidadImage}
+          src="/assets/universidad.jpg"
           alt="UCV Campus"
           className="w-full h-48 object-cover rounded-lg"
         />

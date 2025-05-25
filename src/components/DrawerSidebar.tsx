@@ -75,7 +75,7 @@ export default function DrawerSidebar({ open, onClose }: Props) {
           </div>
 
           <NavItem icon={<CalendarDaysIcon className="w-5 h-5" />} to="/historial" onClick={onClose}>Historial</NavItem>
-          <NavItem icon={<UserIcon className="w-5 h-5" />} to="/perfil" onClick={onClose}>Mi Perfil</NavItem>
+          <NavItem icon={<UserIcon className="w-5 h-5" />} to="/profile" onClick={onClose}>Mi Perfil</NavItem>
         </nav>
 
         <div className="absolute bottom-0 w-full p-4 border-t text-red-600">

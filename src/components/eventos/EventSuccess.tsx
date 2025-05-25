@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import universidadImage from '../../assets/universidad.jpg'
 
 export default function EventSuccess() {
   const navigate = useNavigate()
@@ -62,7 +61,7 @@ export default function EventSuccess() {
 
         <div className="w-full max-w-md bg-white rounded-lg overflow-hidden shadow-lg">
           <img
-            src={universidadImage}
+            src="/assets/universidad.jpg"
             alt="UCV Campus"
             className="w-full h-48 object-cover"
           />
