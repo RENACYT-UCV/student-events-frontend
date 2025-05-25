@@ -2,8 +2,21 @@ import React, { useState, useEffect } from 'react'
 import './HistorialScreen.css'
 import Header from '@components/common/Header/Header.css'
 import { useNavigate } from 'react-router-dom'
-import { eventosEjemplo, Evento } from '../../lib/data/history/events-example'
-// Header is now handled by MainLayout
+// Removemos la importación de datos de ejemplo ya que usaremos datos reales
+// import { eventosEjemplo, Evento } from '../../lib/data/history/events-example'
+
+// Definimos la interfaz para nuestros eventos
+interface Evento {
+  id: string
+  title: string
+  date: string
+  hour: string
+  type: string
+  status: string
+  asistence: string
+  image?: string
+  category?: string
+}
 
 interface HistorialScreenProps {}
 
@@ -14,11 +27,37 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setEventos(eventosEjemplo)
-      setIsLoading(false)
-    }, 800)
+    const fetchEventos = async () => {
+      setIsLoading(true)
+      try {
+        const userId = 1 // O como obtengas el ID del usuario
+        const response = await fetch(`http://localhost:3000/api/user/${userId}/event-history`)
+        const data = await response.json()
+
+        // Transformar los datos recibidos al formato que espera el componente
+        const eventosFormateados = data.map((registro: any) => ({
+          id: registro.event.id.toString(),
+          title: registro.event.eventDetails.title,
+          date: new Date(registro.event.eventDetails.startDate).toLocaleDateString(),
+          hour: new Date(registro.event.eventDetails.startDate).toLocaleTimeString(),
+          type: registro.event.eventDetails.type || 'Sin categoría',
+          status: registro.assistances.length > 0 ? 'Registrado' : 'Pendiente',
+          asistence: registro.assistances.length > 0 
+            ? (registro.assistances[0].status ? 'Asistió' : 'No asistió')
+            : 'Pendiente',
+          image: registro.event.eventDetails.image || undefined,
+          category: registro.event.eventDetails.category || undefined
+        }))
+
+        setEventos(eventosFormateados)
+      } catch (error) {
+        console.error('Error al cargar el historial:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchEventos()
   }, [])
 
   const handleMenuClick = () => {
