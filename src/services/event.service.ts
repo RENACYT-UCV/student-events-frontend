@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000/api'
+const API_URL = 'https://student-events-backend.onrender.com/api'
 
 export interface Event {
   id: number
