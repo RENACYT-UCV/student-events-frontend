@@ -57,19 +57,15 @@ const RegisterScreen: React.FC = () => {
   return (
     <div className=" bg-red-600 flex flex-col items-center">
       <div className="w-full bg-red-600 py-6 shadow-md">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white text-center">Registrar Cuenta</h1>
+        <h1 className="text-3xl font-extrabold text-white text-center">Registrar Cuenta</h1>
       </div>
       {/* Botón de volver - Usamos una clase para estilizarlo */}
-      <button className="back-button-register">
+      <button className="back-button-register" onClick={handleGoBack}>
         <span className="arrow">&larr;</span>
         <span className="text"> Volver</span>
       </button>
 
-      <div>
-        <img src="/assets/images/background_1(2).png" className='background-image-ucv' alt="" />
-      </div>
       
-
       {/* Contenido principal */}
       <div className="register-content">
         {/* Ilustración principal */}

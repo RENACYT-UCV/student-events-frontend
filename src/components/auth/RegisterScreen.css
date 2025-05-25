@@ -1,16 +1,6 @@
 @import url('../../index.css');
 
-.background-image-ucv {
-  position: absolute;
-  top:100px;
-  width: 100%;
-  left: 0;
-  opacity: 10%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-  pointer-events: none;
-}
+
 
 .header-text{
   font-family: 'Karla',sans-serif;
