@@ -34,7 +34,7 @@
 
 /* Estilo cuando estás editando */
 .profile-form.editing input {
-  border: 2px solid #DD2324; /* Azul corporativo o el color que tú elijas */
+  border: 2px solid #dd2324; /* Azul corporativo o el color que tú elijas */
 }
 
 .edit-button-wrapper {
@@ -45,7 +45,7 @@
 
 .edit-button-row {
   display: flex;
-  width: 100%;               /* Ocupa todo el ancho del wrapper */
+  width: 100%; /* Ocupa todo el ancho del wrapper */
   gap: 20px;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -53,7 +53,7 @@
 
 .edit-button,
 .cancel-button {
-  flex: 1 1 45%;              /* Ocupa casi la mitad cada uno con espacio */
+  flex: 1 1 45%; /* Ocupa casi la mitad cada uno con espacio */
   max-width: 100%;
   padding: 12px;
   font-size: 16px;
@@ -63,14 +63,32 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
-  cursor:pointer;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 0.2s ease;
+  cursor: pointer;
 }
 
 .edit-button {
-  background-color: #DD2324;
+  display: inline-flex; /* Alinea texto + icono horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra todo dentro del botón */
+  margin-top: 10px;
+  text-decoration: none;
+  background-color: #dd2324;
+  background-color: #dd2324;
   color: white;
   border: none;
+  border-radius: 15px;
+  width: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.5s ease;
 }
 
 .cancel-button:hover {
@@ -90,7 +108,6 @@
 .cancel-button {
   background-color: #233559;
   color: white;
-  border: none;
 }
 
 @media screen and (min-width: 1024px) {
@@ -109,11 +126,10 @@
     padding: 40px 50dvh;
   }
 
-  .edit-button{
+  .edit-button {
     width: 30%;
   }
 }
-
 
 .popup-overlay {
   position: fixed;
@@ -134,7 +150,7 @@
   margin-bottom: 100px;
   width: 70%;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   text-align: center;
   animation: fadeInScale 0.3s ease-in-out;
 }
@@ -144,7 +160,7 @@
 }
 
 .popup-text {
-  font-family: 'Karla',sans-serif;
+  font-family: 'Karla', sans-serif;
   font-size: 18px;
   font-weight: 400;
   color: #333;

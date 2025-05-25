@@ -28,19 +28,17 @@
   pointer-events: none;
 }
 
-
 .profile-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px; /* espacio entre filas */
-  
 }
 
 .profile-pin {
   position: relative;
-  width: 180px;   /* antes 120px */
-  height: 180px;  /* antes 140px */
+  width: 180px; /* antes 120px */
+  height: 180px; /* antes 140px */
   z-index: 5;
 }
 
@@ -61,49 +59,51 @@
 
 /* Foto del usuario dentro del pin */
 .pin-photo {
-  width: 100px;    /* más grande */
+  width: 100px; /* más grande */
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
   position: absolute;
-  top: 25px;       /* ajustado al nuevo tamaño */
-  left: 40px;      /* centrado en nuevo ancho */
+  top: 25px; /* ajustado al nuevo tamaño */
+  left: 40px; /* centrado en nuevo ancho */
   z-index: 10;
 }
 
 .edit-pin-photo {
-  width: 100px;    /* más grande */
+  width: 100px; /* más grande */
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
   background-color: rgba(0, 0, 0, 0.551);
-  cursor:pointer;
+  cursor: pointer;
   position: absolute;
-  top: 25px;      
-  left: 40px;     
+  top: 25px;
+  left: 40px;
   z-index: 11;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.5s ease;
 }
 
 .edit-icon-photo {
-  top: 25px;      
-  left: 25px;  
+  top: 25px;
+  left: 25px;
   object-fit: cover;
-  width: 50px;    
+  width: 50px;
   height: 50px;
   z-index: 12;
   position: absolute;
 }
 
-.edit-pin-photo:Hover {
-    transform: scale(1.03);
+.edit-pin-photo:hover {
+  transform: scale(1.03);
 }
 
 .profile-text h1 {
   font-size: 32px;
   font-weight: bold;
   color: #ffffff;
-  margin:0;
+  margin: 0;
   font-family: 'Karla', sans-serif;
   font-weight: 800;
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import './HistorialEventDetail.css'
 import { useParams, useNavigate } from 'react-router-dom'
 import { eventosEjemplo } from '../../lib/data/history/events-example'
-import Header from '@components/common/Header/Header'
+// Header is now handled by MainLayout
 
 const EventoDetalle: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -26,12 +26,7 @@ const EventoDetalle: React.FC = () => {
 
   return (
     <div className="evento-detalle-container">
-      <Header
-        title="Historial"
-        onMenuClick={handleMenuClick}
-        onNotificationClick={handleNotificationClick}
-        onProfileClick={handleProfileClick}
-      />
+      {/* Header is now handled by MainLayout */}
 
       <div className="detalle-card">
         <button className="back-button" onClick={() => navigate(-1)}>

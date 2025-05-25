@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import './HistorialScreen.css'
 import { useNavigate } from 'react-router-dom'
 import { eventosEjemplo, Evento } from '../../lib/data/history/events-example'
-// import HeaderHistorial from './HeaderHistorial';
+// Header is now handled by MainLayout
 
-// interface HistorialScreenProps {}
+interface HistorialScreenProps {}
 
-const HistorialScreen: React.FC = () => {
+const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const [eventos, setEventos] = useState<Evento[]>([])
   const [filtroTipo, setFiltroTipo] = useState<string>('Todas')
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -20,17 +20,17 @@ const HistorialScreen: React.FC = () => {
     }, 800)
   }, [])
 
-  // const handleMenuClick = () => {
-  //   console.log('Abrir menú')
-  // }
+  const handleMenuClick = () => {
+    console.log('Abrir menú')
+  }
 
-  // const handleNotificationClick = () => {
-  //   console.log('Abrir notificaciones')
-  // }
+  const handleNotificationClick = () => {
+    console.log('Abrir notificaciones')
+  }
 
-  // const handleProfileClick = () => {
-  //   console.log('Abrir perfil')
-  // }
+  const handleProfileClick = () => {
+    console.log('Abrir perfil')
+  }
 
   const handleExportPDF = () => {
     console.log('Exportar PDF')
