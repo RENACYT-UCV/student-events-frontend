@@ -1,13 +1,14 @@
 import React from 'react'
+import './Header.css'
 
-interface HeaderHistorialrProps {
+interface HeaderProps {
   title?: string
   onMenuClick?: () => void
   onNotificationClick?: () => void
   onProfileClick?: () => void
 }
 
-const HeaderHistorial: React.FC<HeaderHistorialrProps> = ({
+const Header: React.FC<HeaderProps> = ({
   title = 'Historial',
   onMenuClick,
   onNotificationClick,
@@ -37,4 +38,4 @@ const HeaderHistorial: React.FC<HeaderHistorialrProps> = ({
   )
 }
 
-export default HeaderHistorial
+export default Header

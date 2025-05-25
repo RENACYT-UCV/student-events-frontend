@@ -1,0 +1,42 @@
+.mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f0f0f0; /* Example background color */
+  color: #333; /* Example text color */
+}
+
+.header-left .menu-button,
+.header-right .notification-button,
+.header-right .profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin-bottom: 5px;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.notification-icon,
+.profile-circle {
+  font-size: 1.2em; /* Example icon size */
+}
+
+.profile-circle {
+  width: 25px;
+  height: 25px;
+  background-color: #555; /* Example profile circle color */
+  border-radius: 50%;
+}

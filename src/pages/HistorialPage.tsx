@@ -1,13 +1,12 @@
 import React from 'react'
-import HeaderBar from '@components/HeaderBar'
+import Header from '@components/common/Header/Header'
 import HistorialScreen from '@components/Historial/HistorialScreen'
 
 const HistorialPage = () => {
   return (
-    <div className='main-page-blue'>
-        <HeaderBar title="Historial"/>
-        <HistorialScreen/>
-    
+    <div className="main-page-blue">
+      <Header title="Historial" />
+      <HistorialScreen />
     </div>
   )
 }
