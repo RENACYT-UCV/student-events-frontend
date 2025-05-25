@@ -17,8 +17,6 @@ const NotificationHistory: React.FC<NotificationHistoryProps> = ({ notifications
     <div className="notification-container">
         <div className='notification-container-wrapped'>
             <h1 className='title-notification'>Historial de Notificaciones</h1>
-            <img src='/assets/images/notificationRedIcon.svg' alt="Fondo perfil" className="notification-image-red" />
-
         </div>
       <div className="notification-list-container">
         <div className='notification-list'>

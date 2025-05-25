@@ -5,8 +5,7 @@ import NotificationHistory from '@components/notification/NotificationHistory'
 const NotificationPage = () => {
   return (
     <>
-      <div className="main-page-blue">
-        <Header title="Notificaciones" />
+      <div>
         <NotificationHistory notifications={[]} />
       </div>
     </>
