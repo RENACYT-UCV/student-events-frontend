@@ -5,13 +5,13 @@
   align-items: center;
   padding: 15px 20px; /* Increased padding for a cleaner look */
   background-color: #ffffff; /* White background for minimalism */
-  color: #1e2c64; /* Azul UCV for text color */
+  color: #af1818; /* Azul UCV for text color */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for definition */
 }
 
 .header-left .menu-button,
 .header-right .notification-button,
-.header-right .profile-button {
+.header-right .profile-button { 
   background: none;
   border: none;
   cursor: pointer;
@@ -43,7 +43,7 @@
   margin: 0;
   font-size: 1.3em; /* Slightly larger title */
   font-weight: bold; /* Bold title */
-  color: #1e2c64; /* Azul UCV title color */
+  color: #af1818; /* Azul UCV title color */
 }
 
 .notification-icon,
