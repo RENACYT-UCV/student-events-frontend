@@ -21,26 +21,13 @@ export default function Home() {
   }, [])
 
   // You might want to filter allEvents into eventosHoy and proximosEventos based on date
-  const eventosHoy: Event[] = [] // Filter logic here
   const proximosEventos: Event[] = allEvents // For now, display all events as upcoming
 
   return (
     <div className="home-events-container">
       {/* Contenedor principal */}
       <div className="bg-white rounded-xl mt-[-1rem] p-6 mx-4 shadow-md">
-        {/* Eventos de hoy */}
-        <h2 className="text-lg font-bold text-red-600 mb-4">Mis Eventos de Hoy</h2>
-        <div className="flex flex-col gap-4">
-          {eventosHoy.map(evento => (
-            <div key={evento.id} className="flex items-center shadow-md rounded-lg p-4">
-              {/* Imagen opcional aquí */}
-              <div>
-                <h3 className="text-indigo-600 font-semibold">{evento.name}</h3>
-                {/* Detalles opcionales aquí */}
-              </div>
-            </div>
-          ))}
-        </div>
+        
 
         {/* Próximos eventos */}
         <h2 className="text-lg font-bold text-red-600 mt-8 mb-4">Mis Próximos Eventos</h2>
