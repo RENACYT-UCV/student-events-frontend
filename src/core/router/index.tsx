@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-
 import MainLayout from '@components/MainLayout'
 
+import HistorialScreen from '@components/Historial/HistorialScreen';
+import HistorialEventDetail from '@components/Historial/HistorialEventDataileScreen'
 import Login from '@pages/auth/Login'
 import HomePage from '@pages/HomePage'
 import ProfilePage from '@pages/ProfilePage'
 import EditProfilePage from '@pages/EditProfilePage'
 import NotificationPage from '@pages/NotificationPage'
 import HistorialPage from '@pages/HistorialPage'
+import EventList from '@components/eventos/EventList'
+import EventDetail from '@components/eventos/EventDetail'
+import EventSuccess from '@components/eventos/EventSuccess'
 
-/**
- * In this router component will put in all routes from application
- * and separete from public or private access
- */
 export default function AppRouter() {
   return (
     <Router>
@@ -32,6 +32,11 @@ export default function AppRouter() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfilePage/>}/>   
 
+          <Route path="historial" element={<HistorialScreen />} /> {/* <-- Aquí */}
+          <Route path="/evento/:id" element={<HistorialEventDetail />} />
+          <Route path="eventos" element={<EventList />} />
+          <Route path="eventos/:id" element={<EventDetail />} />
+          <Route path="eventos/success" element={<EventSuccess />} />
         </Route>
       </Routes>
     </Router>

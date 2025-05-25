@@ -20,6 +20,17 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     }, 800);
   }, []);
 
+  const handleMenuClick = () => {
+    console.log('Abrir menú');
+  };
+
+  const handleNotificationClick = () => {
+    console.log('Abrir notificaciones');
+  };
+
+  const handleProfileClick = () => {
+    console.log('Abrir perfil');
+  };
 
   const handleExportPDF = () => {
     console.log('Exportar PDF');
@@ -54,7 +65,6 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   if (isLoading) {
     return (
       <div className="historial-mobile-container">
-
         <div className="loading-content">
           <div className="loading-spinner">
             <div className="spinner"></div>
