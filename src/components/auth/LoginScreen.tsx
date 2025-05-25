@@ -1,4 +1,6 @@
 // src/pages/auth/LoginScreen.tsx
+import { useLogin } from '@/hooks/auth/use-login'
+import { getAuthActions } from '@store/auth.store'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,6 +10,10 @@ const LoginScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const navigate = useNavigate()
 
+  const { setAccessToken } = getAuthActions()
+
+  const { loginAsync } = useLogin()
+
   const handleLogin = async (): Promise<void> => {
     console.log('Iniciando sesión con:', { email, password })
     // TODO: Implement actual credential verification logic here
@@ -16,6 +22,16 @@ const LoginScreen: React.FC = () => {
 
     // Store user ID in memory (e.g., using localStorage or a state management library)
     localStorage.setItem('userId', dummyUserId.toString())
+
+    loginAsync(
+      { email, password },
+      {
+        onSuccess: (data: { accessToken: string; refreshToken: string }) => {
+          setAccessToken(data.accessToken)
+          setAccessToken(data.refreshToken)
+        }
+      }
+    )
 
     // Navigate to Home screen
     navigate('/home')
