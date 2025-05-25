@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import Button from '../common/Button'
 
 type EventCardProps = {
+  id: number
   image?: string
   type: string
   title: string
@@ -9,9 +11,14 @@ type EventCardProps = {
   location: string
 }
 
-export default function EventCard({ image, type, title, date, time, location }: EventCardProps) {
+export default function EventCard({ id, image, type, title, date, time, location }: EventCardProps) {
+  const navigate = useNavigate()
+
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg p-4">
+    <div 
+      className="bg-white rounded-xl overflow-hidden shadow-lg p-4 cursor-pointer" 
+      onClick={() => navigate(`/eventos/${id}`)}
+    >
       {image && (
         <img
           src={image}

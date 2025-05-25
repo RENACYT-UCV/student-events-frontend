@@ -1,32 +1,41 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Button from '../common/Button'
 import EventTypeSelect from './EventTypeSelect'
 import EventCard from './EventCard'
-
-// Datos de ejemplo
-const mockEvents = [
-  {
-    id: 1,
-    image: "/assets/universidad.jpg",
-    type: 'Académico',
-    title: 'UCV Eventos Lima Norte',
-    date: '21 Junio',
-    time: '5:00 pm',
-    location: 'Los Olivos - Lima'
-  },
-  {
-    id: 2,
-    image: 'https://admision.ucv.edu.pe/wp-content/uploads/2023/05/campus-los-olivos-2.jpg',
-    type: 'Deportivo',
-    title: 'Campeonato de Fútbol UCV',
-    date: '22 Junio',
-    time: '3:00 pm',
-    location: 'Los Olivos - Lima'
-  }
-]
+import { getAllEvents, getAllEventTypes, Event, EventType} from '../../services/eventService'
 
 export default function EventList() {
   const [selectedFilter, setSelectedFilter] = useState('Tipo de Evento')
+  const [events, setEvents] = useState<Event[]>([])
+  const [eventTypes, setEventTypes] = useState<EventType[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [eventsData, typesData] = await Promise.all([
+          getAllEvents(),
+          getAllEventTypes()
+        ])
+        setEvents(eventsData)
+        setEventTypes(typesData)
+        setLoading(false)
+      } catch (err) {
+        setError('Error al cargar los datos')
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  const filteredEvents = events.filter(event => 
+    selectedFilter === 'Tipo de Evento' || event.eventType.title === selectedFilter
+  )
+
+  if (loading) return <div className="min-h-screen bg-pink-50 flex items-center justify-center">Cargando...</div>
+  if (error) return <div className="min-h-screen bg-pink-50 flex items-center justify-center text-red-600">{error}</div>
 
   return (
     <div className="min-h-screen bg-pink-50">
@@ -53,19 +62,24 @@ export default function EventList() {
         <EventTypeSelect 
           value={selectedFilter}
           onChange={setSelectedFilter}
+          options={[
+            'Tipo de Evento',
+            ...eventTypes.map(type => type.title)
+          ]}
         />
 
         {/* Event Cards */}
         <div className="space-y-4 mt-6">
-          {mockEvents.map((event) => (
+          {filteredEvents.map((event) => (
             <EventCard
               key={event.id}
-              image={event.image}
-              type={event.type}
-              title={event.title}
-              date={event.date}
-              time={event.time}
-              location={event.location}
+              id={event.id}
+              image="/assets/universidad.jpg"
+              type={event.eventType.title}
+              title={event.name}
+              date={event.eventDetails[0]?.startDate}
+              time={event.eventDetails[0]?.startTime}
+              location={event.eventDetails[0]?.location || 'Virtual'}
             />
           ))}
         </div>

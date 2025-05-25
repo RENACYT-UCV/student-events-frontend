@@ -1,76 +1,14 @@
-// src/App.tsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import EventList from './components/eventos/EventList'
+import EventDetail from './components/eventos/EventDetail'
 
-import { Routes, Route } from 'react-router-dom'
-import HeaderBar from './components/HeaderBar'
-import LoginScreen from './components/LoginScreen'
-import RegisterScreen from './components/RegisterScreen'
-import RecoverAccountScreen from './components/RecoverAccountScreen'
-import ResetPasswordScreen from './components/ResetPasswordScreen'
-import Home from './components/eventos/Home'
-import EventosAcademico from './components/eventos/EventosAcademico'
-
-import MainLayout from './components/MainLayout'
-
-function App(): JSX.Element {
+export default function App() {
   return (
-    <div className="App">
+    <Router>
       <Routes>
-        {/* Rutas públicas CON HeaderBar */}
-        <Route
-          path="/login"
-          element={
-            <>
-              <HeaderBar title="Bienvenido a UniEventos"/>
-              <LoginScreen />
-            </>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <>
-              <HeaderBar title="Registrar" />
-              <RegisterScreen />
-            </>
-          }
-        />
-        <Route
-          path="/recover-account"
-          element={
-            <>
-              <HeaderBar title="Recuperar Cuenta"/>
-              <RecoverAccountScreen />
-            </>
-          }
-        />
-        <Route
-          path="/reset-password/:token"
-          element={
-            <>
-              <HeaderBar title="Restablecer Contraseña"/>
-              <ResetPasswordScreen />
-            </>
-          }
-        />
-        <Route
-          path="/profile/:token"
-          element={
-            <>
-
-            </>
-          }
-          
-        />
-
-        {/* Rutas privadas SIN HeaderBar */}
-        <Route path="/" element={<MainLayout />}>
-          {/* <Route element={<HeaderBar title="Inicio"/>}/> */}
-          <Route index element={<Home />} />
-          {<Route path="eventos/academico" element={<EventosAcademico />} />}
-        </Route>
+        <Route path="/eventos" element={<EventList />} />
+        <Route path="/eventos/:id" element={<EventDetail />} />
       </Routes>
-    </div>
+    </Router>
   )
 }
-
-export default App
