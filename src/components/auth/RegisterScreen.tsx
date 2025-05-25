@@ -5,18 +5,48 @@ import { useNavigate } from 'react-router-dom'
 // interface RegisterScreenProps {}
 
 const RegisterScreen: React.FC = () => {
+  const [username, setUser] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
+  const [name, setName] = useState<string>('') // Add state for name
 
   const navigate = useNavigate() // Obtener la función de navegación
 
-  const handleRegister = (): void => {
-    console.log('Registrando usuario:', { email, password, confirmPassword })
-    // Aquí iría la lógica de registro
-    alert(`Usuario registrado con email: ${email}`)
+  const handleRegister = async (): Promise<void> => {
+    // Make function async
+    if (password !== confirmPassword) {
+      alert('Las contraseñas no coinciden.')
+      return
+    }
+
+    console.log('Registrando usuario:', { name, email, password }) // Include name in log
+
+    // Aquí iría la lógica de registro - Reemplazar con llamada a la API
+    try {
+      const response = await fetch('https://student-events-backend.onrender.com/api/user', {
+        // Use fetch API
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password }) // Send email, password
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        alert(`Usuario registrado con éxito: ${data.email}`)
+        navigate('/login') // Navigate to login on success
+      } else {
+        alert(`Error en el registro: ${data.message || response.statusText}`)
+      }
+    } catch (error) {
+      console.error('Error al registrar:', error)
+      alert('Ocurrió un error al intentar registrar el usuario.')
+    }
   }
 
   // Función para volver a la pantalla anterior
@@ -25,42 +55,67 @@ const RegisterScreen: React.FC = () => {
   }
 
   return (
-    <div
-      className="login-container"
-      style={{
-        background: `url(/assets/mi-fondo.jpeg) center/cover no-repeat`
-      }}
-    >
+    <div className=" bg-red-600 flex flex-col items-center">
+      <div className="w-full bg-red-600 py-6 shadow-md">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white text-center">Registrar Cuenta</h1>
+      </div>
       {/* Botón de volver - Usamos una clase para estilizarlo */}
-      <button className="back-button" onClick={handleGoBack}>
-        {' '}
-        {/* Quitamos estilos en línea */}← Volver
+      <button className="back-button-register">
+        <span className="arrow">&larr;</span>
+        <span className="text"> Volver</span>
       </button>
 
-      {/* Decoraciones de fondo (pueden ser las mismas) */}
-      <div className="decoration-top-left"></div>
-      <div className="decoration-top-right"></div>
-      <div className="decoration-bottom-left"></div>
-      <div className="decoration-bottom-right"></div>
+      <div>
+        <img src="/assets/images/background_1(2).png" className='background-image-ucv' alt="" />
+      </div>
+      
 
       {/* Contenido principal */}
-      <div className="login-content">
+      <div className="register-content">
         {/* Ilustración principal */}
-        <div className="illustration-container">
-          <div className="people-illustration">
-            <img src="/assets/Fot-crear.png" alt="Registration illustration" />{' '}
+        <div className="illustration-container-register">
+          <div className="people-illustration-register">
+            <img src="/assets/images/young_teamwork.png" alt="Registration illustration" />{' '}
             {/* Usar la nueva imagen */}
           </div>
         </div>
 
         {/* Título */}
-        <h1 className="login-title">Crear Cuenta</h1>
+        {/* <h1 className="login-title">Crear Cuenta</h1> */}
 
+        <button className="relative z-10 w-full flex items-center justify-center
+         gap-3 border border-gray-300 rounded-lg py-3 mb-4 hover:bg-gray-200 
+         transition cursor-pointer">
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            alt="Google"
+            className="w-5 h-5"
+          />
+          <span className="text-sm font-medium text-gray-700">
+            Registrarse con Google
+          </span>
+        </button>
         {/* Formulario */}
-        <div className="form-container">
+        <div className="form-container-register">
+
+          <div className="input-group">
+            <label className="input-label-register">Usuario</label>
+            <div className="input-wrapper">
+              <span className="input-icon">✉️</span>
+              <input
+                type='text'
+                className="input-field"
+                placeholder="Usuario123"
+                value={username}
+                onChange={e => setUser(e.target.value)}
+                required // Campo obligatorio
+              />
+            </div>
+          </div>
+
           {/* Campo de correo */}
           <div className="input-group">
-            <label className="input-label">Correo</label>
+            <label className="input-label-register">Correo</label>
             <div className="input-wrapper">
               <span className="input-icon">✉️</span>
               <input
@@ -76,7 +131,7 @@ const RegisterScreen: React.FC = () => {
 
           {/* Campo de contraseña */}
           <div className="input-group">
-            <label className="input-label">Contraseña</label>
+            <label className="input-label-register">Contraseña</label>
             <div className="input-wrapper">
               <span className="input-icon">🔒</span>
               <input
@@ -99,7 +154,7 @@ const RegisterScreen: React.FC = () => {
 
           {/* Campo de confirmar contraseña */}
           <div className="input-group">
-            <label className="input-label">Confirmar Contraseña</label>
+            <label className="input-label-register">Confirmar Contraseña</label>
             <div className="input-wrapper">
               <span className="input-icon">🔒</span>
               <input
@@ -122,10 +177,11 @@ const RegisterScreen: React.FC = () => {
 
           {/* Botón de registro */}
           <button
-            className="login-button" // Puedes usar los mismos estilos de botón si quieres
+            className="register-button" // Puedes usar los mismos estilos de botón si quieres
             onClick={handleRegister}
+            type="button" // Specify type button to prevent form submission
           >
-            CREAR CUENTA
+            REGISTRAR CUENTA
           </button>
 
           {/* Opcional: Enlace para volver al Login */}
