@@ -6,5 +6,5 @@ export type AuthUser = {
 }
 
 export const login = async (data: AuthUser) => {
-  return client.post('/auth/login', data)
+  return client.post('/auth/login', data).then(response => response.data)
 }

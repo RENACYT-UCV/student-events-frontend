@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import './LoginScreen.css'
-// import fondo from '../assets/mi-fondo.jpeg'
-// import imagenLogin from '../assets/imagen-login.png'
 import { useNavigate } from 'react-router-dom'
 
 // interface LoginScreenProps {}
