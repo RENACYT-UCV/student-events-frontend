@@ -15,7 +15,9 @@
     "ios:build": "npm run build && cap sync ios",
     "ios:open": "npm run ios:build && cap open ios",
     "android:build": "npm run build && cap sync android",
-    "android:open": "npm run android:build && cap open android"
+    "android:open": "npm run android:build && cap open android",
+    "android:build-apk": "cd android && .\\gradlew.bat assembleDebug && cd ..",
+    "android:build-release": "cd android && .\\gradlew.bat assembleRelease && cd .."
   },
   "dependencies": {
     "@capacitor/android": "^7.2.0",
