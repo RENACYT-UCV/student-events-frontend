@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './HistorialScreen.css'
+import Header from '@components/common/Header/Header.css'
 import { useNavigate } from 'react-router-dom'
 import { eventosEjemplo, Evento } from '../../lib/data/history/events-example'
 // Header is now handled by MainLayout

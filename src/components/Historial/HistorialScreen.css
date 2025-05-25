@@ -1,3 +1,5 @@
+@import "../common/Header/Header.css";
+
 .historial-mobile-container * {
   margin: 0;
   padding: 0;
@@ -43,7 +45,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #4a90e2;
+  background: #af1818;
   padding: 12px 16px;
   height: 60px;
   position: relative;

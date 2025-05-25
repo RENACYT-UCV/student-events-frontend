@@ -5,7 +5,6 @@ import HistorialScreen from '@components/Historial/HistorialScreen'
 const HistorialPage = () => {
   return (
     <div className="main-page-blue">
-      {/* <Header title="Historial" /> */}
       <HistorialScreen />
     </div>
   )
