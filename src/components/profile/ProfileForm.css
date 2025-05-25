@@ -40,28 +40,42 @@
 .edit-button-wrapper {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
+.edit-button-row {
+  display: flex;
+  width: 100%;               /* Ocupa todo el ancho del wrapper */
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-.edit-button {
-  display: inline-flex;           /* Alinea texto + icono horizontalmente */
-  align-items: center;           /* Centra verticalmente */
-  justify-content: center;      /* Centra todo dentro del botón */
-  margin-top: 10px;
-  text-decoration: none;
-  background-color: #DD2324;
-  color: white;
+.edit-button,
+.cancel-button {
+  flex: 1 1 45%;              /* Ocupa casi la mitad cada uno con espacio */
+  max-width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: 15px;
-  width:50%;
   font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  border-radius: 15px;
   font-family: 'Karla', sans-serif;
   font-weight: 700;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
+  cursor:pointer;
+}
 
+.edit-button {
+  background-color: #DD2324;
+  color: white;
+  border: none;
+}
+
+.cancel-button:hover {
+  transform: scale(1.02);
+  background-color: #1a2536;
 }
 
 .edit-button .icon-right {
@@ -71,9 +85,23 @@
 .edit-button:hover {
   transform: scale(1.02);
   background-color: #af1818;
-  color: white;
 }
 
+.cancel-button {
+  background-color: #233559;
+  color: white;
+  border: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .edit-button {
+    width: 30%;
+  }
+
+  .cancel-button {
+    width: 30%;
+  }
+}
 
 /* Estilo especial para escritorio */
 @media screen and (min-width: 1024px) {

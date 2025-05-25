@@ -81,10 +81,22 @@ const ProfileForm: React.FC = () => {
         )}
 
         {isEditing && (
-          <button type="submit" className="edit-button">
-            Guardar Cambios
-          </button>
-        )}
+  <div className="edit-button-wrapper">
+    <div className="edit-button-row">
+      <button type="submit" className="edit-button">
+        Guardar Cambios
+      </button>
+      <button
+        type="button"
+        className="cancel-button"
+        onClick={() => navigate('/profile')}
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+)}
+
 
 
       </div>
