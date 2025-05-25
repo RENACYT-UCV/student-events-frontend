@@ -1,34 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-interface EventType {
-  name: string
-  slug: string
-}
+import { useEventTypes } from '../../../hooks/useEvents'
 
 export default function Sidebar({ onClose }: { onClose?: () => void }) {
   const [showEventos, setShowEventos] = useState(false)
-  const [eventTypes, setEventTypes] = useState<EventType[]>([])
+  const { eventTypes, loading } = useEventTypes()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/events/types')
-      .then(response => setEventTypes(response.data))
-      .catch(error => console.error('Error fetching event types:', error))
-  }, [])
-
   const handleLogout = () => {
-    // Aquí puedes limpiar datos del usuario si estás usando localStorage, cookies, etc.
-    // localStorage.removeItem("token"); por ejemplo
-    navigate('/login') // Redirige al login
-    if (onClose) onClose() // Cierra el drawer si está abierto
+    navigate('/login')
+    if (onClose) onClose()
   }
 
   return (
     <div className="w-full h-screen flex flex-col z-[100] ">
-      {/* Encabezado rojo con UniEventos y hamburguesa */}
       <div className="bg-[#DD2324] text-white p-[22px] flex items-center gap-2">
         {onClose && (
           <div onClick={onClose} className="cursor-pointer">
@@ -37,31 +22,24 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
         )}
         <span className="font-bold text-lg">UniEventos</span>
       </div>
-
-      {/* Menú blanco */}
       <div className="bg-white flex-1 p-5 overflow-y-auto relative">
         <SidebarItem icon={<div />} label="Inicio" to="/" />
         <SidebarItem icon={<div />} label="Eventos" onClick={() => setShowEventos(!showEventos)}>
           {showEventos ? <div /> : <div />}
         </SidebarItem>
-
         {showEventos && (
           <div className="pl-5 text-blue-600">
-            {eventTypes.map((type, index) => (
-              <SidebarItem
-                key={index}
-                // icon={< />}
-                label={type.name}
-                to={`/eventos/${type.slug}`}
-              />
-            ))}
+            {loading ? (
+              <p>Cargando...</p>
+            ) : (
+              eventTypes.map(type => (
+                <SidebarItem key={type.id} label={type.title} to={`/eventos/${type.id}`} />
+              ))
+            )}
           </div>
         )}
-
         <SidebarItem icon={<div />} label="Historial" to="/historial" />
         <SidebarItem icon={<div />} label="Mi Perfil" to="/profile" />
-
-        {/* Botón de cerrar sesión */}
         <div onClick={handleLogout} className="absolute bottom-5 left-5 cursor-pointer">
           <SidebarItem icon={<div />} label="Cerrar Sesión" red />
         </div>
@@ -76,9 +54,7 @@ function SidebarItem({ icon, label, to, onClick, children, red = false }: any) {
       {to ? (
         <Link
           to={to}
-          className={`no-underline flex items-center gap-2 ${
-            red ? 'text-red-600' : 'text-blue-600'
-          }`}
+          className={`no-underline flex items-center gap-2 ${red ? 'text-red-600' : 'text-blue-600'}`}
         >
           {icon}
           <span>{label}</span>
