@@ -20,7 +20,8 @@
 .login-container {
   position: relative;
   min-height: 100vh;
-  background: url('../assets/mi-fondo.jpeg') center/cover no-repeat;
+  height: 100%;
+  background: red;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,23 +29,22 @@
   overflow: hidden;
 }
 
-.login-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.5); /* Mantenemos la opacidad ajustada */
-  z-index: 1;
-}
+/* .login-container::before { */ /* Comentada la regla completa */
+/*   content: ''; */
+/*   position: absolute; */
+/*   top: 0; */
+/*   left: 0; */
+/*   width: 100%; */
+/*   height: 100%; */
+/*   background: rgba(255, 255, 255, 0.5); */ /* Mantenemos la opacidad ajustada */
+/*   z-index: 1; */
+/* } */
 
 .register-content {
   background: #fff;
   border-radius: 25px;
   margin-top: 40px;
   justify-content: center;
-  margin-bottom:50px;
   border: 2px solid #e9ecef;
   padding: 10px 20px 30px 20px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.28);
@@ -282,7 +282,6 @@
   background: #fff;
   border-radius: 25px;
   margin-top: 40px;
-  margin-bottom:50px;
   border: 2px solid #e9ecef;
   padding: 10px 20px 30px 20px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.28);
