@@ -1,7 +1,7 @@
 import React from 'react'
-import HeaderBar from '@components/HeaderBar';
-import ProfileHeader from '@components/ProfileHeader';
-import ProfileForm from '@components/ProfileForm';
+import HeaderBar from '@components/HeaderBar'
+import ProfileHeader from '@components/profile/ProfileHeader'
+import ProfileForm from '@components/profile/ProfileForm'
 
 const EditProfilePage: React.FC = () => {
   return (
@@ -9,7 +9,8 @@ const EditProfilePage: React.FC = () => {
       <HeaderBar title="Editar Perfil" />
       <ProfileHeader />
       <ProfileForm />
-    </div>  )
+    </div>
+  )
 }
 
 export default EditProfilePage

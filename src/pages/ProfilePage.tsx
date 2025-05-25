@@ -1,7 +1,7 @@
-import React from 'react';
-import HeaderBar from '@components/HeaderBar';
-import ProfileHeader from '@components/ProfileHeader';
-import ProfileForm from '@components/ProfileForm';
+import React from 'react'
+import HeaderBar from '@components/HeaderBar'
+import ProfileHeader from '@components/profile/ProfileHeader'
+import ProfileForm from '@components/profile/ProfileForm'
 
 const ProfilePage: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const ProfilePage: React.FC = () => {
       <ProfileHeader />
       <ProfileForm />
     </div>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage
