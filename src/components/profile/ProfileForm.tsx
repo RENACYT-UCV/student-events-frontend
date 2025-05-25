@@ -1,123 +1,173 @@
 import React, { useState, useEffect } from 'react';
 import './ProfileForm.css';
-import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
 const ProfileForm: React.FC = () => {
-
   const location = useLocation();
   const navigate = useNavigate();
-  const isEditing = location.pathname === "/edit-profile";
 
   const [showPopup, setShowPopup] = useState(false);
+  const [isFormEditable, setIsFormEditable] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isFormEditable || !hasChanges) return;
 
     const form = e.target as HTMLFormElement;
     const data = {
       nombre: form.nombre.value,
       apellido: form.apellido.value,
       correo: form.correo.value,
+      carrera: form.carrera.value,
+      telefono: form.telefono.value,
+      codigo_alumno: form.codigo_alumno.value,
     };
 
-    // Aquí puedes hacer el fetch al backend
     console.log('Datos enviados:', data);
     setShowPopup(true);
+    setIsFormEditable(false);
+    setHasChanges(false);
+  };
+
+  const handleEditClick = () => {
+    setIsFormEditable(true);
+    setHasChanges(false);
+  };
+
+  const handleInputChange = () => {
+    if (isFormEditable) {
+      setHasChanges(true);
+    }
   };
 
   useEffect(() => {
     if (showPopup) {
       const timer = setTimeout(() => {
         setShowPopup(false);
-        navigate('/profile');
+        // Puedes redirigir si deseas: navigate('/profile');
       }, 1500);
-
       return () => clearTimeout(timer);
     }
-  }, [showPopup, navigate]);
-  
+  }, [showPopup]);
 
   return (
-  <>
-    <form className={`profile-form ${isEditing ? 'editing' : ''}`} onSubmit={handleSubmit}>
-      <label htmlFor="nombre">Nombre:</label>
-      <input
-        type="text"
-        id="nombre"
-        name="nombre"
-        disabled={!isEditing}
-        placeholder="Juan Nicolás"
-        required
-      />
-
-      <label htmlFor="apellido">Apellido:</label>
-      <input
-        type="text"
-        id="apellido"
-        name="apellido"
-        disabled={!isEditing}
-        placeholder="Pérez Nuñez"
-        required
-      />
-
-      <label htmlFor="correo">Correo:</label>
-      <input
-        type="email"
-        id="correo"
-        name="correo"
-        disabled={!isEditing}
-        placeholder="juanNicolas123@correo.com"
-        required
-      />
-
-      <div className="edit-button-wrapper">
-        {!isEditing && (
-          <Link to="/edit-profile" className="edit-button">
-            Editar Perfil
-            <img src='/assets/images/editIcon_darkMode.svg' alt="Editar" className="icon-right" width={20} />
-          </Link>
-        )}
-
-        {isEditing && (
-  <div className="edit-button-wrapper">
-    <div className="edit-button-row">
-      <button type="submit" className="edit-button">
-        Guardar Cambios
-      </button>
-      <button
-        type="button"
-        className="cancel-button"
-        onClick={() => navigate('/profile')}
-      >
-        Cancelar
-      </button>
-    </div>
-  </div>
-)}
-
-
-
-      </div>
-    </form>
-
-    {showPopup && (
-      <div className="popup-overlay">
-        <div className="popup-content">
-          <img
-            src='/assets/images/checkIcon.svg'
-            alt="check"
-            className="popup-icon"
-            width={60}
-          />
-          <p className="popup-text">¡Cambios guardados exitosamente!</p>
+    <>
+      <form className={`profile-form ${isFormEditable ? 'editing' : ''}`} onSubmit={handleSubmit}>
+        <div className="form-header-with-button">
+          <h2>Información Personal</h2>
+          {!isFormEditable && (
+            <button type="button" className="edit-button-inline" onClick={handleEditClick}>
+              Editar Perfil
+              <img src='/assets/images/editIcon_darkMode.svg' alt="Editar" className="icon-right" width={20} />
+            </button>
+          )}
         </div>
-      </div>
-    )}
-  </>
-);
+
+        <label htmlFor="nombre">Nombre:</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          disabled={!isFormEditable}
+          placeholder="Juan Nicolás"
+          required
+          onChange={handleInputChange}
+        />
+
+        <label htmlFor="apellido">Apellido:</label>
+        <input
+          type="text"
+          id="apellido"
+          name="apellido"
+          disabled={!isFormEditable}
+          placeholder="Pérez Nuñez"
+          required
+          onChange={handleInputChange}
+        />
+
+        <label htmlFor="correo">Correo:</label>
+        <input
+          type="email"
+          id="correo"
+          name="correo"
+          disabled={!isFormEditable}
+          placeholder="juanNicolas123@correo.com"
+          required
+          onChange={handleInputChange}
+        />
+
+        <label htmlFor="carrera">Carrera:</label>
+        <input
+          type="text"
+          id="carrera"
+          name="carrera"
+          disabled={!isFormEditable}
+          placeholder="Ingeniería de Sistemas"
+          required
+          onChange={handleInputChange}
+        />
+
+        <label htmlFor="telefono">Teléfono:</label>
+        <input
+          type="tel"
+          id="telefono"
+          name="telefono"
+          disabled={!isFormEditable}
+          placeholder="987654321"
+          required
+          onChange={handleInputChange}
+        />
+
+        <label htmlFor="codigo_alumno">Código Alumno:</label>
+        <input
+          type="text"
+          id="codigo_alumno"
+          name="codigo_alumno"
+          disabled={!isFormEditable}
+          placeholder="U12345678"
+          required
+          onChange={handleInputChange}
+        />
+
+        {isFormEditable && (
+          <div className="edit-button-wrapper">
+            <div className="edit-button-row">
+              <button type="submit" className="edit-button" disabled={!hasChanges}>
+                Guardar Cambios
+              </button>
+              <button
+                type="button"
+                className="cancel-button"
+                onClick={() => {
+                  setIsFormEditable(false);
+                  setHasChanges(false);
+                  // navigate('/profile'); // Descomenta si quieres volver a la vista anterior
+                }}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
+      </form>
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <img
+              src="/assets/images/checkIcon.svg"
+              alt="check"
+              className="popup-icon"
+              width={60}
+            />
+            <p className="popup-text">¡Cambios guardados exitosamente!</p>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ProfileForm;
-
