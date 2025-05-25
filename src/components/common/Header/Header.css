@@ -1,10 +1,12 @@
+/* Minimalist Header Styling with UCV Colors */
 .mobile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #f0f0f0; /* Example background color */
-  color: #333; /* Example text color */
+  padding: 15px 20px; /* Increased padding for a cleaner look */
+  background-color: #ffffff; /* White background for minimalism */
+  color: #1e2c64; /* Azul UCV for text color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for definition */
 }
 
 .header-left .menu-button,
@@ -14,29 +16,49 @@
   border: none;
   cursor: pointer;
   padding: 5px;
+  color: #1e2c64; /* Azul UCV icon color */
+  transition: color 0.3s ease; /* Smooth transition for hover */
+}
+
+.header-left .menu-button:hover,
+.header-right .notification-button:hover,
+.header-right .profile-button:hover {
+  color: #af1818; /* Rojo oscuro on hover */
 }
 
 .hamburger span {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
-  margin-bottom: 5px;
+  background-color: #1e2c64; /* Azul UCV hamburger lines */
+  margin-bottom: 4px; /* Slightly reduced margin */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.menu-button:hover .hamburger span {
+  background-color: #af1818; /* Rojo oscuro hamburger lines on hover */
 }
 
 .header-title {
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1.3em; /* Slightly larger title */
+  font-weight: bold; /* Bold title */
+  color: #1e2c64; /* Azul UCV title color */
 }
 
 .notification-icon,
 .profile-circle {
-  font-size: 1.2em; /* Example icon size */
+  font-size: 1.4em; /* Larger icon size */
 }
 
 .profile-circle {
-  width: 25px;
-  height: 25px;
-  background-color: #555; /* Example profile circle color */
+  width: 30px; /* Larger profile circle */
+  height: 30px; /* Larger profile circle */
+  background-color: #1e2c64; /* Azul UCV profile circle color */
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff; /* White text/icon inside circle */
+  font-size: 0.8em; /* Smaller font size for potential initial */
 }

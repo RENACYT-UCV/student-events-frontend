@@ -1,4 +1,4 @@
-@import url('../index.css');
+@import url('../../index.css');
 
 .home-header {
   top: 20%;
@@ -38,7 +38,7 @@
   align-items: left;
 }
 
-.home-subtext{
+.home-subtext {
   font-family: 'Karla', sans-serif;
   color: #ffffff;
   font-weight: 500;
@@ -49,7 +49,7 @@
   font-size: 35px;
   font-weight: bold;
   color: #ffffff;
-  margin:0;
+  margin: 0;
   height: 40px;
   font-family: 'Karla', sans-serif;
   font-weight: 800;

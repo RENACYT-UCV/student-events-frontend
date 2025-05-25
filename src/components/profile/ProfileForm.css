@@ -4,32 +4,31 @@
   min-height: auto;
   position: relative;
   z-index: 10;
-  margin: -20px 10px 0 0; /* Vuelve al margen anterior */
+  margin: -20px 10px 0 0;
   background-color: white;
   width: 100%;
-  padding: 20px 30px; /* Vuelve al padding anterior */
-  border-top-left-radius: 0; /* Eliminando redondeo superior izquierdo */
-  border-top-right-radius: 0; /* Eliminando redondeo superior derecho */
+  padding: 20px 30px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .profile-form h2 {
   font-family: 'Karla', sans-serif;
-  font-size: 36px; /* Agrandar un poco más el tamaño de la fuente */
-  font-weight: 700; /* Asegurar que sea negrita */
-  color: #DD2324; /* Usar el color rojo corporativo */
-  margin-bottom: 20px; /* Añadir espacio debajo del título */
+  font-size: 36px;
+  font-weight: 700;
+  color: #DD2324;
+  margin-bottom: 20px;
 }
 
 .form-header-with-button {
   display: flex;
-  justify-content: space-between; /* Distribuye el espacio entre los elementos */
-  align-items: center; /* Alinea verticalmente en el centro */
-  margin-bottom: 20px; /* Espacio debajo del contenedor */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .profile-form label {
   display: block;
-  font-weight: bold;
   font-family: 'Karla', sans-serif;
   font-weight: 700;
 }
@@ -47,53 +46,72 @@
   font-weight: 400;
 }
 
-/* Estilo cuando estás editando */
 .profile-form.editing input {
-  /* border: 2px solid #DD2324; */ /* Azul corporativo o el color que tú elijas */
+  /* Estilo opcional para inputs en modo edición */
 }
 
 .edit-button-wrapper {
   display: flex;
   justify-content: center;
+  width: 100%;
+}
+
+.edit-button-row {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.edit-button,
+.cancel-button {
+  flex: 1 1 45%;
+  max-width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 15px;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
+  cursor: pointer;
+  border: none;
 }
 
 .edit-button {
-  display: inline-flex;           /* Alinea texto + icono horizontalmente */
-  align-items: center;           /* Centra verticalmente */
-  justify-content: center;      /* Centra todo dentro del botón */
-  margin-top: 10px;
-  text-decoration: none;
   background-color: #DD2324;
   color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 15px;
-  width:50%;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-family: 'Karla', sans-serif;
-  font-weight: 700;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+}
+
+.edit-button:hover {
+  transform: scale(1.02);
+  background-color: #af1818;
+}
+
+.cancel-button {
+  background-color: #233559;
+  color: white;
+}
+
+.cancel-button:hover {
+  transform: scale(1.02);
+  background-color: #1a2536;
 }
 
 .edit-button .icon-right {
   margin-left: 8px;
 }
 
-.edit-button:hover {
-  transform: scale(1.02);
-  background-color: #af1818;
-  color: white;
-}
-
-/* Estilo especial para escritorio */
 @media screen and (min-width: 1024px) {
   .profile-form {
-    padding: 40px 50dvh; /* Vuelve al padding anterior para escritorio */
+    padding: 40px 50dvh;
   }
 
-  .edit-button{
+  .edit-button,
+  .cancel-button {
     width: 30%;
   }
 }
@@ -104,7 +122,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro con opacidad */
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,7 +135,7 @@
   margin-bottom: 100px;
   width: 70%;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   text-align: center;
   animation: fadeInScale 0.3s ease-in-out;
 }
@@ -127,7 +145,7 @@
 }
 
 .popup-text {
-  font-family: 'Karla',sans-serif;
+  font-family: 'Karla', sans-serif;
   font-size: 18px;
   font-weight: 400;
   color: #333;
@@ -145,16 +163,15 @@
 }
 
 .edit-button-inline {
-  /* Reusar estilos del edit-button principal o definir nuevos */
   display: inline-flex;
   align-items: center;
   text-decoration: none;
   background-color: #DD2324;
   color: white;
-  padding: 8px 12px; /* Ajustar padding para un botón más pequeño */
+  padding: 8px 12px;
   border: none;
   border-radius: 15px;
-  font-size: 14px; /* Ajustar tamaño de fuente */
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   font-family: 'Karla', sans-serif;

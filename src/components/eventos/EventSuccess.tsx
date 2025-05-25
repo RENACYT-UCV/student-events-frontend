@@ -4,37 +4,16 @@ export default function EventSuccess() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-pink-50"> {/* Cambiado de bg-white a bg-pink-50 */}
-      {/* Header */}
-      <div className="bg-blue-600 p-4 flex items-center justify-between relative">
-        <button className="text-white z-10">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-        <h1 className="text-white text-2xl font-normal absolute left-1/2 transform -translate-x-1/2">Eventos</h1>
-        <div className="flex items-center space-x-4 z-10">
-          <button className="text-white">
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
-          </button>
-          <div className="w-8 h-8 bg-white rounded-full"></div>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-pink-50">
+      {' '}
+      {/* Cambiado de bg-white a bg-pink-50 */}
+      {/* Header is now handled by MainLayout */}
       {/* Back Button */}
-      <div className="bg-pink-50 p-4 flex items-center space-x-2"> {/* Cambiado de bg-gray-100 a bg-pink-50 */}
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-gray-700"
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+      <div className="bg-pink-50 p-4 flex items-center space-x-2">
+        {' '}
+        {/* Cambiado de bg-gray-100 a bg-pink-50 */}
+        <button onClick={() => navigate(-1)} className="flex items-center text-gray-700">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -45,15 +24,19 @@ export default function EventSuccess() {
           <span className="ml-2">Regresar</span>
         </button>
       </div>
-
       {/* Success Content */}
       <div className="p-8 flex flex-col items-center space-y-6">
         <div className="w-20 h-20 rounded-full bg-white border-4 border-green-500 flex items-center justify-center">
-          <svg className="w-12 h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-12 h-12 text-green-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        
+
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-2">¡Nos vemos ahí!</h2>
           <p className="text-gray-600">Evento registrado con éxito</p>
@@ -70,20 +53,40 @@ export default function EventSuccess() {
             <h3 className="text-xl font-semibold">UCV Eventos Lima Norte</h3>
             <div className="flex items-center space-x-2 text-gray-600">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
               </svg>
               <span>21 Junio</span>
             </div>
             <div className="flex items-center space-x-2 text-gray-600">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               <span>5:00 pm</span>
             </div>
             <div className="flex items-center space-x-2 text-gray-600">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
               </svg>
               <span>Los Olivos - Lima</span>
             </div>

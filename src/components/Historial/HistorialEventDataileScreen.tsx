@@ -1,41 +1,37 @@
-import React from 'react';
-import './HistorialEventDetail.css';
-import { useParams, useNavigate } from 'react-router-dom';
-import { eventosEjemplo } from '../../lib/data/history/events-example';
-import HeaderHistorial from './HeaderHistorial';
+import React from 'react'
+import './HistorialEventDetail.css'
+import { useParams, useNavigate } from 'react-router-dom'
+import { eventosEjemplo } from '../../lib/data/history/events-example'
+// Header is now handled by MainLayout
 
 const EventoDetalle: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const evento = eventosEjemplo.find(e => e.id === id);
+  const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
+  const evento = eventosEjemplo.find(e => e.id === id)
 
   if (!evento) {
-    return <div>Evento no encontrado</div>;
+    return <div>Evento no encontrado</div>
   }
 
   const handleMenuClick = () => {
-    console.log('Abrir menú');
-  };
+    console.log('Abrir menú')
+  }
   const handleNotificationClick = () => {
-    console.log('Abrir notificaciones');
-  };
+    console.log('Abrir notificaciones')
+  }
 
   const handleProfileClick = () => {
-    console.log('Abrir perfil');
-  };
-  
+    console.log('Abrir perfil')
+  }
+
   return (
     <div className="evento-detalle-container">
-      
-        <HeaderHistorial
-        title="Historial"
-        onMenuClick={handleMenuClick}
-        onNotificationClick={handleNotificationClick}
-        onProfileClick={handleProfileClick}
-      />
+      {/* Header is now handled by MainLayout */}
 
       <div className="detalle-card">
-        <button className="back-button" onClick={() => navigate(-1)}>← Regresar</button>
+        <button className="back-button" onClick={() => navigate(-1)}>
+          ← Regresar
+        </button>
         <img src={evento.image} alt={evento.title} className="detalle-image" />
         <span className="detalle-type">{evento.type}</span>
         <div className="detalle-title">{evento.title}</div>
@@ -45,7 +41,8 @@ const EventoDetalle: React.FC = () => {
           <span className="icon detalle-location">📍 Los Olivos - Lima</span>
         </div>
         <div className="detalle-description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua.
         </div>
         <div className="detalle-status">
           <span className="status-tag pending">
@@ -59,7 +56,7 @@ const EventoDetalle: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EventoDetalle;
+export default EventoDetalle

@@ -1,12 +1,12 @@
 import React from 'react'
-import HeaderBar from '@components/HeaderBar'
+import Header from '@components/common/Header/Header'
 import NotificationHistory from '@components/notification/NotificationHistory'
 
 const NotificationPage = () => {
   return (
     <>
       <div className="main-page-blue">
-        <HeaderBar title="Notificaciones" />
+        <Header title="Notificaciones" />
         <NotificationHistory notifications={[]} />
       </div>
     </>
