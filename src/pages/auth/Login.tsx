@@ -5,7 +5,6 @@ export default function Login() {
   return (
     <>
       <div className="main-page">
-        <Header title="UniEventos" />
         <LoginScreen />
       </div>
     </>
