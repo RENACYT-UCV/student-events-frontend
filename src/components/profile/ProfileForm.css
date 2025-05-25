@@ -4,12 +4,27 @@
   min-height: auto;
   position: relative;
   z-index: 10;
-  margin: -70px 10px 0 0; /* sobresale visualmente */
+  margin: -20px 10px 0 0; /* Vuelve al margen anterior */
   background-color: white;
   width: 100%;
-  padding: 20px 30px;
-  border-top-left-radius: 60px;
-  border-top-right-radius: 60px;
+  padding: 20px 30px; /* Vuelve al padding anterior */
+  border-top-left-radius: 0; /* Eliminando redondeo superior izquierdo */
+  border-top-right-radius: 0; /* Eliminando redondeo superior derecho */
+}
+
+.profile-form h2 {
+  font-family: 'Karla', sans-serif;
+  font-size: 36px; /* Agrandar un poco más el tamaño de la fuente */
+  font-weight: 700; /* Asegurar que sea negrita */
+  color: #DD2324; /* Usar el color rojo corporativo */
+  margin-bottom: 20px; /* Añadir espacio debajo del título */
+}
+
+.form-header-with-button {
+  display: flex;
+  justify-content: space-between; /* Distribuye el espacio entre los elementos */
+  align-items: center; /* Alinea verticalmente en el centro */
+  margin-bottom: 20px; /* Espacio debajo del contenedor */
 }
 
 .profile-form label {
@@ -34,14 +49,13 @@
 
 /* Estilo cuando estás editando */
 .profile-form.editing input {
-  border: 2px solid #DD2324; /* Azul corporativo o el color que tú elijas */
+  /* border: 2px solid #DD2324; */ /* Azul corporativo o el color que tú elijas */
 }
 
 .edit-button-wrapper {
   display: flex;
   justify-content: center;
 }
-
 
 .edit-button {
   display: inline-flex;           /* Alinea texto + icono horizontalmente */
@@ -61,7 +75,6 @@
   font-family: 'Karla', sans-serif;
   font-weight: 700;
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
-
 }
 
 .edit-button .icon-right {
@@ -74,18 +87,16 @@
   color: white;
 }
 
-
 /* Estilo especial para escritorio */
 @media screen and (min-width: 1024px) {
   .profile-form {
-    padding: 40px 50dvh;
+    padding: 40px 50dvh; /* Vuelve al padding anterior para escritorio */
   }
 
   .edit-button{
     width: 30%;
   }
 }
-
 
 .popup-overlay {
   position: fixed;
@@ -131,4 +142,25 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.edit-button-inline {
+  /* Reusar estilos del edit-button principal o definir nuevos */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  background-color: #DD2324;
+  color: white;
+  padding: 8px 12px; /* Ajustar padding para un botón más pequeño */
+  border: none;
+  border-radius: 15px;
+  font-size: 14px; /* Ajustar tamaño de fuente */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+}
+
+.edit-button-inline:hover {
+  background-color: #af1818;
 }
