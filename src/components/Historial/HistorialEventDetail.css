@@ -1,5 +1,6 @@
 /* Contenedor principal del detalle del evento */
 .evento-detalle-container {
+  padding-top: 4rem;
   min-height: 100vh;
   background: #faebee;
   flex-direction: column;
@@ -22,14 +23,28 @@
 }
 
 /* Botón de retroceso */
-.back-button {
-  background: none;
+.back-button1 {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border: none;
-  color: #222;
-  font-size: 16px;
-  cursor: pointer;
-  margin-bottom: 12px;
-  align-self: flex-start;
+  transition: background-color 0.3s;
+}
+
+.back-button1:hover {
+  background-color: #1d4ed8;
+}
+
+.back-button-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 1rem auto 0.5rem auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* Imagen del detalle del evento */
@@ -135,8 +150,91 @@
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+  .evento-detalle-container {
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .back-button-wrapper {
+    padding: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    justify-content: flex-start; /* 👈 Alineado a la izquierda */
+  }
+
+  .back-button1 {
+    max-width: 160px;
+    font-size: 14px;
+    padding: 0.6rem 1rem;
+  }
+
+  .detalle-card {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .detalle-image {
+    height: 130px;
+    border-radius: 10px;
+  }
+
+  .detalle-title {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .detalle-type {
+    font-size: 14px;
+  }
+
+  .detalle-description {
+    font-size: 14px;
+    text-align: justify;
+  }
+
+  .detalle-datetime {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    align-items: flex-start;
+  }
+
+  .status-tag {
+    font-size: 14px;
+    padding: 6px 16px;
+    flex-wrap: nowrap;
+  }
+
+  .detalle-status {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
 @media (max-width: 480px) {
   .detalle-card {
-    padding: 16px 6px 14px 6px;
+    padding: 1rem 0.75rem;
+  }
+
+  .back-button1 {
+    font-size: 13px;
+    padding: 0.5rem 0.8rem;
+    max-width: 140px;
+  }
+
+  .detalle-title {
+    font-size: 15px;
+  }
+
+  .detalle-description {
+    font-size: 13.5px;
+  }
+
+  .status-tag {
+    font-size: 13px;
+    padding: 6px 12px;
   }
 }
