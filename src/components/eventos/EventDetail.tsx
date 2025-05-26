@@ -1,20 +1,34 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getEventById, Event } from '../../services/event.service'
+import {
+  getEventById,
+  Event,
+  checkUserRegistration,
+  registerUserToEvent
+} from '../../services/event.service'
 import Button from '../common/Button'
+import { useUserId } from '../../store/auth.store'
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const userId = Number(useUserId())
   const [event, setEvent] = useState<Event | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isRegistered, setIsRegistered] = useState(false)
+  const [registering, setRegistering] = useState(false)
 
   useEffect(() => {
-    const fetchEvent = async () => {
+    const fetchEventAndRegistration = async () => {
       try {
-        if (!id) return
-        const data = await getEventById(parseInt(id))
-        setEvent(data)
+        if (!id || !userId) return
+        const eventId = parseInt(id)
+        const [eventData, registrationStatus] = await Promise.all([
+          getEventById(eventId),
+          checkUserRegistration(userId, eventId)
+        ])
+        setEvent(eventData)
+        setIsRegistered(registrationStatus)
         setLoading(false)
       } catch (err) {
         console.error('Error al cargar el evento:', err)
@@ -22,24 +36,51 @@ export default function EventDetail() {
       }
     }
 
-    fetchEvent()
-  }, [id])
+    fetchEventAndRegistration()
+  }, [id, userId])
+
+  const handleRegisterAttendance = async () => {
+    if (!id || !userId || registering || isRegistered) return
+
+    try {
+      setRegistering(true)
+      const eventId = parseInt(id)
+      await registerUserToEvent(userId, eventId)
+      setIsRegistered(true)
+      localStorage.setItem(
+        'successEvent',
+        JSON.stringify({
+          name: event?.name,
+          type: event?.eventType.title,
+          date: event?.eventDetails[0]?.startDate,
+          time: event?.eventDetails[0]?.startTime,
+          location: event?.eventDetails[0]?.location || 'Virtual',
+          image: '/assets/universidad.jpg'
+        })
+      )
+      navigate('/eventos/success')
+    } catch (error) {
+      console.error('Error al registrar asistencia:', error)
+    } finally {
+      setRegistering(false)
+    }
+  }
 
   if (loading || !event) return null
 
   const eventDetail = event.eventDetails[0]
-  const isVirtual = eventDetail?.modality?.toLowerCase() === 'virtual' || eventDetail?.location?.toLowerCase() === 'virtual'
+  const isVirtual =
+    eventDetail?.modality?.toLowerCase() === 'virtual' ||
+    eventDetail?.location?.toLowerCase() === 'virtual'
   const hasUrl = eventDetail?.url && eventDetail.url.trim() !== ''
 
   return (
     <div className="justify-center min-h-screen bg-pink-50">
-
       <img
         src="/assets/images/white-bg(1).png"
         alt=""
         className="fixed sm:top-5 md:top-30 left-0 w-full top h-full opacity-25 object-cover z-0"
       />
-      
 
       {/* Botón Regresar */}
       <div className="p-4">
@@ -52,7 +93,10 @@ export default function EventDetail() {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className='ml-2 cursor-pointer transform transition-transform duration-300 hover:scale-102'>Regresar</span>
+
+          <span className="ml-2 cursor-pointer transform transition-transform duration-300 hover:scale-102">
+            Regresar
+          </span>
         </button>
       </div>
 
@@ -93,8 +137,17 @@ export default function EventDetail() {
               </div>
               {/* Mostrar enlace de reunión si es virtual y tiene URL */}
               {isVirtual && hasUrl && (
-                <div className="flex items-center text-gray-600 text-sm">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div
+                  className="flex items-cent
+                   er text-gray
+                   -600 text-sm"
+                >
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -102,9 +155,9 @@ export default function EventDetail() {
                       d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                     />
                   </svg>
-                  <a 
-                    href={eventDetail.url} 
-                    target="_blank" 
+                  <a
+                    href={eventDetail.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline"
                   >
@@ -122,23 +175,15 @@ export default function EventDetail() {
           </div>
 
           <button
-            onClick={() => {
-              localStorage.setItem(
-                'successEvent',
-                JSON.stringify({
-                  name: event.name,
-                  type: event.eventType.title,
-                  date: event.eventDetails[0]?.startDate,
-                  time: event.eventDetails[0]?.startTime,
-                  location: event.eventDetails[0]?.location || 'Virtual',
-                  image: '/assets/universidad.jpg'
-                })
-              )
-              navigate('/eventos/success')
-            }}
-            className="w-full mt-6 bg-[#3cbe83] text-white py-3 rounded-lg font-medium hover:bg-[bg-[#0f7a4a]] transition-colors cursor-pointer"
+            onClick={handleRegisterAttendance}
+            disabled={registering || isRegistered}
+            className={`w-full mt-6 ${isRegistered ? 'bg-gray-400' : 'bg-[#3cbe83] hover:bg-[#0f7a4a]'} text-white py-3 rounded-lg font-medium transition-colors cursor-pointer ${registering ? 'opacity-70' : ''}`}
           >
-            MARCAR ASISTENCIA
+            {registering
+              ? 'REGISTRANDO...'
+              : isRegistered
+                ? 'ASISTENCIA REGISTRADA'
+                : 'MARCAR ASISTENCIA'}
           </button>
         </div>
       </div>

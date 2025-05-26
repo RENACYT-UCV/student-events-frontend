@@ -1,7 +1,4 @@
-// import { client } from '@lib/axios'
-import axios from 'axios'
-
-const API_URL = 'https://student-events-backend.onrender.com/api'
+import { client } from '@lib/axios'
 
 export interface Event {
   id: number
@@ -27,7 +24,7 @@ export interface Event {
 
 export const getAllEvents = async (): Promise<Event[]> => {
   try {
-    const response = await axios.get<Event[]>(`${API_URL}/events`)
+    const response = await client.get<Event[]>('/events')
     return response.data
   } catch (error) {
     console.error('Error fetching events:', error)
@@ -37,7 +34,7 @@ export const getAllEvents = async (): Promise<Event[]> => {
 
 export const getEventById = async (id: number): Promise<Event> => {
   try {
-    const response = await axios.get<Event>(`${API_URL}/events/${id}`)
+    const response = await client.get<Event>(`/events/${id}`)
     return response.data
   } catch (error) {
     console.error('Error fetching event:', error)
@@ -53,7 +50,7 @@ export interface EventType {
 
 export const getAllEventTypes = async (): Promise<EventType[]> => {
   try {
-    const response = await axios.get<EventType[]>(`${API_URL}/events/types`)
+    const response = await client.get<EventType[]>('/events/types')
     return response.data
   } catch (error) {
     console.error('Error fetching event types:', error)
@@ -61,6 +58,31 @@ export const getAllEventTypes = async (): Promise<EventType[]> => {
   }
 }
 
-// export const getAllEventsByUserId = async (userId: number): Promise<Event[]> => {
-//   // return client.get('/events/user', {)
-// }
+export const registerUserToEvent = async (userId: number, eventId: number): Promise<void> => {
+  try {
+    await client.post(`/events/${eventId}/register/${userId}`)
+  } catch (error) {
+    console.error('Error registering user to event:', error)
+    throw error
+  }
+}
+
+export const getUserRegistrations = async (userId: number): Promise<Event[]> => {
+  try {
+    const response = await client.get<Event[]>(`/events/user/${userId}/registrations`)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user registrations:', error)
+    throw error
+  }
+}
+
+export const checkUserRegistration = async (userId: number, eventId: number): Promise<boolean> => {
+  try {
+    const response = await client.get<boolean>(`/events/${eventId}/check-registration/${userId}`)
+    return response.data
+  } catch (error) {
+    console.error('Error checking user registration:', error)
+    throw error
+  }
+}

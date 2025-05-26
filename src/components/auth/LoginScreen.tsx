@@ -9,7 +9,7 @@ const LoginScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const navigate = useNavigate()
 
-  const { setAccessToken } = useAuthActions()
+  const { setAccessToken, login } = useAuthActions()
 
   const { loginAsync } = useLogin()
 
@@ -19,10 +19,17 @@ const LoginScreen: React.FC = () => {
     await loginAsync(
       { email, password },
       {
-        onSuccess: (data: { accessToken: string; refreshToken: string }) => {
+        onSuccess: (data: { userId: string; accessToken: string; refreshToken: string }) => {
           console.log('Inicio de sesión exitoso:', data)
-          setAccessToken(data.accessToken)
-          setAccessToken(data.refreshToken)
+          login(
+            {
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken
+            },
+            {
+              userId: data.userId
+            }
+          )
         }
       }
     )
@@ -40,7 +47,7 @@ const LoginScreen: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-red-600 flex flex-col items-center">
+    <div className="h-dvh bg-red-600 flex flex-col items-center">
       {/* Encabezado UniEventos directamente aquí */}
       <div className="w-full bg-red-600 py-6 shadow-md">
         <h1 className="text-3xl font-extrabold text-white text-center">UniEventos</h1>

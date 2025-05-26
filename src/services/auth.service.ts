@@ -1,4 +1,4 @@
-import { client } from '../lib/axios'
+import { authClient } from '../lib/axios'
 
 export type AuthUser = {
   email: string
@@ -6,5 +6,5 @@ export type AuthUser = {
 }
 
 export const loginAuth = async (data: AuthUser) => {
-  return client.post('/auth/login', data).then(response => response.data)
+  return authClient.post('/auth/login', data).then(response => response.data)
 }
