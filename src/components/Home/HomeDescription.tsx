@@ -19,7 +19,7 @@ const HomeDescription: React.FC = () => {
 
               <div className="home-text ">
                 <h1>
-                  Bienvenido, <span id="user-name-home">user</span> !
+                  Bienvenido, <span id="user-name">user</span> !
                 </h1>
               </div>
 
