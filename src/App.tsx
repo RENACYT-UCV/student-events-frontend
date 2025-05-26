@@ -5,11 +5,26 @@ import { useAuthActions } from '@store/auth.store'
 import { useEffect } from 'react'
 
 export default function App() {
-  const { loadTokens } = useAuthActions()
+  const { setAccessToken, setRefreshToken, setUserId } = useAuthActions()
 
   useEffect(() => {
+    const loadTokens = () => {
+      const storedAccessToken = localStorage.getItem('accessToken')
+      const storedRefreshToken = localStorage.getItem('refreshToken')
+      const storedUserId = localStorage.getItem('userId')
+
+      if (storedAccessToken) {
+        setAccessToken(storedAccessToken)
+      }
+      if (storedRefreshToken) {
+        setRefreshToken(storedRefreshToken)
+      }
+      if (storedUserId) {
+        setUserId(storedUserId)
+      }
+    }
     loadTokens()
-  }, [])
+  }, [setAccessToken, setRefreshToken, setUserId])
 
   return (
     <Router>

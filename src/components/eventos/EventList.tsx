@@ -44,13 +44,12 @@ export default function EventList() {
 
   return (
     <div className="justify-center min-h-screen bg-pink-50">
-
       <img
         src="/assets/images/white-bg(1).png"
         alt=""
         className="fixed sm:top-5 md:top-30 left-0 w-full top h-full opacity-25 object-cover z-0"
       />
-      
+
       {/* Main Content */}
       <div className="px-4 py-6 mx-auto max-w-5xl sm:px-6 md:px-8 ">
         <EventTypeSelect
