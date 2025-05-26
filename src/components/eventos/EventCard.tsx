@@ -24,7 +24,7 @@ export default function EventCard({
 
   return (
     <div
-      className="bg-white rounded-xl overflow-hidden shadow-lg p-4 cursor-pointer"
+      className="bg-white rounded-xl relative z-10 overflow-hidden shadow-lg p-4 cursor-pointer transform transition-transform duration-300 hover:scale-102"
       onClick={() => navigate(`/eventos/${id}`)}
     >
       {image && <img src={image} alt={title} className="w-full h-48 object-cover rounded-xl" />}

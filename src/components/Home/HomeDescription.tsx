@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './HomeDescription.css'
 
 const HomeDescription: React.FC = () => {
-  const [userName, setUserName] = useState('')
+  // const [userName, setUserName] = useState('')
 
-  useEffect(() => {
-    // Simulate fetching user data
-    const fetchUserData = async () => {
-      const userId = localStorage.getItem('userId')
-      if (userId) {
-        try {
-          const response = await fetch(
-            `https://student-events-backend.onrender.com/api/user/${userId}`
-          )
-          const userData = await response.json()
-          setUserName(userData.username || userData.email)
-        } catch (error) {
-          console.error('Error fetching user data:', error)
-        }
-      }
-    }
-    fetchUserData()
-  }, [])
+  // useEffect(() => {
+  //   // Simulate fetching user data
+  //   const fetchUserData = async () => {
+  //     const userId = localStorage.getItem('userId')
+  //     if (userId) {
+  //       try {
+  //         const response = await fetch(
+  //           `https://student-events-backend.onrender.com/api/user/${userId}`
+  //         )
+  //         const userData = await response.json()
+  //         setUserName(userData.username || userData.email)
+  //       } catch (error) {
+  //         console.error('Error fetching user data:', error)
+  //       }
+  //     }
+  //   }
+  //   fetchUserData()
+  // }, [])
 
   return (
     <div className="home-body-container">
@@ -36,7 +36,7 @@ const HomeDescription: React.FC = () => {
           <div className="home-content">
             <div className="home-text">
               <h1>
-                Hola, <span id="user-name">{userName || 'Usuario'}</span>
+                Hola, <span id="user-name">XXXXXXXX</span>
               </h1>
             </div>
 

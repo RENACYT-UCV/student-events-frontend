@@ -27,35 +27,19 @@ export default function EventDetail() {
 
   if (loading || !event) return null
 
+  const eventDetail = event.eventDetails[0]
+  const isVirtual = eventDetail?.modality?.toLowerCase() === 'virtual' || eventDetail?.location?.toLowerCase() === 'virtual'
+  const hasUrl = eventDetail?.url && eventDetail.url.trim() !== ''
+
   return (
-    <div className="min-h-screen bg-pink-50">
-      {/* Header */}
-      <div className="bg-blue-600 p-4 flex items-center justify-between">
-        <button className="text-white">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-        <h1 className="text-white text-2xl font-normal">Eventos</h1>
-        <div className="flex items-center space-x-4">
-          <button className="text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-          </button>
-          <div className="w-6 h-6 rounded-full bg-white"></div>
-        </div>
-      </div>
+    <div className="justify-center min-h-screen bg-pink-50">
+
+      <img
+        src="/assets/images/white-bg(1).png"
+        alt=""
+        className="fixed sm:top-5 md:top-30 left-0 w-full top h-full opacity-25 object-cover z-0"
+      />
+      
 
       {/* Botón Regresar */}
       <div className="p-4">
@@ -68,13 +52,13 @@ export default function EventDetail() {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span>Regresar</span>
+          <span className='ml-2 cursor-pointer transform transition-transform duration-300 hover:scale-102'>Regresar</span>
         </button>
       </div>
 
       {/* Contenido del evento */}
-      <div className="px-4">
-        <div className="bg-white rounded-lg shadow p-4">
+      <div className="relative z-10 space-y-4 mt-6 mx-auto px-4 sm:px-6 md:px-1 lg:max-w-6xl cursor-pointer">
+        <div className="bg-white rounded-xl shadow p-4 transform transition-transform duration-300 hover:scale-102">
           <img
             src="/assets/universidad.jpg"
             alt={event.name}
@@ -107,23 +91,27 @@ export default function EventDetail() {
                 </svg>
                 <span>{event.eventDetails[0].startTime}</span>
               </div>
-              <div className="flex items-center text-gray-600 text-sm">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                <span>{event.eventDetails[0].location || 'Virtual'}</span>
-              </div>
+              {/* Mostrar enlace de reunión si es virtual y tiene URL */}
+              {isVirtual && hasUrl && (
+                <div className="flex items-center text-gray-600 text-sm">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <a 
+                    href={eventDetail.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    Unirse a la reunión virtual
+                  </a>
+                </div>
+              )}
             </div>
           )}
 
@@ -148,7 +136,7 @@ export default function EventDetail() {
               )
               navigate('/eventos/success')
             }}
-            className="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            className="w-full mt-6 bg-[#3cbe83] text-white py-3 rounded-lg font-medium hover:bg-[bg-[#0f7a4a]] transition-colors cursor-pointer"
           >
             MARCAR ASISTENCIA
           </button>

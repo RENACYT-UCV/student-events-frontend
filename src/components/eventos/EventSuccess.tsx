@@ -21,7 +21,7 @@ export default function EventSuccess() {
   return (
     <div className="min-h-screen bg-pink-50">
       {/* Header */}
-      <div className="bg-blue-600 p-4 flex items-center justify-between relative">
+      {/* <div className="bg-blue-600 p-4 flex items-center justify-between relative">
         <button className="text-white z-10">
           <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -48,7 +48,13 @@ export default function EventSuccess() {
           </button>
           <div className="w-8 h-8 bg-white rounded-full"></div>
         </div>
-      </div>
+      </div> */}
+
+      <img
+        src="/assets/images/white-bg(1).png"
+        alt=""
+        className="fixed sm:top-5 md:top-30 left-0 w-full top h-full opacity-20 object-cover z-0"
+      />
 
       {/* Back Button */}
       <div className="bg-pink-50 p-4 flex items-center space-x-2">
@@ -61,29 +67,24 @@ export default function EventSuccess() {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className="ml-2">Regresar</span>
+          <span className="ml-2 cursor-pointer transform transition-transform duration-300 hover:scale-102">Regresar</span>
         </button>
       </div>
 
       {/* Success Content */}
-      <div className="p-8 flex flex-col items-center space-y-6">
-        <div className="w-20 h-20 rounded-full bg-white border-4 border-green-500 flex items-center justify-center">
-          <svg
-            className="w-12 h-12 text-green-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
+      <div className="relative z-10 px-8 flex flex-col items-center">
+          <img
+            src="/assets/images/check_icon.gif"
+            alt="Descripción"
+            className="w-25 h-25 object-contain"
+          />
 
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">¡Nos vemos ahí!</h2>
+        <div className="text-center mb-4">
+          <h2 className="text-2xl font-bold">¡Nos vemos ahí!</h2>
           <p className="text-gray-600">Evento registrado con éxito</p>
         </div>
 
-        <div className="w-full max-w-md bg-white rounded-lg overflow-hidden shadow-lg">
+        <div className="w-full max-w-md bg-white rounded-xl overflow-hidden shadow-lg mb-5">
           <img src={event.image} alt={event.name} className="w-full h-48 object-cover" />
           <div className="p-4 space-y-2">
             <span className="text-sm text-gray-500">{event.type}</span>
@@ -132,7 +133,8 @@ export default function EventSuccess() {
 
         <button
           onClick={() => navigate('/eventos')}
-          className="w-full max-w-md bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          className="w-full max-w-md bg-[#3145ac] text-white py-3 rounded-lg font-medium
+           hover:bg-[#213184]] transition-colors cursor-pointer transform transition-transform duration-300 hover:scale-102 mb-30"
         >
           Ver más Eventos
         </button>

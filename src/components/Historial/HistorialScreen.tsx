@@ -14,11 +14,41 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setEventos(eventosEjemplo)
-      setIsLoading(false)
-    }, 800)
+    const fetchEventos = async () => {
+      setIsLoading(true)
+      try {
+        // Usamos directamente el ID 1 para pruebas
+        const userId = 1
+        const response = await fetch(`http://localhost:3000/api/user/${userId}/event-history`)
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos')
+        }
+        const data = await response.json()
+
+        // Transformar los datos recibidos al formato que espera el componente
+        const eventosFormateados = data.map((registro: any) => ({
+          id: registro.event.id.toString(),
+          title: registro.event.eventDetails.title,
+          date: new Date(registro.event.eventDetails.startDate).toLocaleDateString(),
+          hour: new Date(registro.event.eventDetails.startDate).toLocaleTimeString(),
+          type: registro.event.eventDetails.type || 'Sin categoría',
+          status: registro.assistances.length > 0 ? 'Registrado' : 'Pendiente',
+          asistence: registro.assistances.length > 0 
+            ? (registro.assistances[0].status ? 'Asistió' : 'No asistió')
+            : 'Pendiente',
+          image: registro.event.eventDetails.image || undefined,
+          category: registro.event.eventDetails.category || undefined
+        }))
+
+        setEventos(eventosFormateados)
+      } catch (error) {
+        console.error('Error al cargar el historial:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchEventos()
   }, [])
 
   const handleMenuClick = () => {
