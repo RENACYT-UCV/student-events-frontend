@@ -3,46 +3,81 @@ import './HistorialEventDetail.css'
 import { useParams, useNavigate } from 'react-router-dom'
 import { eventosEjemplo } from '../../lib/data/history/events-example'
 import { useAccessToken } from '@/store/auth.store'
+import { useQuery } from '@tanstack/react-query'
 
 const EventoDetalle: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const accessToken = useAccessToken()
-  const [evento, setEvento] = useState<any>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  // const [evento, setEvento] = useState<any>(null)
+  // const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  useEffect(() => {
-    const fetchEventDetail = async () => {
+  const {
+    data: evento,
+    isLoading,
+    isError,
+    isSuccess
+  } = useQuery({
+    queryKey: ['eventDetail', id],
+    queryFn: async () => {
       if (!id || !accessToken) {
-        setIsLoading(false)
-        return // Don't fetch if id or accessToken is not available
+        return Promise.reject(new Error('No event ID or access token found'))
       }
-      setIsLoading(true)
-      try {
-        const response = await fetch(`http://localhost:3000/api/event/${id}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        })
-        if (!response.ok) {
-          throw new Error('Error al obtener los detalles del evento')
+      const response = await fetch(`https://student-events-backend-kypp.onrender.com/event/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
         }
-        const data = await response.json()
-        // Transform data if necessary to match the expected structure
-        setEvento(data)
-      } catch (error) {
-        console.error('Error al cargar los detalles del evento:', error)
-        setEvento(null) // Clear event on error
-      } finally {
-        setIsLoading(false)
-      }
-    }
+      })
 
-    fetchEventDetail()
-  }, [id, accessToken]) // Depend on id and accessToken
+      if (!response.ok) {
+        throw new Error('Error al obtener los detalles del evento')
+      }
+      return response.json()
+    },
+    enabled: !!id && !!accessToken // Only run the query if id and accessToken are available
+  })
+
+  // useEffect(() => {
+  //   const fetchEventDetail = async () => {
+  //     if (!id || !accessToken) {
+  //       setIsLoading(false)
+  //       return // Don't fetch if id or accessToken is not available
+  //     }
+  //     setIsLoading(true)
+  //     try {
+  //       const response = await fetch(
+  //         `https://student-events-backend-kypp.onrender.com/event/${id}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`
+  //           }
+  //         }
+  //       )
+
+  //       if (!response.ok) {
+  //         throw new Error('Error al obtener los detalles del evento')
+  //       }
+
+  //       const data = await response.json()
+  //       // Transform data if necessary to match the expected structure
+  //       setEvento(data)
+  //     } catch (error) {
+  //       console.error('Error al cargar los detalles del evento:', error)
+  //       setEvento(null) // Clear event on error
+  //     } finally {
+  //       setIsLoading(false)
+  //     }
+  //   }
+
+  //   fetchEventDetail()
+  // }, [id, accessToken]) // Depend on id and accessToken
 
   if (isLoading) {
     return <div>Cargando detalles del evento...</div>
+  }
+
+  if (isError) {
+    return <div>Error al cargar los detalles del evento.</div>
   }
 
   if (!evento) {

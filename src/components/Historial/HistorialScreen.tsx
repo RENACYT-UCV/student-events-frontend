@@ -82,7 +82,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const handleExportPDF = async () => {
     if (!userId || !accessToken) {
       console.error('User ID or Access Token not available')
-      setIsLoading(false)
+      // Optionally, show a user-friendly message here
       return
     }
     setIsLoading(true)
@@ -97,7 +97,11 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
       )
 
       if (!response.ok) {
-        throw new Error('Error al generar el PDF')
+        // Attempt to read error message from response if available
+        const errorText = await response.text()
+        throw new Error(
+          `Error al generar el PDF: ${response.status} ${response.statusText} - ${errorText}`
+        )
       }
 
       const blob = await response.blob()
@@ -109,8 +113,14 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
       a.click()
       a.remove()
       window.URL.revokeObjectURL(url)
+      alert('PDF generado y descargado exitosamente.')
     } catch (error) {
       console.error('Error al exportar PDF:', error)
+      alert(
+        `Error al exportar PDF: ${(error as Error).message}. Por favor, inténtalo de nuevo más tarde.`
+      )
+    } finally {
+      setIsLoading(false)
     }
   }
 
