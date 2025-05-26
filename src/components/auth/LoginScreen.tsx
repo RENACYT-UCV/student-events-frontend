@@ -47,18 +47,9 @@ const LoginScreen: React.FC = () => {
       </div>
 
       {/* Contenedor principal */}
-      <div className="relative w-full max-w-md bg-gray-100 shadow-2xl rounded-3xl px-6 py-8 mt-20 mx-4">
+      <div className="relative lg:w-full mt-10 max-w-md md:w-20 md:mt-10  bg-gray-100 shadow-2xl rounded-3xl px-6 py-8  mb-30 mx-4">
         {/* Decoraciones */}
-        <div className="absolute -top-12 -left-12 w-24 h-24 bg-white opacity-10 rounded-full" />
-        <div
-          className="absolute top-4 -right-8 w-24 h-24 bg-red-300 opacity-30 rounded-lg"
-          style={{ transform: 'rotate(25deg)' }}
-        />
-        <div className="absolute -bottom-12 -left-8 w-20 h-20 bg-sky-400 opacity-40 rounded-full" />
-        <div
-          className="absolute -bottom-14 -right-6 w-28 h-28 bg-green-200 opacity-30 rounded-lg"
-          style={{ transform: 'rotate(-15deg)' }}
-        />
+
 
         {/* Logo o ilustración */}
         <div className="flex justify-center mb-4 relative z-10">

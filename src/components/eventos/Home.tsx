@@ -27,19 +27,7 @@ export default function Home() {
     <div className="home-events-container">
       {/* Contenedor principal */}
       <div className="bg-white top-0 relative z-10 rounded-3xl mt-[-1rem] p-8 mx-auto max-w-3xl">
-        {/* Eventos de hoy */}
-        <h2 className="text-2xl font-extrabold text-red-500 mb-4 select-none ">MIS EVENTOS DE HOY</h2>
-        <div className="flex flex-col gap-4">
-          {eventosHoy.map(evento => (
-            <div key={evento.id} className="flex items-center shadow-md rounded-lg p-4">
-              {/* Imagen opcional aquí */}
-              <div>
-                <h3 className="text-indigo-600 font-semibold">{evento.name}</h3>
-                {/* Detalles opcionales aquí */}
-              </div>
-            </div>
-          ))}
-        </div>
+
 
         {/* Próximos eventos */}
         <h2 className="text-2xl font-extrabold text-red-500 mt-8 mb-4 select-none">MIS PRÓXIMOS EVENTOS</h2>
