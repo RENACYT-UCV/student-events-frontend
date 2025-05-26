@@ -9,7 +9,7 @@ const LoginScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const navigate = useNavigate()
 
-  const { setAccessToken } = useAuthActions()
+  const { setAccessToken, setRefreshToken } = useAuthActions()
 
   const { loginAsync } = useLogin()
 
@@ -22,7 +22,7 @@ const LoginScreen: React.FC = () => {
         onSuccess: (data: { accessToken: string; refreshToken: string }) => {
           console.log('Inicio de sesión exitoso:', data)
           setAccessToken(data.accessToken)
-          setAccessToken(data.refreshToken)
+          setRefreshToken(data.refreshToken)
         }
       }
     )

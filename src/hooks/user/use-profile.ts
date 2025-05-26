@@ -13,7 +13,7 @@ export function useProfile() {
         return Promise.reject(new Error('No access token found'))
       }
 
-      return fetch('http://localhost:3000/api/user/profile', {
+      return fetch('https://student-events-backend.onrender.com/api/user/profile', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
