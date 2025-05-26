@@ -15,7 +15,7 @@ export function useUserAndDetail(userId: string | undefined) {
       }
 
       const response = await fetch(
-        `https://student-events-backend.onrender.com/api/user/${userId}`,
+        `https://student-events-backend-kypp.onrender.com/api/user/${userId}`,
         {
           method: 'GET',
           headers: {

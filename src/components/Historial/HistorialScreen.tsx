@@ -26,7 +26,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
         // Usamos directamente el ID 1 para pruebas
         // const userId = 1 // Remove this line
         const response = await fetch(
-          ` https://student-events-backend.onrender.com/api/user/${userId}/event-history`,
+          ` https://student-events-backend-kypp.onrender.com/api/user/${userId}/event-history`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -88,7 +88,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     setIsLoading(true)
     try {
       const response = await fetch(
-        `https://student-events-backend.onrender.com/pdf/usuario-eventos?userId=${userId}`,
+        `https://student-events-backend-kypp.onrender.com/pdf/usuario-eventos?userId=${userId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`

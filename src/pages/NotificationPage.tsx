@@ -27,11 +27,14 @@ const NotificationPage = () => {
       }
 
       try {
-        const response = await fetch('https://student-events-backend.onrender.com/announcements', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
+        const response = await fetch(
+          'https://student-events-backend-kypp.onrender.com/announcements',
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
           }
-        })
+        )
         if (!response.ok) {
           throw new Error('Error al obtener las notificaciones')
         }

@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { getAccessToken } from '@store/auth.store'
 
-const API_URL = 'https://student-events-backend.onrender.com/api'
+const API_URL = 'https://student-events-backend-kypp.onrender.com/api'
 
 export interface Event {
   id: number

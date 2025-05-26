@@ -18,7 +18,7 @@ export function useEventTypes() {
     if (!accessToken) return
 
     axios
-      .get('https://student-events-backend.onrender.com/api/events/types', {
+      .get('https://student-events-backend-kypp.onrender.com/api/events/types', {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -46,7 +46,7 @@ export function useEvents() {
         return Promise.reject(new Error('No access token found'))
       }
 
-      return fetch('https://student-events-backend.onrender.com/api/events', {
+      return fetch('https://student-events-backend-kypp.onrender.com/api/events', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
