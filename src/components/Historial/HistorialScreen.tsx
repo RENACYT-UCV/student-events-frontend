@@ -167,11 +167,18 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     <div className="historial-mobile-container">
       {/* Content */}
       <div className="mobile-content">
+
+        <div className='historial-header-icon-container'>
+          <div className='historial-header-icon'>
+            <img src="/assets/images/historialIcon.gif" alt="CheckIconGIF" />
+          </div>
+        </div>
+
         {/* Title Section */}
         <div className="title-container">
           <div className="title-section">
             <div className="title-left">
-              <h2 className="main-title">Historial</h2>
+              <h2 className="main-title">HISTORIAL</h2>
               <p className="subtitle">de Eventos</p>
             </div>
             <button className="pdf-button" onClick={handleExportPDF}>

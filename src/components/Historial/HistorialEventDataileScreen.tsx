@@ -97,12 +97,14 @@ const EventoDetalle: React.FC = () => {
 
   return (
     <div className="evento-detalle-container">
+
+      <button className="back-button" onClick={() => navigate(-1)}>
+          ← Regresar
+        </button>
       {/* Header is now handled by MainLayout */}
 
       <div className="detalle-card">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          ← Regresar
-        </button>
+        
         <img src={evento.image} alt={evento.title} className="detalle-image" />
         <span className="detalle-type">{evento.type}</span>
         <div className="detalle-title">{evento.title}</div>
