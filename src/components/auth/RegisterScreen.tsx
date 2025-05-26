@@ -26,7 +26,7 @@ const RegisterScreen: React.FC = () => {
 
     // Aquí iría la lógica de registro - Reemplazar con llamada a la API
     try {
-      const response = await fetch('https://student-events-backend-kypp.onrender.com/api/user', {
+      const response = await fetch('https://student-events-backend-kypp.onrender.com/api/auth/register', {
         // Use fetch API
         method: 'POST',
         headers: {
