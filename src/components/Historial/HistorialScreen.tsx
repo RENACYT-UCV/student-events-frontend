@@ -82,8 +82,10 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const handleExportPDF = async () => {
     if (!userId || !accessToken) {
       console.error('User ID or Access Token not available')
+      setIsLoading(false)
       return
     }
+    setIsLoading(true)
     try {
       const response = await fetch(
         `https://student-events-backend.onrender.com/pdf/usuario-eventos?userId=${userId}`,
