@@ -21,7 +21,6 @@ export default function Home() {
   }, [])
 
   // You might want to filter allEvents into eventosHoy and proximosEventos based on date
-  const eventosHoy: Event[] = [] // Filter logic here
   const proximosEventos: Event[] = allEvents // For now, display all events as upcoming
 
   return (

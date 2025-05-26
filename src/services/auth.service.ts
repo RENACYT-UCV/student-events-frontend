@@ -5,6 +5,6 @@ export type AuthUser = {
   password: string
 }
 
-export const login = async (data: AuthUser) => {
+export const loginAuth = async (data: AuthUser) => {
   return client.post('/auth/login', data).then(response => response.data)
 }

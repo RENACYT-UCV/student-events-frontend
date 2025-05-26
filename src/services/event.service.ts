@@ -1,4 +1,6 @@
+// import { client } from '@lib/axios'
 import axios from 'axios'
+import { getAccessToken } from '@store/auth.store'
 
 const API_URL = 'https://student-events-backend.onrender.com/api'
 
@@ -26,7 +28,12 @@ export interface Event {
 
 export const getAllEvents = async (): Promise<Event[]> => {
   try {
-    const response = await axios.get<Event[]>(`${API_URL}/events`)
+    const token = getAccessToken()
+    const response = await axios.get<Event[]>(`${API_URL}/events`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     return response.data
   } catch (error) {
     console.error('Error fetching events:', error)
@@ -36,7 +43,12 @@ export const getAllEvents = async (): Promise<Event[]> => {
 
 export const getEventById = async (id: number): Promise<Event> => {
   try {
-    const response = await axios.get<Event>(`${API_URL}/events/${id}`)
+    const token = getAccessToken()
+    const response = await axios.get<Event>(`${API_URL}/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     return response.data
   } catch (error) {
     console.error('Error fetching event:', error)
@@ -52,7 +64,12 @@ export interface EventType {
 
 export const getAllEventTypes = async (): Promise<EventType[]> => {
   try {
-    const response = await axios.get<EventType[]>(`${API_URL}/events/types`)
+    const token = getAccessToken()
+    const response = await axios.get<EventType[]>(`${API_URL}/events/types`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     return response.data
   } catch (error) {
     console.error('Error fetching event types:', error)
@@ -60,4 +77,6 @@ export const getAllEventTypes = async (): Promise<EventType[]> => {
   }
 }
 
-// You can add other event-related API calls here later
+// export const getAllEventsByUserId = async (userId: number): Promise<Event[]> => {
+//   // return client.get('/events/user', {)
+// }

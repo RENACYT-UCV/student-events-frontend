@@ -1,66 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import './ProfileForm.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import './ProfileForm.css'
+// import { useLocation, useNavigate } from 'react-router-dom'
+// import { useAccessToken } from '@store/auth.store'
+import { useProfile } from '@/hooks/user/use-profile'
 
 const ProfileForm: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  // const location = useLocation()
+  // const navigate = useNavigate()
 
-  const [showPopup, setShowPopup] = useState(false);
-  const [isFormEditable, setIsFormEditable] = useState(false);
-  const [hasChanges, setHasChanges] = useState(false);
+  const [showPopup, setShowPopup] = useState(false)
+  const [isFormEditable, setIsFormEditable] = useState(false)
+  const [hasChanges, setHasChanges] = useState(false)
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    correo: '',
+    carrera: '',
+    telefono: '',
+    codigo_alumno: ''
+  })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!isFormEditable || !hasChanges) return;
-
-    const form = e.target as HTMLFormElement;
-    const data = {
-      nombre: form.nombre.value,
-      apellido: form.apellido.value,
-      correo: form.correo.value,
-      carrera: form.carrera.value,
-      telefono: form.telefono.value,
-      codigo_alumno: form.codigo_alumno.value,
-    };
-
-    console.log('Datos enviados:', data);
-    setShowPopup(true);
-    setIsFormEditable(false);
-    setHasChanges(false);
-  };
-
-  const handleEditClick = () => {
-    setIsFormEditable(true);
-    setHasChanges(false);
-  };
-
-  const handleInputChange = () => {
-    if (isFormEditable) {
-      setHasChanges(true);
-    }
-  };
+  const { profile, proifileLoading } = useProfile()
+  console.log('ProfileForm rendered', profile)
 
   useEffect(() => {
-    if (showPopup) {
-      const timer = setTimeout(() => {
-        setShowPopup(false);
-        // Puedes redirigir si deseas: navigate('/profile');
-      }, 1500);
-      return () => clearTimeout(timer);
+    if (profile) {
+      setFormData({
+        nombre: profile.name || '',
+        apellido: profile.lastName || '',
+        correo: profile.email || '',
+        carrera: profile.school?.name || '',
+        telefono: profile.phoneNumber || '',
+        codigo_alumno: profile.studentCode || ''
+      })
     }
-  }, [showPopup]);
+  }, [profile])
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!isFormEditable || !hasChanges) return
+
+    // const form = e.target as HTMLFormElement
+    // const data = {
+    //   nombre: form.nombre.value,
+    //   apellido: form.apellido.value,
+    //   correo: form.correo.value,
+    //   carrera: form.carrera.value,
+    //   telefono: form.telefono.value,
+    //   codigo_alumno: form.codigo_alumno.value
+    // }
+
+    console.log('Datos enviados:', formData)
+    // TODO: Implement actual API call to update profile
+    setShowPopup(true)
+    setIsFormEditable(false)
+    setHasChanges(false)
+  }
+
+  const handleEditClick = () => {
+    setIsFormEditable(true)
+    setHasChanges(false)
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isFormEditable) {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      })
+      setHasChanges(true)
+    }
+  }
+
+  // useEffect(() => {
+  //   if (showPopup) {
+  //     const timer = setTimeout(() => {
+  //       setShowPopup(false)
+  //       // Puedes redirigir si deseas: navigate('/profile');
+  //     }, 1500)
+  //     return () => clearTimeout(timer)
+  //   }n  // }, [showPopup])
 
   return (
     <>
       <form className={`profile-form ${isFormEditable ? 'editing' : ''}`} onSubmit={handleSubmit}>
         <div className="form-header-with-button">
-          <h2>Información Personal</h2>
+          <h2 className="text-8xl">Información Personal</h2>
           {!isFormEditable && (
             <button type="button" className="edit-button-inline" onClick={handleEditClick}>
               Editar Perfil
-              <img src='/assets/images/editIcon_darkMode.svg' alt="Editar" className="icon-right" width={20} />
+              <img
+                src="/assets/images/editIcon_darkMode.svg"
+                alt="Editar"
+                className="icon-right"
+                width={20}
+              />
             </button>
           )}
         </div>
@@ -71,8 +106,7 @@ const ProfileForm: React.FC = () => {
           id="nombre"
           name="nombre"
           disabled={!isFormEditable}
-          placeholder="Juan Nicolás"
-          required
+          value={formData.nombre}
           onChange={handleInputChange}
         />
 
@@ -82,8 +116,7 @@ const ProfileForm: React.FC = () => {
           id="apellido"
           name="apellido"
           disabled={!isFormEditable}
-          placeholder="Pérez Nuñez"
-          required
+          value={formData.apellido}
           onChange={handleInputChange}
         />
 
@@ -92,9 +125,8 @@ const ProfileForm: React.FC = () => {
           type="email"
           id="correo"
           name="correo"
-          disabled={!isFormEditable}
-          placeholder="juanNicolas123@correo.com"
-          required
+          disabled={true} // Correo should not be editable
+          value={formData.correo}
           onChange={handleInputChange}
         />
 
@@ -103,9 +135,8 @@ const ProfileForm: React.FC = () => {
           type="text"
           id="carrera"
           name="carrera"
-          disabled={!isFormEditable}
-          placeholder="Ingeniería de Sistemas"
-          required
+          disabled={true} // Carrera should not be editable
+          value={formData.carrera}
           onChange={handleInputChange}
         />
 
@@ -115,8 +146,7 @@ const ProfileForm: React.FC = () => {
           id="telefono"
           name="telefono"
           disabled={!isFormEditable}
-          placeholder="987654321"
-          required
+          value={formData.telefono}
           onChange={handleInputChange}
         />
 
@@ -125,9 +155,8 @@ const ProfileForm: React.FC = () => {
           type="text"
           id="codigo_alumno"
           name="codigo_alumno"
-          disabled={!isFormEditable}
-          placeholder="U12345678"
-          required
+          disabled={true} // Código Alumno should not be editable
+          value={formData.codigo_alumno}
           onChange={handleInputChange}
         />
 
@@ -141,8 +170,8 @@ const ProfileForm: React.FC = () => {
                 type="button"
                 className="cancel-button"
                 onClick={() => {
-                  setIsFormEditable(false);
-                  setHasChanges(false);
+                  setIsFormEditable(false)
+                  setHasChanges(false)
                   // navigate('/profile'); // Descomenta si quieres volver a la vista anterior
                 }}
               >
@@ -156,18 +185,13 @@ const ProfileForm: React.FC = () => {
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <img
-              src="/assets/images/checkIcon.svg"
-              alt="check"
-              className="popup-icon"
-              width={60}
-            />
+            <img src="/assets/images/checkIcon.svg" alt="check" className="popup-icon" width={60} />
             <p className="popup-text">¡Cambios guardados exitosamente!</p>
           </div>
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ProfileForm;
+export default ProfileForm

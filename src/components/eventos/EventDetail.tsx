@@ -27,6 +27,10 @@ export default function EventDetail() {
 
   if (loading || !event) return null
 
+  const eventDetail = event.eventDetails[0]
+  const isVirtual = eventDetail?.modality?.toLowerCase() === 'virtual' || eventDetail?.location?.toLowerCase() === 'virtual'
+  const hasUrl = eventDetail?.url && eventDetail.url.trim() !== ''
+
   return (
     <div className="justify-center min-h-screen bg-pink-50">
 
@@ -87,23 +91,27 @@ export default function EventDetail() {
                 </svg>
                 <span>{event.eventDetails[0].startTime}</span>
               </div>
-              <div className="flex items-center text-gray-600 text-sm">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                <span>{event.eventDetails[0].location || 'Virtual'}</span>
-              </div>
+              {/* Mostrar enlace de reunión si es virtual y tiene URL */}
+              {isVirtual && hasUrl && (
+                <div className="flex items-center text-gray-600 text-sm">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <a 
+                    href={eventDetail.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    Unirse a la reunión virtual
+                  </a>
+                </div>
+              )}
             </div>
           )}
 
