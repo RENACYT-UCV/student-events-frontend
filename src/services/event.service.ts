@@ -1,4 +1,4 @@
-import { client } from '@lib/axios'
+// import { client } from '@lib/axios'
 import axios from 'axios'
 
 const API_URL = 'https://student-events-backend.onrender.com/api'
@@ -61,6 +61,6 @@ export const getAllEventTypes = async (): Promise<EventType[]> => {
   }
 }
 
-export const getAllEventsByUserId = async (userId: number): Promise<Event[]> => {
-  // return client.get('/events/user', {)
-}
+// export const getAllEventsByUserId = async (userId: number): Promise<Event[]> => {
+//   // return client.get('/events/user', {)
+// }
