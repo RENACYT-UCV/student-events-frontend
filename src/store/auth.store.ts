@@ -89,7 +89,6 @@ export type ExtractState<S> = S extends {
 type Params<U> = Parameters<typeof useStore<typeof authStore, U>>
 
 const accessTokenSelector = (state: ExtractState<typeof authStore>) => state.accessToken
-
 const refreshTokenSelector = (state: ExtractState<typeof authStore>) => state.refreshToken
 const actionsSelector = (state: ExtractState<typeof authStore>) => state.actions
 const userSelector = (state: ExtractState<typeof authStore>) => state.user

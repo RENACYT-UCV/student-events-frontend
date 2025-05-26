@@ -65,7 +65,6 @@ const RegisterScreen: React.FC = () => {
         <span className="text"> Volver</span>
       </button>
 
-      
       {/* Contenido principal */}
       <div className="register-content">
         {/* Ilustración principal */}
@@ -79,27 +78,26 @@ const RegisterScreen: React.FC = () => {
         {/* Título */}
         {/* <h1 className="login-title">Crear Cuenta</h1> */}
 
-        <button className="relative z-10 w-full flex items-center justify-center
+        <button
+          className="relative z-10 w-full flex items-center justify-center
          gap-3 border border-gray-300 rounded-lg py-3 mb-4 hover:bg-gray-200 
-         transition cursor-pointer">
+         transition cursor-pointer"
+        >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
             alt="Google"
             className="w-5 h-5"
           />
-          <span className="text-sm font-medium text-gray-700">
-            Registrarse con Google
-          </span>
+          <span className="text-sm font-medium text-gray-700">Registrarse con Google</span>
         </button>
         {/* Formulario */}
         <div className="form-container-register">
-
           <div className="input-group">
             <label className="input-label-register">Usuario</label>
             <div className="input-wrapper">
               <span className="input-icon">✉️</span>
               <input
-                type='text'
+                type="text"
                 className="input-field"
                 placeholder="Usuario123"
                 value={username}

@@ -11,26 +11,48 @@ const ProfileForm: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [isFormEditable, setIsFormEditable] = useState(false)
   const [hasChanges, setHasChanges] = useState(false)
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    correo: '',
+    carrera: '',
+    telefono: '',
+    codigo_alumno: ''
+  })
 
   const { profile, proifileLoading } = useProfile()
-  // console.log('ProfileForm rendered', profile, profileSuccess)
+  console.log('ProfileForm rendered', profile)
+
+  useEffect(() => {
+    if (profile) {
+      setFormData({
+        nombre: profile.name || '',
+        apellido: profile.lastName || '',
+        correo: profile.email || '',
+        carrera: profile.school?.name || '',
+        telefono: profile.phoneNumber || '',
+        codigo_alumno: profile.studentCode || ''
+      })
+    }
+  }, [profile])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!isFormEditable || !hasChanges) return
 
-    const form = e.target as HTMLFormElement
-    const data = {
-      nombre: form.nombre.value,
-      apellido: form.apellido.value,
-      correo: form.correo.value,
-      carrera: form.carrera.value,
-      telefono: form.telefono.value,
-      codigo_alumno: form.codigo_alumno.value
-    }
+    // const form = e.target as HTMLFormElement
+    // const data = {
+    //   nombre: form.nombre.value,
+    //   apellido: form.apellido.value,
+    //   correo: form.correo.value,
+    //   carrera: form.carrera.value,
+    //   telefono: form.telefono.value,
+    //   codigo_alumno: form.codigo_alumno.value
+    // }
 
-    console.log('Datos enviados:', data)
+    console.log('Datos enviados:', formData)
+    // TODO: Implement actual API call to update profile
     setShowPopup(true)
     setIsFormEditable(false)
     setHasChanges(false)
@@ -41,8 +63,12 @@ const ProfileForm: React.FC = () => {
     setHasChanges(false)
   }
 
-  const handleInputChange = () => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isFormEditable) {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      })
       setHasChanges(true)
     }
   }
@@ -54,8 +80,7 @@ const ProfileForm: React.FC = () => {
   //       // Puedes redirigir si deseas: navigate('/profile');
   //     }, 1500)
   //     return () => clearTimeout(timer)
-  //   }
-  // }, [showPopup])
+  //   }n  // }, [showPopup])
 
   return (
     <>
@@ -81,8 +106,7 @@ const ProfileForm: React.FC = () => {
           id="nombre"
           name="nombre"
           disabled={!isFormEditable}
-          placeholder={!proifileLoading ? 'asdf' : 'Juan Nicolás'}
-          required
+          value={formData.nombre}
           onChange={handleInputChange}
         />
 
@@ -92,8 +116,7 @@ const ProfileForm: React.FC = () => {
           id="apellido"
           name="apellido"
           disabled={!isFormEditable}
-          placeholder="Pérez Nuñez"
-          required
+          value={formData.apellido}
           onChange={handleInputChange}
         />
 
@@ -102,9 +125,8 @@ const ProfileForm: React.FC = () => {
           type="email"
           id="correo"
           name="correo"
-          disabled={!isFormEditable}
-          placeholder="juanNicolas123@correo.com"
-          required
+          disabled={true} // Correo should not be editable
+          value={formData.correo}
           onChange={handleInputChange}
         />
 
@@ -113,9 +135,8 @@ const ProfileForm: React.FC = () => {
           type="text"
           id="carrera"
           name="carrera"
-          disabled={!isFormEditable}
-          placeholder="Ingeniería de Sistemas"
-          required
+          disabled={true} // Carrera should not be editable
+          value={formData.carrera}
           onChange={handleInputChange}
         />
 
@@ -125,8 +146,7 @@ const ProfileForm: React.FC = () => {
           id="telefono"
           name="telefono"
           disabled={!isFormEditable}
-          placeholder="987654321"
-          required
+          value={formData.telefono}
           onChange={handleInputChange}
         />
 
@@ -135,9 +155,8 @@ const ProfileForm: React.FC = () => {
           type="text"
           id="codigo_alumno"
           name="codigo_alumno"
-          disabled={!isFormEditable}
-          placeholder="U12345678"
-          required
+          disabled={true} // Código Alumno should not be editable
+          value={formData.codigo_alumno}
           onChange={handleInputChange}
         />
 

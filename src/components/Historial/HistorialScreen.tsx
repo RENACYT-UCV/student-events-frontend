@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './HistorialScreen.css'
-import Header from '@components/common/Header/Header.css'
 import { useNavigate } from 'react-router-dom'
 import { eventosEjemplo, Evento } from '../../lib/data/history/events-example'
+import { useAccessToken, useUserId } from '@/store/auth.store'
 // Header is now handled by MainLayout
 
 interface HistorialScreenProps {}
@@ -12,14 +12,27 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const [filtroTipo, setFiltroTipo] = useState<string>('Todas')
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const navigate = useNavigate()
+  const accessToken = useAccessToken()
+  const userId = useUserId()
 
   useEffect(() => {
     const fetchEventos = async () => {
+      if (!userId || !accessToken) {
+        setIsLoading(false)
+        return // Don't fetch if userId or accessToken is not available
+      }
       setIsLoading(true)
       try {
         // Usamos directamente el ID 1 para pruebas
-        const userId = 1
-        const response = await fetch(`http://localhost:3000/api/user/${userId}/event-history`)
+        // const userId = 1 // Remove this line
+        const response = await fetch(
+          ` https://student-events-backend.onrender.com/api/user/${userId}/event-history`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          }
+        )
         if (!response.ok) {
           throw new Error('Error al obtener los datos')
         }
@@ -33,9 +46,12 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
           hour: new Date(registro.event.eventDetails.startDate).toLocaleTimeString(),
           type: registro.event.eventDetails.type || 'Sin categoría',
           status: registro.assistances.length > 0 ? 'Registrado' : 'Pendiente',
-          asistence: registro.assistances.length > 0 
-            ? (registro.assistances[0].status ? 'Asistió' : 'No asistió')
-            : 'Pendiente',
+          asistence:
+            registro.assistances.length > 0
+              ? registro.assistances[0].status
+                ? 'Asistió'
+                : 'No asistió'
+              : 'Pendiente',
           image: registro.event.eventDetails.image || undefined,
           category: registro.event.eventDetails.category || undefined
         }))
@@ -63,8 +79,39 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     console.log('Abrir perfil')
   }
 
-  const handleExportPDF = () => {
-    console.log('Exportar PDF')
+  const handleExportPDF = async () => {
+    if (!userId || !accessToken) {
+      console.error('User ID or Access Token not available')
+      setIsLoading(false)
+      return
+    }
+    setIsLoading(true)
+    try {
+      const response = await fetch(
+        `https://student-events-backend.onrender.com/pdf/usuario-eventos?userId=${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error('Error al generar el PDF')
+      }
+
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `historial_eventos_usuario_${userId}.pdf`
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Error al exportar PDF:', error)
+    }
   }
 
   const handleEventClick = (eventoId: string) => {
