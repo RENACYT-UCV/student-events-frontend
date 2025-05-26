@@ -10,7 +10,9 @@ const HomeDescription: React.FC = () => {
       const userId = localStorage.getItem('userId')
       if (userId) {
         try {
-          const response = await fetch(`http://localhost:3000/api/user/${userId}`)
+          const response = await fetch(
+            `https://student-events-backend.onrender.com/api/user/${userId}`
+          )
           const userData = await response.json()
           setUserName(userData.username || userData.email)
         } catch (error) {

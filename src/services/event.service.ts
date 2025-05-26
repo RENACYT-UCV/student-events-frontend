@@ -1,6 +1,7 @@
+import { client } from '@lib/axios'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000/api'
+const API_URL = 'https://student-events-backend.onrender.com/api'
 
 export interface Event {
   id: number
@@ -60,4 +61,6 @@ export const getAllEventTypes = async (): Promise<EventType[]> => {
   }
 }
 
-// You can add other event-related API calls here later
+export const getAllEventsByUserId = async (userId: number): Promise<Event[]> => {
+  // return client.get('/events/user', {)
+}

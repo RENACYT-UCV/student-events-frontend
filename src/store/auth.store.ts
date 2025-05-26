@@ -57,4 +57,4 @@ function useAuthStore<U>(selector: Params<U>[1]) {
 // Hooks
 export const useAccessToken = () => useAuthStore(accessTokenSelector)
 export const useRefreshToken = () => useAuthStore(refreshTokenSelector)
-export const useActions = () => useAuthStore(actionsSelector)
+export const useAuthActions = () => useAuthStore(actionsSelector)
