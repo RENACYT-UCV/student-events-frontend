@@ -9,7 +9,7 @@ interface HistorialScreenProps {}
 
 const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const [eventos, setEventos] = useState<Evento[]>([])
-  const [filtroTipo, setFiltroTipo] = useState<string>('Todas')
+
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
@@ -50,6 +50,11 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
 
         // Transformar los datos recibidos al formato que espera el componente
         const eventosFormateados = data.map((registro: any) => {
+            console.log('Registro completo:', registro); // Log completo del registro
+            console.log('Tipo de evento en registro:', registro.event.eventType); // Log específico del tipo de evento
+            console.log('Asistencias en registro:', registro.assistances); // Nuevo log para asistencias
+            console.log('Estado de asistencia (registro.assistances[0]?.status):', registro.assistances[0]?.status); // Nuevo log para el estado de asistencia
+
           const fechaInicio = registro.event.eventDetails[0]?.startDate
             ? new Date(registro.event.eventDetails[0].startDate).toLocaleDateString('es-ES', {
                 day: '2-digit',
@@ -69,21 +74,26 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
           const horaInicio = registro.event.eventDetails[0]?.startTime || 'Sin hora';
           const horaFin = registro.event.eventDetails[0]?.endTime || 'Sin hora';
 
+          const tipoEvento = ''; // Se establece como cadena vacía para no mostrar nada
+
           return {
             id: registro.event.id.toString(),
             title: registro.event.name || 'Sin título',
             date: `${fechaInicio} - ${fechaFin}`,
             hour: `${horaInicio} - ${horaFin}`,
-            type: registro.event.eventType?.title || 'Sin categoría',
-            status: registro.assistances && registro.assistances.length > 0 ? 'Registrado' : 'Pendiente',
-            asistence:
-              registro.assistances && registro.assistances.length > 0
-                ? registro.assistances[0].status
-                  ? 'Asistió'
-                  : 'No asistió'
-                : 'Pendiente',
+            type: tipoEvento, // Usar el tipo de evento aquí
+            status: registro.assistances && registro.assistances.length > 0
+              ? registro.assistances[0].status === true
+                ? 'Asistió'
+                : 'No asistió'
+              : 'Pendiente',
+            asistence: registro.assistances && registro.assistances.length > 0
+              ? registro.assistances[0].status === true
+                ? 'Asistió'
+                : 'No asistió'
+              : 'Pendiente',
             image: registro.event.eventDetails[0]?.url || '',
-            category: registro.event.eventType?.title || 'Sin categoría',
+            category: tipoEvento, // También actualizar la categoría
             location: registro.event.eventDetails[0]?.location || 'Sin ubicación',
             description: registro.event.eventDetails[0]?.description || 'Sin descripción',
           }
@@ -162,22 +172,15 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     navigate(`/evento/${eventoId}`)
   }
 
-  const eventosFiltrados = eventos.filter(
-    evento => filtroTipo === 'Todas' || evento.type === filtroTipo
-  )
+  const eventosFiltrados = eventos;
 
   const agruparEventos = () => {
     const grupos = {
-      'Hace un momento': [] as Evento[],
-      'Últimos 7 días': [] as Evento[]
+      'Historial de Eventos': [] as Evento[]
     }
 
     eventosFiltrados.forEach(evento => {
-      if (evento.id === '1') {
-        grupos['Hace un momento'].push(evento)
-      } else {
-        grupos['Últimos 7 días'].push(evento)
-      }
+      grupos['Historial de Eventos'].push(evento)
     })
 
     return grupos
@@ -220,29 +223,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
             </button>
           </div>
         </div>
-        {/* Filter Section */}
-        <div className="filter-section">
-          <div className="filter-row">
-            <span className="filter-label">Tipo de eventos</span>
-            <div className="filter-dropdown">
-              <select
-                value={filtroTipo}
-                onChange={e => setFiltroTipo(e.target.value)}
-                className="dropdown-select"
-              >
-                <option value="Todas">Todas</option>
-                <option value="Académico">Académico</option>
-                <option value="Cultural">Cultural</option>
-                <option value="Deportivo">Deportivo</option>
-                <option value="Conferencias">Conferencias</option>
-                <option value="Voluntariado">Voluntariado</option>
-                <option value="Orientación">Orientación</option>
-                <option value="PresentacionPyE">Presentación PyE</option>
-              </select>
-              <span className="dropdown-arrow">▼</span>
-            </div>
-          </div>
-        </div>
+
 
         {/* Error message */}
         {error && (
@@ -274,7 +255,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
                         onClick={() => handleEventClick(evento.id)}
                       >
                         <div className="event-details">
-                          <span className="event-type-tag">{evento.type}</span>
+
                           <div className="event-datetime-row">
                             <div className="datetime-item">
                               <span className="calendar-icon">📅</span>
@@ -289,7 +270,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
                           <h4 className="event-title">{evento.title}</h4>
 
                           <div className="event-tags">
-                            <span className={`status-tag status-${evento.status === 'Pendiente' ? 'pendiente' : 'registrado'}`}>{evento.status}</span>
+                            <span className={`status-tag status-${evento.asistence.toLowerCase().replace(/ /g, '-')}`}>{evento.asistence}</span>
                             {/* Puedes mostrar otros tags según estado */}
                           </div>
                         </div>
