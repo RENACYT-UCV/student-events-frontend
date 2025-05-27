@@ -1,30 +1,30 @@
 import React, { useState } from 'react'
-import './RecoverAccountScreen.css' // CSS específico para esta pantalla
+import './RecoverAccountScreen.css'
 import { useNavigate } from 'react-router-dom'
-
-// interface RecoverAccountScreenProps {}
+import axios from 'axios'
 
 const RecoverAccountScreen: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const navigate = useNavigate()
 
-  const handleSendResetEmail = (): void => {
-    console.log('Solicitando restablecimiento para:', { email })
-    // TODO: Aquí es donde necesitas integrar la lógica de backend
-    // para enviar el correo electrónico de restablecimiento.
-    // Esto NO se puede hacer directamente desde el frontend por seguridad.
-
-    // Después de enviar la solicitud al backend (y si fue exitosa):
-    alert(
-      `Si el correo ${email} está registrado, recibirás un enlace para restablecer tu contraseña.`
-    )
-    // Opcional: Navegar a una pantalla de confirmación o de vuelta al login
-    // navigate('/login');
+  const handleSendResetEmail = async (): Promise<void> => {
+    try {
+      console.log('Solicitando restablecimiento para:', { email })
+      const response = await axios.post(
+        'https://student-events-backend-kypp.onrender.com/api/auth/forgot-password',
+        { email }
+      )
+      alert(response.data.message)
+    } catch (error) {
+      console.error('Error al enviar el correo de restablecimiento:', error)
+      alert(
+        'Hubo un error al enviar el correo de restablecimiento. Por favor, inténtalo de nuevo más tarde.'
+      )
+    }
   }
 
-  // Función para volver a la pantalla anterior
   const handleGoBack = (): void => {
-    navigate(-1) // Vuelve a la página anterior (Login en este caso)
+    navigate(-1)
   }
 
   return (
@@ -34,37 +34,29 @@ const RecoverAccountScreen: React.FC = () => {
         background: `url(/assets/mi-fondo.jpeg) center/cover no-repeat`
       }}
     >
-      {/* Botón de volver */}
       <button className="back-button" onClick={handleGoBack}>
         ← Volver
       </button>
 
-      {/* Decoraciones de fondo (pueden ser las mismas) */}
       <div className="decoration-top-left"></div>
       <div className="decoration-top-right"></div>
       <div className="decoration-bottom-left"></div>
       <div className="decoration-bottom-right"></div>
 
-      {/* Contenido principal */}
       <div className="login-content">
-        {/* Ilustración principal (puedes usar una diferente) */}
         <div className="illustration-container">
           <div className="people-illustration">
             <img src="/assets/recuperar-cuenta.png" alt="Recover Account illustration" />
           </div>
         </div>
 
-        {/* Título */}
         <h1 className="login-title">Recuperar Cuenta</h1>
 
-        {/* Descripción */}
         <p style={{ textAlign: 'center', marginBottom: '20px', color: '#555' }}>
           Ingrese su correo electrónico para recuperar su cuenta
         </p>
 
-        {/* Formulario (solo campo de correo) */}
         <div className="form-container">
-          {/* Campo de correo */}
           <div className="input-group">
             <label className="input-label">Correo</label>
             <div className="input-wrapper">
@@ -75,16 +67,12 @@ const RecoverAccountScreen: React.FC = () => {
                 placeholder="example@gmail.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                required // Campo obligatorio
+                required
               />
             </div>
           </div>
 
-          {/* Botón para enviar correo de restablecimiento */}
-          <button
-            className="login-button" // Puedes usar los mismos estilos de botón
-            onClick={handleSendResetEmail}
-          >
+          <button className="login-button" onClick={handleSendResetEmail}>
             ENVIAR
           </button>
         </div>
