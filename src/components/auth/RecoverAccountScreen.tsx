@@ -44,7 +44,7 @@ const RecoverAccountScreen: React.FC = () => {
 
         <h1 className="login-title">Recuperar Cuenta</h1>
 
-        <p style={{ textAlign: 'center', marginBottom: '10px', color: '#555', userSelect: 'none' }}>
+        <p style={{ textAlign: 'center', marginBottom: '20px', color: '#555' }}>
           Ingrese su correo electrónico para recuperar su cuenta
         </p>
 

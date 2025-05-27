@@ -129,7 +129,7 @@ const LoginScreen: React.FC = () => {
 
         {/* Olvidaste contraseña */}
         <div className="text-right mt-2 relative z-10">
-          <button onClick={handleForgotPassword} className="text-sm text-blue-500 hover:underline">
+          <button onClick={handleForgotPassword} className="text-sm text-blue-500 hover:underline cursor-pointer">
             ¿Olvidaste tu contraseña?
           </button>
         </div>
