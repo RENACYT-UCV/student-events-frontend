@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
 import './VerifyResetCodeScreen.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import {
+  useForgotPasswordActions,
+  useForgotPasswordCode,
+  useForgotPasswordEmail
+} from '@store/forgot-password.store'
 
 const VerifyResetCodeScreen: React.FC = () => {
-  const [code, setCode] = useState<string>('')
   const navigate = useNavigate()
+
+  const email = useForgotPasswordEmail()
+  const code = useForgotPasswordCode()
+  const { setCode } = useForgotPasswordActions()
 
   const handleVerifyCode = async (): Promise<void> => {
     try {
@@ -13,7 +20,8 @@ const VerifyResetCodeScreen: React.FC = () => {
       const response = await axios.post(
         'https://student-events-backend-kypp.onrender.com/api/auth/verify-reset-code',
         {
-          code
+          code,
+          email
         }
       )
       console.log('Token recibido para restablecer contraseña:', response.data.token)

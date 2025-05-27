@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import './ResetPasswordScreen.css' // CSS específico
 import { useNavigate, useSearchParams } from 'react-router-dom' // Importar useSearchParams
+import axios from 'axios'
+import {
+  useForgotPasswordActions,
+  useForgotPasswordCode,
+  useForgotPasswordEmail
+} from '@store/forgot-password.store'
 
 const ResetPasswordScreen: React.FC = () => {
   const [password, setPassword] = useState<string>('')
@@ -11,16 +17,34 @@ const ResetPasswordScreen: React.FC = () => {
   const [searchParams] = useSearchParams() // Para leer parámetros de la URL
   const token = searchParams.get('token') // Obtener el token de la URL
 
-  const handleResetPassword = (): void => {
+  const email = useForgotPasswordEmail()
+  const code = useForgotPasswordCode()
+  const { clearCode, clearEmail } = useForgotPasswordActions()
+
+  const handleResetPassword = async () => {
     if (password !== confirmPassword) {
       alert('Las contraseñas no coinciden.')
       return
     }
 
-    if (!token) {
-      alert('Token de restablecimiento no encontrado.')
-      // Opcional: redirigir a una página de error o al login
-      // navigate('/login');
+    try {
+      const response = await axios.post(
+        'https://student-events-backend-kypp.onrender.com/api/auth/reset-password',
+        {
+          // token,
+          email,
+          code,
+          password
+        }
+      )
+
+      clearCode()
+      clearEmail()
+
+      console.log('Respuesta del backend:', response.data)
+    } catch (error) {
+      console.error('Error al restablecer la contraseña:', error)
+      alert('Hubo un error al restablecer la contraseña. Por favor, inténtalo de nuevo más tarde.')
       return
     }
 

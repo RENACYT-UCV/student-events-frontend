@@ -1,17 +1,21 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import './RecoverAccountScreen.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useForgotPasswordActions, useForgotPasswordEmail } from '@store/forgot-password.store'
 
 const RecoverAccountScreen: React.FC = () => {
-  const [email, setEmail] = useState<string>('')
+  // const [email, setEmail] = useState<string>('')
   const navigate = useNavigate()
+
+  const email = useForgotPasswordEmail()
+  const { setEmail } = useForgotPasswordActions()
 
   const handleSendResetEmail = async (): Promise<void> => {
     try {
       console.log('Solicitando restablecimiento para:', { email })
       const response = await axios.post(
-        'https://student-events-backend-kypp.onrender.com/api/auth/forgot-password',
+        'https://student-events-backend-kypp.onrender.com/api/auth/forgot-password-request',
         { email }
       )
       console.log('Token recibido:', response.data.token)

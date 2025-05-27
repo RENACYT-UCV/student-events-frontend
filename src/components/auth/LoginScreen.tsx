@@ -23,6 +23,10 @@ const LoginScreen: React.FC = () => {
           console.log('Inicio de sesión exitoso:', data)
           setAccessToken(data.accessToken)
           setRefreshToken(data.refreshToken)
+        },
+        onError: (error: Error) => {
+          console.error('Error al iniciar sesión:', error)
+          alert('Error al iniciar sesión. Por favor, verifica tus credenciales.')
         }
       }
     )
@@ -50,7 +54,6 @@ const LoginScreen: React.FC = () => {
       <div className="relative lg:w-full mt-10 max-w-md md:w-20 md:mt-10  bg-gray-100 shadow-2xl rounded-3xl px-6 py-8  mb-30 mx-4">
         {/* Decoraciones */}
 
-
         {/* Logo o ilustración */}
         <div className="flex justify-center mb-4 relative z-10">
           <img src="/assets/logo.png" alt="UniEventos Logo" className="w-32 h-32 object-contain" />
@@ -76,21 +79,21 @@ const LoginScreen: React.FC = () => {
           {/* Email */}
           <div>
             <label className="text-sm font-medium text-gray-700 block mb-1">Correo</label>
-              <div className="relative">
-                <input
-                  type="email"
-                  placeholder="example@gmail.com"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pl-12"
-                />
-                {/* Reemplazo de 📧 por imagen */}
-                <img
-                  src="/assets/images/mailIcon.png"
-                  alt="Icono de correo"
-                  className="absolute pointer-events-none left-3 top-3 w-6 h-6 object-contain"
-                />
-              </div>
+            <div className="relative">
+              <input
+                type="email"
+                placeholder="example@gmail.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pl-12"
+              />
+              {/* Reemplazo de 📧 por imagen */}
+              <img
+                src="/assets/images/mailIcon.png"
+                alt="Icono de correo"
+                className="absolute pointer-events-none left-3 top-3 w-6 h-6 object-contain"
+              />
+            </div>
           </div>
 
           {/* Contraseña */}
@@ -129,7 +132,10 @@ const LoginScreen: React.FC = () => {
 
         {/* Olvidaste contraseña */}
         <div className="text-right mt-2 relative z-10">
-          <button onClick={handleForgotPassword} className="text-sm text-blue-500 hover:underline cursor-pointer">
+          <button
+            onClick={handleForgotPassword}
+            className="text-sm text-blue-500 hover:underline cursor-pointer"
+          >
             ¿Olvidaste tu contraseña?
           </button>
         </div>
@@ -141,16 +147,23 @@ const LoginScreen: React.FC = () => {
             className="w-full bg-blue-600 hover:bg-blue-900 text-white font-bold py-3 rounded-2xl transition cursor-pointer flex items-center justify-center gap-2"
           >
             INICIAR SESIÓN
-            <img src="/assets/images/loginIcon.png" alt="Icono login" className="w-6 pointer-events-none h-6" />
+            <img
+              src="/assets/images/loginIcon.png"
+              alt="Icono login"
+              className="w-6 pointer-events-none h-6"
+            />
           </button>
           <button
             onClick={handleRegister}
             className="w-full border-2 border-blue-600 text-blue-900 font-bold py-3 rounded-2xl hover:bg-blue-50 transition cursor-pointer flex items-center justify-center gap-2"
           >
             REGISTRARSE
-            <img src="/assets/images/registerIcon.png" alt="Icono registro" className="w-6 pointer-events-none h-6" />
+            <img
+              src="/assets/images/registerIcon.png"
+              alt="Icono registro"
+              className="w-6 pointer-events-none h-6"
+            />
           </button>
-
         </div>
       </div>
     </div>
