@@ -167,9 +167,8 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     <div className="historial-mobile-container">
       {/* Content */}
       <div className="mobile-content">
-
-        <div className='historial-header-icon-container'>
-          <div className='historial-header-icon'>
+        <div className="historial-header-icon-container">
+          <div className="historial-header-icon">
             <img src="/assets/images/historialIcon.gif" alt="CheckIconGIF" />
           </div>
         </div>

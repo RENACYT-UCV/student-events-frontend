@@ -2,44 +2,106 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getEventById, Event } from '../../services/event.service'
 import Button from '../common/Button'
+import { useProfile } from '../../hooks/user/use-profile'
+import { useAccessToken } from '../../store/auth.store'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const [event, setEvent] = useState<Event | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { profile, proifileLoading } = useProfile()
+  const accessToken = useAccessToken()
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        if (!id) return
-        const data = await getEventById(parseInt(id))
-        setEvent(data)
-        setLoading(false)
-      } catch (err) {
-        console.error('Error al cargar el evento:', err)
-        setLoading(false)
+  const {
+    data: event,
+    isLoading: isEventLoading,
+    isError: isEventError
+  } = useQuery<Event>({
+    queryKey: ['event', id],
+    queryFn: async () => {
+      if (!id) throw new Error('Event ID is missing')
+      return getEventById(parseInt(id))
+    },
+    enabled: !!id
+  })
+
+  const registerMutation = useMutation({
+    mutationFn: async () => {
+      if (!profile?.id || !event?.id || !accessToken) {
+        throw new Error('User ID, Event ID, or Access Token is missing')
       }
+
+      // First, create a registration
+      const registrationResponse = await axios.post(
+        'https://student-events-backend-kypp.onrender.com/api/registration',
+        {
+          eventId: event.id,
+          userId: profile.id
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      )
+      const registrationId = registrationResponse.data.id
+
+      // Then, mark assistance
+      const assistanceResponse = await axios.post(
+        'https://student-events-backend-kypp.onrender.com/assistance/mark',
+        {
+          registrationId: registrationId
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      )
+      return assistanceResponse.data
+    },
+    onSuccess: () => {
+      localStorage.setItem(
+        'successEvent',
+        JSON.stringify({
+          name: event?.name,
+          type: event?.eventType.title,
+          date: event?.eventDetails[0]?.startDate,
+          time: event?.eventDetails[0]?.startTime,
+          location: event?.eventDetails[0]?.location || 'Virtual',
+          image: '/assets/universidad.jpg'
+        })
+      )
+      navigate('/eventos/success')
+    },
+    onError: error => {
+      console.error('Error al registrar asistencia:', error)
+      alert('Error al registrar asistencia. Por favor, inténtalo de nuevo.')
     }
+  })
 
-    fetchEvent()
-  }, [id])
+  const handleRegister = () => {
+    registerMutation.mutate()
+  }
 
-  if (loading || !event) return null
+  if (isEventLoading || proifileLoading) return <div>Cargando...</div>
+  if (isEventError) return <div>Error al cargar el evento.</div>
+  if (!event) return <div>No se encontró el evento.</div>
 
   const eventDetail = event.eventDetails[0]
-  const isVirtual = eventDetail?.modality?.toLowerCase() === 'virtual' || eventDetail?.location?.toLowerCase() === 'virtual'
+  const isVirtual =
+    eventDetail?.modality?.toLowerCase() === 'virtual' ||
+    eventDetail?.location?.toLowerCase() === 'virtual'
   const hasUrl = eventDetail?.url && eventDetail.url.trim() !== ''
 
   return (
     <div className="justify-center min-h-screen bg-pink-50">
-
       <img
         src="/assets/images/white-bg(1).png"
         alt=""
         className="fixed sm:top-5 md:top-30 left-0 w-full top h-full opacity-25 object-cover z-0"
       />
-      
 
       {/* Botón Regresar */}
       <div className="p-4">
@@ -52,7 +114,9 @@ export default function EventDetail() {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className='ml-2 cursor-pointer transform transition-transform duration-300 hover:scale-102'>Regresar</span>
+          <span className="ml-2 cursor-pointer transform transition-transform duration-300 hover:scale-102">
+            Regresar
+          </span>
         </button>
       </div>
 
@@ -94,7 +158,12 @@ export default function EventDetail() {
               {/* Mostrar enlace de reunión si es virtual y tiene URL */}
               {isVirtual && hasUrl && (
                 <div className="flex items-center text-gray-600 text-sm">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -102,9 +171,9 @@ export default function EventDetail() {
                       d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                     />
                   </svg>
-                  <a 
-                    href={eventDetail.url} 
-                    target="_blank" 
+                  <a
+                    href={eventDetail.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline"
                   >
@@ -122,23 +191,11 @@ export default function EventDetail() {
           </div>
 
           <button
-            onClick={() => {
-              localStorage.setItem(
-                'successEvent',
-                JSON.stringify({
-                  name: event.name,
-                  type: event.eventType.title,
-                  date: event.eventDetails[0]?.startDate,
-                  time: event.eventDetails[0]?.startTime,
-                  location: event.eventDetails[0]?.location || 'Virtual',
-                  image: '/assets/universidad.jpg'
-                })
-              )
-              navigate('/eventos/success')
-            }}
-            className="w-full mt-6 bg-[#3cbe83] text-white py-3 rounded-lg font-medium hover:bg-[bg-[#0f7a4a]] transition-colors cursor-pointer"
+            onClick={handleRegister}
+            className={`w-full mt-6 bg-[#3cbe83] text-white py-3 rounded-lg font-medium transition-colors ${registerMutation.isPending ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#0f7a4a] cursor-pointer'}`}
+            disabled={registerMutation.isPending}
           >
-            MARCAR ASISTENCIA
+            {registerMutation.isPending ? 'Registrando...' : 'MARCAR REGISTRO'}
           </button>
         </div>
       </div>
