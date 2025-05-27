@@ -76,16 +76,21 @@ const LoginScreen: React.FC = () => {
           {/* Email */}
           <div>
             <label className="text-sm font-medium text-gray-700 block mb-1">Correo</label>
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="example@gmail.com"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pl-10"
-              />
-              <span className="absolute left-3 top-3.5 text-gray-400">📧</span>
-            </div>
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="example@gmail.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pl-12"
+                />
+                {/* Reemplazo de 📧 por imagen */}
+                <img
+                  src="/assets/images/mailIcon.png"
+                  alt="Icono de correo"
+                  className="absolute pointer-events-none left-3 top-3 w-6 h-6 object-contain"
+                />
+              </div>
           </div>
 
           {/* Contraseña */}
@@ -97,14 +102,26 @@ const LoginScreen: React.FC = () => {
                 placeholder="••••••"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                autoComplete="new-password"
+                inputMode="text"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pr-10"
               />
+              {/* Ícono para mostrar/ocultar */}
               <button
                 type="button"
                 className="absolute right-3 top-3.5 text-xl text-gray-500"
                 onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1} // Previene que se active en foco accidental
               >
-                {showPassword ? '👁️' : '🙈'}
+                <img
+                  src={
+                    showPassword
+                      ? '/assets/images/visibleIcon.png'
+                      : '/assets/images/hiddenIcon.png'
+                  }
+                  alt={showPassword ? 'Mostrar contraseña' : 'Ocultar contraseña'}
+                  className="w-6 h-6 pointer-events-none cursor-pointer select-none"
+                />
               </button>
             </div>
           </div>
@@ -121,16 +138,19 @@ const LoginScreen: React.FC = () => {
         <div className="mt-6 space-y-3 relative z-10">
           <button
             onClick={handleLogin}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition"
+            className="w-full bg-blue-600 hover:bg-blue-900 text-white font-bold py-3 rounded-2xl transition cursor-pointer flex items-center justify-center gap-2"
           >
             INICIAR SESIÓN
+            <img src="/assets/images/loginIcon.png" alt="Icono login" className="w-6 pointer-events-none h-6" />
           </button>
           <button
             onClick={handleRegister}
-            className="w-full border-2 border-blue-600 text-blue-600 font-bold py-3 rounded-lg hover:bg-blue-50 transition"
+            className="w-full border-2 border-blue-600 text-blue-900 font-bold py-3 rounded-2xl hover:bg-blue-50 transition cursor-pointer flex items-center justify-center gap-2"
           >
-            REGISTRARSE 👥
+            REGISTRARSE
+            <img src="/assets/images/registerIcon.png" alt="Icono registro" className="w-6 pointer-events-none h-6" />
           </button>
+
         </div>
       </div>
     </div>

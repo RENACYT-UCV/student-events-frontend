@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import './RegisterScreen.css'
 import { useNavigate } from 'react-router-dom'
 
-// interface RegisterScreenProps {}
-
 const RegisterScreen: React.FC = () => {
   const [username, setUser] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -11,20 +9,15 @@ const RegisterScreen: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
-  const [name, setName] = useState<string>('') // Add state for name
 
-  const navigate = useNavigate() // Obtener la función de navegación
+  const navigate = useNavigate()
 
   const handleRegister = async (): Promise<void> => {
-    // Make function async
     if (password !== confirmPassword) {
       alert('Las contraseñas no coinciden.')
       return
     }
 
-    console.log('Registrando usuario:', { name, email, password }) // Include name in log
-
-    // Aquí iría la lógica de registro - Reemplazar con llamada a la API
     try {
       const response = await fetch('https://student-events-backend-kypp.onrender.com/api/auth/register', {
         // Use fetch API
@@ -32,14 +25,15 @@ const RegisterScreen: React.FC = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password }) // Send email, password
+        body: JSON.stringify({ email, password, username })
+
       })
 
       const data = await response.json()
 
       if (response.ok) {
         alert(`Usuario registrado con éxito: ${data.email}`)
-        navigate('/login') // Navigate to login on success
+        navigate('/login')
       } else {
         alert(`Error en el registro: ${data.message || response.statusText}`)
       }
@@ -49,142 +43,135 @@ const RegisterScreen: React.FC = () => {
     }
   }
 
-  // Función para volver a la pantalla anterior
   const handleGoBack = (): void => {
-    navigate(-1) // Vuelve a la página anterior (Login en este caso)
+    navigate(-1)
   }
 
   return (
-    <div className=" bg-red-600 flex flex-col items-center min-h-screen">
+    <div className="bg-red-600 flex flex-col items-center min-h-screen">
       <div className="w-full bg-red-600 py-6 shadow-md">
         <h1 className="text-3xl font-extrabold text-white text-center">Registrar Cuenta</h1>
       </div>
-      {/* Botón de volver - Usamos una clase para estilizarlo */}
-      <button className="back-button-register" onClick={handleGoBack}>
+
+      <button className="back-button-register mt-1 mb-3 text-white font-semibold" onClick={handleGoBack}>
         <span className="arrow">&larr;</span>
         <span className="text"> Volver</span>
       </button>
 
-      {/* Contenido principal */}
-      <div className="register-content">
-        {/* Ilustración principal */}
-        <div className="illustration-container-register">
-          <div className="people-illustration-register">
-            <img src="/assets/images/young_teamwork.png" alt="Registration illustration" />{' '}
-            {/* Usar la nueva imagen */}
+      <div className="relative lg:w-full mt-6 max-w-md md:w-20 bg-gray-100 shadow-2xl rounded-3xl px-6 py-8 mx-4">
+        <div className="flex justify-center mb-4 relative z-10">
+          <img src="/assets/logo.png" alt="UniEventos Logo" className="w-28 h-28 object-contain" />
+        </div>
+
+        <h1 className="text-2xl font-extrabold text-center text-red-600 mb-6">Crear Cuenta</h1>
+
+        <div className="space-y-4">
+          {/* Nombre */}
+
+          {/* Usuario */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Usuario</label>
+            <input
+              type="text"
+              value={username}
+              onChange={e => setUser(e.target.value)}
+              placeholder="Nombre de usuario"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+            />
+          </div>
+
+          {/* Email con ícono */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Correo electrónico</label>
+            <div className="relative">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="correo@example.com"
+                className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+              />
+              <img
+                src="/assets/images/mailIcon.png"
+                alt="Icono de correo"
+                className="absolute left-3 top-3 w-6 h-6 object-contain pointer-events-none"
+              />
+            </div>
+          </div>
+
+          {/* Contraseña con ícono y toggle */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Contraseña</label>
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="••••••"
+                autoComplete="new-password"
+                className="w-full px-4 py-3 pl-12 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+              />
+              <img
+                src="/assets/images/lockIcon.png"
+                alt="Icono de candado"
+                className="absolute left-3 top-3 w-6 h-6 object-contain pointer-events-none"
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-3.5"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1}
+              >
+                <img
+                  src={showPassword ? '/assets/images/visibleIcon.png' : '/assets/images/hiddenIcon.png'}
+                  alt={showPassword ? 'Mostrar contraseña' : 'Ocultar contraseña'}
+                  className="w-6 h-6 pointer-events-none"
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Confirmar Contraseña con ícono y toggle */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Confirmar contraseña</label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                placeholder="••••••"
+                className="w-full px-4 py-3 pl-12 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+              />
+              <img
+                src="/assets/images/lockIcon.png"
+                alt="Icono de candado"
+                className="absolute left-3 top-3 w-6 h-6 object-contain pointer-events-none"
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-3.5"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                tabIndex={-1}
+              >
+                <img
+                  src={showConfirmPassword ? '/assets/images/visibleIcon.png' : '/assets/images/hiddenIcon.png'}
+                  alt={showConfirmPassword ? 'Mostrar contraseña' : 'Ocultar contraseña'}
+                  className="w-6 h-6 pointer-events-none"
+                />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Título */}
-        {/* <h1 className="login-title">Crear Cuenta</h1> */}
-
-        <button
-          className="relative z-10 w-full flex items-center justify-center
-         gap-3 border border-gray-300 rounded-lg py-3 mb-4 hover:bg-gray-200 
-         transition cursor-pointer"
-        >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="Google"
-            className="w-5 h-5"
-          />
-          <span className="text-sm font-medium text-gray-700">Registrarse con Google</span>
-        </button>
-        {/* Formulario */}
-        <div className="form-container-register">
-          <div className="input-group">
-            <label className="input-label-register">Usuario</label>
-            <div className="input-wrapper">
-              <span className="input-icon">✉️</span>
-              <input
-                type="text"
-                className="input-field"
-                placeholder="Usuario123"
-                value={username}
-                onChange={e => setUser(e.target.value)}
-                required // Campo obligatorio
-              />
-            </div>
-          </div>
-
-          {/* Campo de correo */}
-          <div className="input-group">
-            <label className="input-label-register">Correo</label>
-            <div className="input-wrapper">
-              <span className="input-icon">✉️</span>
-              <input
-                type="email"
-                className="input-field"
-                placeholder="example@gmail.com"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                required // Campo obligatorio
-              />
-            </div>
-          </div>
-
-          {/* Campo de contraseña */}
-          <div className="input-group">
-            <label className="input-label-register">Contraseña</label>
-            <div className="input-wrapper">
-              <span className="input-icon">🔒</span>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                className="input-field"
-                placeholder="••••••"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                required // Campo obligatorio
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? '👁️' : '🙈'}
-              </button>
-            </div>
-          </div>
-
-          {/* Campo de confirmar contraseña */}
-          <div className="input-group">
-            <label className="input-label-register">Confirmar Contraseña</label>
-            <div className="input-wrapper">
-              <span className="input-icon">🔒</span>
-              <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                className="input-field"
-                placeholder="••••••"
-                value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)}
-                required // Campo obligatorio
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                {showConfirmPassword ? '👁️' : '🙈'}
-              </button>
-            </div>
-          </div>
-
-          {/* Botón de registro */}
+        {/* Botón de registro */}
+        <div className="mt-6">
           <button
-            className="register-button" // Puedes usar los mismos estilos de botón si quieres
             onClick={handleRegister}
-            type="button" // Specify type button to prevent form submission
+            className="w-full bg-blue-600 hover:bg-blue-900 text-white font-bold py-3 rounded-2xl transition cursor-pointer flex items-center justify-center gap-2"
           >
-            REGISTRAR CUENTA
+            REGISTRARSE
+            <img src="/assets/images/registerIcon_1.png" alt="Icono registro" className="w-6 h-6 pointer-events-none" />
           </button>
-
-          {/* Opcional: Enlace para volver al Login */}
-          {/* <button 
-            className="forgot-password-link" // Puedes usar el mismo estilo de enlace
-            onClick={() => alert('Volver a Login')}
-          >
-            ¿Ya tienes cuenta? Inicia Sesión
-          </button> */}
         </div>
       </div>
     </div>
