@@ -45,7 +45,6 @@ const ProfileHeader: React.FC = () => {
               )}
 
               <img src="/assets/images/userFrame.svg" alt="Marco de perfil" className="pin-frame" />
-
               {/* Hidden file input */}
               <input
                 type="file"
