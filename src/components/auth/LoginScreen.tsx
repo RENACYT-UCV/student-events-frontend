@@ -61,15 +61,16 @@ const LoginScreen: React.FC = () => {
           Iniciar Sesión
         </h1>
 
+        
         {/* Botón de Google */}
-        <button className="relative z-10 w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-3 mb-4 hover:bg-gray-100 transition">
+        {/* <button className="relative z-10 w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-3 mb-4 hover:bg-gray-100 transition">
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
             alt="Google"
             className="w-5 h-5"
           />
           <span className="text-sm font-medium text-gray-700">Continuar con Google</span>
-        </button>
+        </button> */}
 
         {/* Formulario */}
         <div className="space-y-4 relative z-10">

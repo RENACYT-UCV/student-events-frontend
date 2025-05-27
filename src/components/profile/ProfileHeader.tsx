@@ -59,7 +59,7 @@ const ProfileHeader: React.FC = () => {
 
             <div className="profile-text">
               <h1>
-                Hola, <span id="user-name">user</span>!
+               
               </h1>
             </div>
           </div>
