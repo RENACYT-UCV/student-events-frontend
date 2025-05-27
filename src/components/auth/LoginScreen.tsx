@@ -43,7 +43,7 @@ const LoginScreen: React.FC = () => {
     <div className="min-h-screen bg-red-600 flex flex-col items-center">
       {/* Encabezado UniEventos directamente aquí */}
       <div className="w-full bg-red-600 py-6 shadow-md">
-        <h1 className="text-3xl font-extrabold text-white text-center">UniEventos</h1>
+        <h1 className="text-3xl font-extrabold [padding:65px_28px_5px] text-white text-center">UniEventos</h1>
       </div>
 
       {/* Contenedor principal */}

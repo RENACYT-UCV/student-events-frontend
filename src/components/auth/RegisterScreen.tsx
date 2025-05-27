@@ -50,7 +50,7 @@ const RegisterScreen: React.FC = () => {
   return (
     <div className="bg-red-600 flex flex-col items-center min-h-screen">
       <div className="w-full bg-red-600 py-6 shadow-md">
-        <h1 className="text-3xl font-extrabold text-white text-center">Registrar Cuenta</h1>
+        <h1 className="text-3xl font-extrabold [padding:70px_28px_22px] text-white text-center">Registrar Cuenta</h1>
       </div>
 
       <button className="back-button-register mt-1 mb-3 text-white font-semibold" onClick={handleGoBack}>
