@@ -452,27 +452,19 @@
   display: flex;
   align-items: center;
   gap: 2px;
+  border: 1px solid transparent;
 }
 
-.status-tag.pending {
+.status-tag.status-pendiente {
   background: #fff3cd;
   color: #856404;
-  border: 1px solid #ffeaa7;
-  padding: 5px 8px;
-  font-size: 13px;
+  border-color: #ffeeba;
 }
 
-.attendance-tag {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 4px 8px;
-  border-radius: 12px;
-}
-
-.attendance-tag.no-attend {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+.status-tag.status-registrado {
+  background: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
 }
 
 /* Bottom Indicator */
@@ -528,166 +520,123 @@
   margin: 0;
 }
 
-.asistence-tag.noasistence{
-  background-color: #ff0e261e;
-  border: 1px solid #7c18228d;
-}
-
-.asistence-tag.noasistence,
-.asistence-tag.yesasistence {
-  font-size: 11px;
-  font-weight: 500;
-  display: flex;
-  height: 100%;
-  align-items: center;
-  padding: 4px 8px;
-  border-radius: 12px;
-
-}
-
 @media (max-width: 600px) {
   .events-container {
-    max-width: 100%;
-    margin-left: 0px;
-    margin-right: 0;
+    gap: 16px;
   }
-
   .historial-mobile-container {
-    max-width: 100vw;
-    width: 100vw;
-    min-height: 100vh;
-    margin: 0;
+    padding: 0;
   }
   .mobile-header {
-    padding: 10px 8px;
-    height: 48px;
+    padding: 10px 15px;
   }
   .header-title {
     font-size: 16px;
   }
   .header-right,
   .header-left {
-    width: 40px;
-    gap: 6px;
+    width: 50px;
   }
   .mobile-content {
-  border-radius: 16px 16px 0 0;
+    padding: 15px;
   }
   .title-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   .title-left h2 {
-    font-size: 20px;
+    font-size: 2em;
   }
   .title-left p {
     font-size: 14px;
   }
   .pdf-button {
-    font-size: 12px;
+    margin-top: 10px;
     padding: 6px 10px;
-    border-radius: 12px;
+    font-size: 12px;
   }
   .filter-section {
-    padding: 5px 13px;
-    margin-bottom: 1em;
-    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 2em;
   }
   .filter-label {
     font-size: 14px;
   }
   .dropdown-select {
     font-size: 14px;
-    padding: 0px 24px 0px 8px;
-    border-radius: 20px;
-    font-family: 'Karla', sans-serif;
-    font-weight: 600;
-    min-width: 80px;
-    height: 30px;
+    padding: 0px 24px 0px 10px;
   }
-
   .events-container {
-    gap: 14px;
+    gap: 16px;
   }
   .event-item {
     padding: 20px;
-    gap: 16px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
   }
   .event-image-container {
-    width: full;
-    height: full;
-    border-radius: 8px;
+    width: 80px;
+    height: 100px;
   }
   .event-title {
-    font-size: 13px;
+    font-size: 15px;
   }
   .event-type-tag,
   .status-tag,
-  .attendance-tag,
-  .asistence-tag {
-    font-size: 13px;
-    padding: 3px 5px 3px 5px;
-    border-radius: 10px;
-    height: 40%;
-
+  .attendance-tag {
+      font-size: 10px;
+      padding: 3px 6px;
   }
 
-  .asistence-tag.noasistence,
-  .asistence-tag.yesasistence {
-  font-size: 11px;
-  font-weight: 500;
-  user-select: none;
-  display: flex;
-  height: 40%;
-  align-items: center;
-  padding: 5px 8px;
-  border-radius: 12px;
+  .status-tag.pending {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .attendance-tag.noasistence,
+  .attendance-tag.assist {
+    font-size: 11px;
+    padding: 4px 8px;
   }
 
   .group-header {
-    font-size: 13px;
-  }
-  .bottom-indicator {
-    width: 80px;
-    height: 4px;
-    border-radius: 2px;
-    bottom: 4px;
-  }
-  .loading-content {
-    min-height: 200px;
-    border-radius: 16px 16px 0 0;
+      font-size: 14px;
   }
 
-  
+  .bottom-indicator {
+      width: 100px;
+  }
+
+  .loading-content {
+      min-height: calc(100vh - 80px);
+  }
 }
 
-/* Extra small screens */
 @media (max-width: 400px) {
   .mobile-header {
-    padding: 6px 2px;
-    height: 40px;
+    padding: 8px 10px;
   }
   .header-title {
-    font-size: 13px;
+    font-size: 14px;
   }
   .mobile-content {
-    padding: 20px 15px;
+    padding: 10px;
   }
   .title-left h2 {
-    font-size: 25px;
+    font-size: 1.5em;
   }
   .pdf-button {
-    font-size: 10px;
-    padding: 4px 6px;
+      margin-top: 8px;
+      padding: 5px 8px;
+      font-size: 11px;
   }
-
   .historial-header-icon-container {
-  height: 8em;
+      height: 10em;
   }
-
   .mobile-content {
-  padding: 20px 15px;
-}
+      padding: 10px;
+  }
 }

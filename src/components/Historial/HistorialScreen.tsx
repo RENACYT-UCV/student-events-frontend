@@ -273,41 +273,8 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
                         className="event-item"
                         onClick={() => handleEventClick(evento.id)}
                       >
-                        <div className="event-image-container">
-                          {evento.category === 'Tecnología' ? (
-                            <div className="excel-badge">
-                              <div className="excel-icon">
-                                <span className="excel-x">X</span>
-                                <div className="excel-grid">
-                                  <div className="grid-line"></div>
-                                  <div className="grid-line"></div>
-                                  <div className="grid-line"></div>
-                                </div>
-                              </div>
-                              <div className="excel-label">
-                                <span className="excel-text">Excel</span>
-                                <span className="basic-text">Básico</span>
-                              </div>
-                            </div>
-                          ) : evento.image ? (
-                            <img
-                              src={evento.image}
-                              alt={evento.title}
-                              className="event-image"
-                              onError={e => {
-                                const target = e.target as HTMLImageElement
-                                target.src =
-                                  'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="60" height="60" fill="%23E5E5E5"/%3E%3Cpath d="M20 20H40V40H20V20Z" fill="%23CCCCCC"/%3E%3C/svg%3E'
-                              }}
-                            />
-                          ) : (
-                            <span className="event-placeholder" role="img" aria-label="evento">
-                              📅
-                            </span>
-                          )}
-                        </div>
-
                         <div className="event-details">
+                          <span className="event-type-tag">{evento.type}</span>
                           <div className="event-datetime-row">
                             <div className="datetime-item">
                               <span className="calendar-icon">📅</span>
@@ -322,9 +289,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
                           <h4 className="event-title">{evento.title}</h4>
 
                           <div className="event-tags">
-                            <span className="event-type-tag">{evento.type}</span>
-                            <span className="status-tag pending">⏱ {evento.status}</span>
-                            <span className="asistence-tag noasistence">🚫 {evento.asistence}</span>
+                            <span className={`status-tag status-${evento.status === 'Pendiente' ? 'pendiente' : 'registrado'}`}>{evento.status}</span>
                             {/* Puedes mostrar otros tags según estado */}
                           </div>
                         </div>
