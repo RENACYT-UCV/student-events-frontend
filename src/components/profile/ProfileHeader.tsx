@@ -16,7 +16,6 @@ const ProfileHeader: React.FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      console.log('📸 Imagen seleccionada:', file)
       setSelectedImage(file)
       // A este `file` lo puedes mandar al backend luego en el submit
     }

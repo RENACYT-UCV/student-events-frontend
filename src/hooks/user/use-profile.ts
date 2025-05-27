@@ -4,8 +4,6 @@ import { useAccessToken } from '@store/auth.store'
 export function useProfile() {
   const accessToken = useAccessToken()
 
-  console.log('Access Token:', accessToken)
-
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['profile'],
     queryFn: () => {
@@ -22,10 +20,6 @@ export function useProfile() {
       }).then(response => response.json())
     }
   })
-
-  if (data) {
-    console.log('Profile Data:', data)
-  }
 
   return {
     profile: data,

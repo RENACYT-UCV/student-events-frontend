@@ -12,10 +12,10 @@ export default function Home() {
       if (!profile?.id) return
       try {
         const events = await getAllEventsByUserId(profile.id)
-        console.log('Fetched user events:', events)
+
         setAllEvents(events as Event[])
-      } catch (error) {
-        console.error('Failed to fetch user events:', error)
+      } catch {
+        alert('Error al cargar los eventos. Por favor, inténtalo de nuevo más tarde.')
       }
     }
 

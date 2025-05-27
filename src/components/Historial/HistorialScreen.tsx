@@ -26,7 +26,6 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
       setIsLoading(true)
       setError(null)
       try {
-        console.log('Fetching event history for user:', userId)
         const response = await fetch(
           `https://student-events-backend-kypp.onrender.com/api/user/${userId}/event-history`,
           {
@@ -39,10 +38,8 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
           throw new Error(`Error al obtener los datos: ${response.status} ${response.statusText}`)
         }
         const data = await response.json()
-        console.log('Event history data received:', data)
 
         if (!data || data.length === 0) {
-          console.log('No events found for user')
           setEventos([])
           setIsLoading(false)
           return
@@ -50,31 +47,26 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
 
         // Transformar los datos recibidos al formato que espera el componente
         const eventosFormateados = data.map((registro: any) => {
-            console.log('Registro completo:', registro); // Log completo del registro
-            console.log('Tipo de evento en registro:', registro.event.eventType); // Log específico del tipo de evento
-            console.log('Asistencias en registro:', registro.assistances); // Nuevo log para asistencias
-            console.log('Estado de asistencia (registro.assistances[0]?.status):', registro.assistances[0]?.status); // Nuevo log para el estado de asistencia
-
           const fechaInicio = registro.event.eventDetails[0]?.startDate
             ? new Date(registro.event.eventDetails[0].startDate).toLocaleDateString('es-ES', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric'
               })
-            : 'Sin fecha';
-          
+            : 'Sin fecha'
+
           const fechaFin = registro.event.eventDetails[0]?.endDate
             ? new Date(registro.event.eventDetails[0].endDate).toLocaleDateString('es-ES', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric'
               })
-            : 'Sin fecha';
+            : 'Sin fecha'
 
-          const horaInicio = registro.event.eventDetails[0]?.startTime || 'Sin hora';
-          const horaFin = registro.event.eventDetails[0]?.endTime || 'Sin hora';
+          const horaInicio = registro.event.eventDetails[0]?.startTime || 'Sin hora'
+          const horaFin = registro.event.eventDetails[0]?.endTime || 'Sin hora'
 
-          const tipoEvento = ''; // Se establece como cadena vacía para no mostrar nada
+          const tipoEvento = '' // Se establece como cadena vacía para no mostrar nada
 
           return {
             id: registro.event.id.toString(),
@@ -82,26 +74,27 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
             date: `${fechaInicio} - ${fechaFin}`,
             hour: `${horaInicio} - ${horaFin}`,
             type: tipoEvento, // Usar el tipo de evento aquí
-            status: registro.assistances && registro.assistances.length > 0
-              ? registro.assistances[0].status === true
-                ? 'Asistió'
-                : 'No asistió'
-              : 'Pendiente',
-            asistence: registro.assistances && registro.assistances.length > 0
-              ? registro.assistances[0].status === true
-                ? 'Asistió'
-                : 'No asistió'
-              : 'Pendiente',
+            status:
+              registro.assistances && registro.assistances.length > 0
+                ? registro.assistances[0].status === true
+                  ? 'Asistió'
+                  : 'No asistió'
+                : 'Pendiente',
+            asistence:
+              registro.assistances && registro.assistances.length > 0
+                ? registro.assistances[0].status === true
+                  ? 'Asistió'
+                  : 'No asistió'
+                : 'Pendiente',
             image: registro.event.eventDetails[0]?.url || '',
             category: tipoEvento, // También actualizar la categoría
             location: registro.event.eventDetails[0]?.location || 'Sin ubicación',
-            description: registro.event.eventDetails[0]?.description || 'Sin descripción',
+            description: registro.event.eventDetails[0]?.description || 'Sin descripción'
           }
         })
-        console.log('Formatted events:', eventosFormateados)
+
         setEventos(eventosFormateados)
       } catch (error) {
-        console.error('Error al cargar el historial:', error)
         setError((error as Error).message || 'Error al cargar el historial')
       } finally {
         setIsLoading(false)
@@ -110,18 +103,6 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
 
     fetchEventos()
   }, [userId, accessToken]) // Add dependencies to re-fetch when userId or accessToken changes
-
-  const handleMenuClick = () => {
-    console.log('Abrir menú')
-  }
-
-  const handleNotificationClick = () => {
-    console.log('Abrir notificaciones')
-  }
-
-  const handleProfileClick = () => {
-    console.log('Abrir perfil')
-  }
 
   const handleExportPDF = async () => {
     if (!userId || !accessToken) {
@@ -172,7 +153,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     navigate(`/evento/${eventoId}`)
   }
 
-  const eventosFiltrados = eventos;
+  const eventosFiltrados = eventos
 
   const agruparEventos = () => {
     const grupos = {
@@ -224,7 +205,6 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
           </div>
         </div>
 
-
         {/* Error message */}
         {error && (
           <div className="error-message">
@@ -255,7 +235,6 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
                         onClick={() => handleEventClick(evento.id)}
                       >
                         <div className="event-details">
-
                           <div className="event-datetime-row">
                             <div className="datetime-item">
                               <span className="calendar-icon">📅</span>
@@ -270,7 +249,11 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
                           <h4 className="event-title">{evento.title}</h4>
 
                           <div className="event-tags">
-                            <span className={`status-tag status-${evento.asistence.toLowerCase().replace(/ /g, '-')}`}>{evento.asistence}</span>
+                            <span
+                              className={`status-tag status-${evento.asistence.toLowerCase().replace(/ /g, '-')}`}
+                            >
+                              {evento.asistence}
+                            </span>
                             {/* Puedes mostrar otros tags según estado */}
                           </div>
                         </div>

@@ -13,16 +13,14 @@ const RecoverAccountScreen: React.FC = () => {
 
   const handleSendResetEmail = async (): Promise<void> => {
     try {
-      console.log('Solicitando restablecimiento para:', { email })
       const response = await axios.post(
         'https://student-events-backend-kypp.onrender.com/api/auth/forgot-password-request',
         { email }
       )
-      console.log('Token recibido:', response.data.token)
+
       alert(response.data.message)
       navigate('/verify-reset-code', { state: { token: response.data.token } })
-    } catch (error) {
-      console.error('Error al enviar el correo de restablecimiento:', error)
+    } catch {
       alert(
         'Hubo un error al enviar el correo de restablecimiento. Por favor, inténtalo de nuevo más tarde.'
       )

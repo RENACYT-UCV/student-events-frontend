@@ -14,18 +14,14 @@ const LoginScreen: React.FC = () => {
   const { loginAsync } = useLogin()
 
   const handleLogin = async (): Promise<void> => {
-    console.log('Iniciando sesión con:', { email, password })
-
     await loginAsync(
       { email, password },
       {
         onSuccess: (data: { accessToken: string; refreshToken: string }) => {
-          console.log('Inicio de sesión exitoso:', data)
           setAccessToken(data.accessToken)
           setRefreshToken(data.refreshToken)
         },
-        onError: (error: Error) => {
-          console.error('Error al iniciar sesión:', error)
+        onError: () => {
           alert('Error al iniciar sesión. Por favor, verifica tus credenciales.')
         }
       }

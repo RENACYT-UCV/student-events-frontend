@@ -20,8 +20,7 @@ const ProfileForm: React.FC = () => {
     codigo_alumno: ''
   })
 
-  const { profile, proifileLoading } = useProfile()
-  console.log('ProfileForm rendered', profile)
+  const { profile } = useProfile()
 
   useEffect(() => {
     if (profile) {
@@ -51,7 +50,6 @@ const ProfileForm: React.FC = () => {
     //   codigo_alumno: form.codigo_alumno.value
     // }
 
-    console.log('Datos enviados:', formData)
     // TODO: Implement actual API call to update profile
     setShowPopup(true)
     setIsFormEditable(false)

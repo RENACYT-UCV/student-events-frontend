@@ -84,16 +84,16 @@ const EventoDetalle: React.FC = () => {
     return <div>Evento no encontrado</div>
   }
 
-  const handleMenuClick = () => {
-    console.log('Abrir menú')
-  }
-  const handleNotificationClick = () => {
-    console.log('Abrir notificaciones')
-  }
+  // const handleMenuClick = () => {
 
-  const handleProfileClick = () => {
-    console.log('Abrir perfil')
-  }
+  // }
+  // const handleNotificationClick = () => {
+
+  // }
+
+  // const handleProfileClick = () => {
+
+  // }
 
   return (
     <div className="evento-detalle-container">

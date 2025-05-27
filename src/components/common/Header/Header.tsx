@@ -8,10 +8,7 @@ interface HeaderProps {
   onMenuClick?: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({
-  title = 'Historial',
-  onMenuClick
-}) => {
+const Header: React.FC<HeaderProps> = ({ title = 'Historial', onMenuClick }) => {
   const navigate = useNavigate()
 
   const handleNotificationClick = () => {
@@ -23,14 +20,9 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <header className="mobile-header" role="banner">
+    <header className="mobile-header pt-16" role="banner">
       <div className="header-left">
-        <button
-          type="button"
-          className="menu-button"
-          onClick={onMenuClick}
-          aria-label="Abrir menú"
-        >
+        <button type="button" className="menu-button" onClick={onMenuClick} aria-label="Abrir menú">
           <Menu size={26} strokeWidth={2.5} />
         </button>
       </div>

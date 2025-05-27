@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './ResetPasswordScreen.css' // CSS específico
-import { useNavigate, useSearchParams } from 'react-router-dom' // Importar useSearchParams
+import { useNavigate } from 'react-router-dom' // Importar useSearchParams
 import axios from 'axios'
 import {
   useForgotPasswordActions,
@@ -14,8 +14,6 @@ const ResetPasswordScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams() // Para leer parámetros de la URL
-  const token = searchParams.get('token') // Obtener el token de la URL
 
   const email = useForgotPasswordEmail()
   const code = useForgotPasswordCode()
@@ -28,27 +26,20 @@ const ResetPasswordScreen: React.FC = () => {
     }
 
     try {
-      const response = await axios.post(
-        'https://student-events-backend-kypp.onrender.com/api/auth/reset-password',
-        {
-          // token,
-          email,
-          code,
-          password
-        }
-      )
+      await axios.post('https://student-events-backend-kypp.onrender.com/api/auth/reset-password', {
+        // token,
+        email,
+        code,
+        password
+      })
 
       clearCode()
       clearEmail()
-
-      console.log('Respuesta del backend:', response.data)
-    } catch (error) {
-      console.error('Error al restablecer la contraseña:', error)
+    } catch {
       alert('Hubo un error al restablecer la contraseña. Por favor, inténtalo de nuevo más tarde.')
       return
     }
 
-    console.log('Restableciendo contraseña con token y nueva contraseña:', { token, password })
     // TODO: Aquí necesitas enviar el token y la nueva contraseña al backend
     // para que actualice la contraseña del usuario.
 

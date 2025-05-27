@@ -21,7 +21,6 @@ const NotificationPage = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       if (!accessToken) {
-        console.log('No access token available, skipping notification fetch.')
         setIsLoading(false)
         return
       }

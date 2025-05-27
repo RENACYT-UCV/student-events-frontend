@@ -16,7 +16,6 @@ const VerifyResetCodeScreen: React.FC = () => {
 
   const handleVerifyCode = async (): Promise<void> => {
     try {
-      console.log('Verificando código:', code)
       const response = await axios.post(
         'https://student-events-backend-kypp.onrender.com/api/auth/verify-reset-code',
         {
@@ -24,11 +23,10 @@ const VerifyResetCodeScreen: React.FC = () => {
           email
         }
       )
-      console.log('Token recibido para restablecer contraseña:', response.data.token)
+
       alert('Código verificado correctamente.')
       navigate('/reset-password', { state: { token: response.data.token } })
-    } catch (error) {
-      console.error('Error al verificar el código:', error)
+    } catch {
       alert('Código incorrecto. Por favor, inténtalo de nuevo.')
     }
   }
