@@ -11,6 +11,7 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
   const [eventos, setEventos] = useState<Evento[]>([])
   const [filtroTipo, setFiltroTipo] = useState<string>('Todas')
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const accessToken = useAccessToken()
   const userId = useUserId()
@@ -19,14 +20,15 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
     const fetchEventos = async () => {
       if (!userId || !accessToken) {
         setIsLoading(false)
+        setError('No se pudo obtener el ID de usuario o el token de acceso')
         return // Don't fetch if userId or accessToken is not available
       }
       setIsLoading(true)
+      setError(null)
       try {
-        // Usamos directamente el ID 1 para pruebas
-        // const userId = 1 // Remove this line
+        console.log('Fetching event history for user:', userId)
         const response = await fetch(
-          ` https://student-events-backend-kypp.onrender.com/api/user/${userId}/event-history`,
+          `https://student-events-backend-kypp.onrender.com/api/user/${userId}/event-history`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -34,38 +36,70 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
           }
         )
         if (!response.ok) {
-          throw new Error('Error al obtener los datos')
+          throw new Error(`Error al obtener los datos: ${response.status} ${response.statusText}`)
         }
         const data = await response.json()
+        console.log('Event history data received:', data)
+
+        if (!data || data.length === 0) {
+          console.log('No events found for user')
+          setEventos([])
+          setIsLoading(false)
+          return
+        }
 
         // Transformar los datos recibidos al formato que espera el componente
-        const eventosFormateados = data.map((registro: any) => ({
-          id: registro.event.id.toString(),
-          title: registro.event.eventDetails.title,
-          date: new Date(registro.event.eventDetails.startDate).toLocaleDateString(),
-          hour: new Date(registro.event.eventDetails.startDate).toLocaleTimeString(),
-          type: registro.event.eventDetails.type || 'Sin categoría',
-          status: registro.assistances.length > 0 ? 'Registrado' : 'Pendiente',
-          asistence:
-            registro.assistances.length > 0
-              ? registro.assistances[0].status
-                ? 'Asistió'
-                : 'No asistió'
-              : 'Pendiente',
-          image: registro.event.eventDetails.image || undefined,
-          category: registro.event.eventDetails.category || undefined
-        }))
+        const eventosFormateados = data.map((registro: any) => {
+          const fechaInicio = registro.event.eventDetails[0]?.startDate
+            ? new Date(registro.event.eventDetails[0].startDate).toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+              })
+            : 'Sin fecha';
+          
+          const fechaFin = registro.event.eventDetails[0]?.endDate
+            ? new Date(registro.event.eventDetails[0].endDate).toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+              })
+            : 'Sin fecha';
 
+          const horaInicio = registro.event.eventDetails[0]?.startTime || 'Sin hora';
+          const horaFin = registro.event.eventDetails[0]?.endTime || 'Sin hora';
+
+          return {
+            id: registro.event.id.toString(),
+            title: registro.event.name || 'Sin título',
+            date: `${fechaInicio} - ${fechaFin}`,
+            hour: `${horaInicio} - ${horaFin}`,
+            type: registro.event.eventType?.title || 'Sin categoría',
+            status: registro.assistances && registro.assistances.length > 0 ? 'Registrado' : 'Pendiente',
+            asistence:
+              registro.assistances && registro.assistances.length > 0
+                ? registro.assistances[0].status
+                  ? 'Asistió'
+                  : 'No asistió'
+                : 'Pendiente',
+            image: registro.event.eventDetails[0]?.url || '',
+            category: registro.event.eventType?.title || 'Sin categoría',
+            location: registro.event.eventDetails[0]?.location || 'Sin ubicación',
+            description: registro.event.eventDetails[0]?.description || 'Sin descripción',
+          }
+        })
+        console.log('Formatted events:', eventosFormateados)
         setEventos(eventosFormateados)
       } catch (error) {
         console.error('Error al cargar el historial:', error)
+        setError((error as Error).message || 'Error al cargar el historial')
       } finally {
         setIsLoading(false)
       }
     }
 
     fetchEventos()
-  }, [])
+  }, [userId, accessToken]) // Add dependencies to re-fetch when userId or accessToken changes
 
   const handleMenuClick = () => {
     console.log('Abrir menú')
@@ -209,6 +243,20 @@ const HistorialScreen: React.FC<HistorialScreenProps> = () => {
             </div>
           </div>
         </div>
+
+        {/* Error message */}
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {/* No events message */}
+        {!isLoading && !error && eventos.length === 0 && (
+          <div className="no-events-message">
+            <p>No hay eventos registrados para mostrar.</p>
+          </div>
+        )}
 
         {/* Events Groups */}
         <div className="events-container">
