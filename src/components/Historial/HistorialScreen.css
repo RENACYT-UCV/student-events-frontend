@@ -1,12 +1,31 @@
 @import "../common/Header/Header.css";
+@import "../../index.css";
 
 .historial-mobile-container * {
   margin: 0;
   padding: 0;
 }
 
+.historial-header-icon-container {
+  width: full;
+  height: 12em;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.historial-header-icon{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+
+
 .historial-mobile-container {
-  width: 100vw;
+  width: full;
   min-height: 100vh;
   background: #f0f0f0;
   font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', sans-serif;
@@ -127,9 +146,9 @@
 
 /* Content */
 .mobile-content {
-  background: linear-gradient(135deg, #ffe0e6, #f3e5f5);
+  background: #F4F4F4;
   min-height: 100vh;
-  padding: 20px 16px;
+  padding: 20px 100px;
   position: relative;
 }
 
@@ -138,9 +157,9 @@
 .title-container {
   background: #fff;
   border-radius: 14px;
-  padding: 18px 16px 12px 16px;
+  padding: 20px;
   margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .title-section {
@@ -151,9 +170,10 @@
 }
 
 .title-left h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #333;
+  font-size: 3em;
+  font-weight: 800;
+  font-family: 'Karla', sans-serif;
+  color: #0c0c0c;
   margin: 0;
   line-height: 1.1;
 }
@@ -174,6 +194,7 @@
   border-radius: 16px;
   padding: 8px 14px;
   font-size: 14px;
+  margin-top: 10pxn;
   color: #2196f3;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -191,47 +212,62 @@
 
 /* Filter Section */
 .filter-section {
-  background: #fff3c4;
+  background: #FFFBDC;
   border-radius: 12px;
   padding: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 3em;
 }
 
 .filter-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 40px;
 }
 
 .filter-label {
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: #131313;
+  font-family: 'Karla', sans-serif;
+  font-weight: 600;
 }
 
 .filter-dropdown {
   position: relative;
   display: flex;
   align-items: center;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+
+}
+
+.filter-dropdown:Hover {
+  transform: translateY(-2px);
+  background: #e8e6d3;
+  
 }
 
 .dropdown-select {
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 8px 32px 8px 12px;
-  font-size: 14px;
-  color: #333;
+  border: none;
+  border-radius: 20px;
+  padding: 0px 32px 0px 12px;
+  font-size: 16px;
+  color: #0e0e0e;
+  height: max-content;
+  font-family: 'Karla', sans-serif;
+  font-weight: 600;
   cursor: pointer;
   appearance: none;
   min-width: 100px;
+
 }
 
 .dropdown-arrow {
   position: absolute;
   right: 10px;
   font-size: 12px;
-  color: #666;
+  color: #0e0e0e;
   pointer-events: none;
 }
 
@@ -252,7 +288,9 @@
 .group-header {
   font-size: 16px;
   font-weight: 600;
-  color: #666;
+  color: #080808;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -265,8 +303,8 @@
 /* Event Items */
 .event-item {
   background: white;
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 20px;
+  padding: 30px;
   display: flex;
   gap: 16px;
   cursor: pointer;
@@ -281,9 +319,9 @@
 
 .event-image-container {
   flex-shrink: 0;
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  width: 90px;
+  height: 120px;
+  border-radius: 20px;
   overflow: hidden;
 }
 
@@ -397,10 +435,11 @@
 }
 
 .event-type-tag {
-  background: #f5f5f5;
-  color: #666;
+    background: #f5f5f5;
+  color: #828282;
+  height: 100%;
   font-size: 12px;
-  padding: 4px 8px;
+  padding: 7px 5px 3px 5px;
   border-radius: 12px;
   font-weight: 500;
 }
@@ -419,6 +458,8 @@
   background: #fff3cd;
   color: #856404;
   border: 1px solid #ffeaa7;
+  padding: 5px 8px;
+  font-size: 13px;
 }
 
 .attendance-tag {
@@ -487,21 +528,26 @@
   margin: 0;
 }
 
+.asistence-tag.noasistence{
+  background-color: #ff0e261e;
+  border: 1px solid #7c18228d;
+}
+
 .asistence-tag.noasistence,
 .asistence-tag.yesasistence {
   font-size: 11px;
   font-weight: 500;
   display: flex;
+  height: 100%;
   align-items: center;
   padding: 4px 8px;
   border-radius: 12px;
+
 }
 
 @media (max-width: 600px) {
   .events-container {
     max-width: 100%;
-    padding-left: 8px;
-    padding-right: 8px;
     margin-left: 0px;
     margin-right: 0;
   }
@@ -511,7 +557,6 @@
     width: 100vw;
     min-height: 100vh;
     margin: 0;
-    padding: 0;
   }
   .mobile-header {
     padding: 10px 8px;
@@ -526,14 +571,12 @@
     gap: 6px;
   }
   .mobile-content {
-    padding: 0;
-    border-radius: 16px 16px 0 0;
+  border-radius: 16px 16px 0 0;
   }
   .title-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 16px;
     gap: 12px;
   }
   .title-left h2 {
@@ -548,30 +591,33 @@
     border-radius: 12px;
   }
   .filter-section {
-    padding: 10px;
-    margin-bottom: 12px;
+    padding: 5px 13px;
+    margin-bottom: 1em;
     border-radius: 8px;
   }
   .filter-label {
     font-size: 14px;
   }
   .dropdown-select {
-    font-size: 12px;
-    padding: 6px 24px 6px 8px;
-    border-radius: 6px;
+    font-size: 14px;
+    padding: 0px 24px 0px 8px;
+    border-radius: 20px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 600;
     min-width: 80px;
+    height: 30px;
   }
+
   .events-container {
     gap: 14px;
   }
   .event-item {
-    padding: 10px;
-    gap: 8px;
-    border-radius: 10px;
+    padding: 20px;
+    gap: 16px;
   }
   .event-image-container {
-    width: 40px;
-    height: 40px;
+    width: full;
+    height: full;
     border-radius: 8px;
   }
   .event-title {
@@ -581,10 +627,25 @@
   .status-tag,
   .attendance-tag,
   .asistence-tag {
-    font-size: 10px;
-    padding: 3px 6px;
+    font-size: 13px;
+    padding: 3px 5px 3px 5px;
     border-radius: 10px;
+    height: 40%;
+
   }
+
+  .asistence-tag.noasistence,
+  .asistence-tag.yesasistence {
+  font-size: 11px;
+  font-weight: 500;
+  user-select: none;
+  display: flex;
+  height: 40%;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 12px;
+  }
+
   .group-header {
     font-size: 13px;
   }
@@ -598,6 +659,8 @@
     min-height: 200px;
     border-radius: 16px 16px 0 0;
   }
+
+  
 }
 
 /* Extra small screens */
@@ -610,13 +673,21 @@
     font-size: 13px;
   }
   .mobile-content {
-    padding: 6px 2px;
+    padding: 20px 15px;
   }
   .title-left h2 {
-    font-size: 16px;
+    font-size: 25px;
   }
   .pdf-button {
     font-size: 10px;
     padding: 4px 6px;
   }
+
+  .historial-header-icon-container {
+  height: 8em;
+  }
+
+  .mobile-content {
+  padding: 20px 15px;
+}
 }

@@ -47,17 +47,17 @@ export default function DrawerSidebar({ open, onClose }: Props) {
         }`}
       >
         <div className="">
-          <h2 className="bg-[#1E2C64] p-4 text-xl text-white font-bold">UniEventos</h2>
+          <h2 className="bg-[#1E2C64] p-6 text-2xl text-white font-bold">UniEventos</h2>
         </div>
 
-        <nav className="p-4 flex flex-col gap-4 text-blue-700">
+        <nav className="p-6 flex flex-col gap-5 font- text-blue-700 text-xl">
           <NavItem icon={<HomeIcon className="w-5 h-5" />} to="/" onClick={onClose}>
             Inicio
           </NavItem>
 
           <div>
             <button
-              className="flex items-center gap-2 w-full"
+              className="flex items-center gap-2 w-full cursor-pointer hover:font-medium hover:text-red-600"
               onClick={() => setShowSubmenu(!showSubmenu)}
             >
               <CalendarDaysIcon className="w-5 h-5" />
@@ -103,10 +103,10 @@ export default function DrawerSidebar({ open, onClose }: Props) {
           </NavItem>
         </nav>
 
-        <div className="absolute bottom-0 w-full p-4 border-t text-red-600">
+        <div className="absolute bottom-0 w-full p-6 border-t text-red-600">
           <button
             onClick={handleLogout} // <-- usamos la función
-            className="flex items-center gap-2 hover:underline w-full text-left"
+            className="flex items-center gap-2 hover:font-medium w-full text-lg text-left hover:text-red-800 cursor-pointer"
           >
             <ArrowRightOnRectangleIcon className="w-5 h-5" />
             Cerrar sesión
@@ -126,7 +126,7 @@ type NavItemProps = {
 
 function NavItem({ icon, to, children, onClick }: NavItemProps) {
   return (
-    <Link to={to} className="flex items-center gap-2 hover:underline" onClick={onClick}>
+    <Link to={to} className="flex items-center gap-2 hover:font-medium hover:text-red-600" onClick={onClick}>
       {icon}
       {children}
     </Link>
