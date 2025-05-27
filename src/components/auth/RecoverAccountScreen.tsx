@@ -14,7 +14,9 @@ const RecoverAccountScreen: React.FC = () => {
         'https://student-events-backend-kypp.onrender.com/api/auth/forgot-password',
         { email }
       )
+      console.log('Token recibido:', response.data.token)
       alert(response.data.message)
+      navigate('/verify-reset-code', { state: { token: response.data.token } })
     } catch (error) {
       console.error('Error al enviar el correo de restablecimiento:', error)
       alert(
@@ -28,52 +30,51 @@ const RecoverAccountScreen: React.FC = () => {
   }
 
   return (
-    <div
-      className="login-container"
-      style={{
-        background: `url(/assets/mi-fondo.jpeg) center/cover no-repeat`
-      }}
-    >
+    <div className="login-container">
       <button className="back-button" onClick={handleGoBack}>
         ← Volver
       </button>
 
-      <div className="decoration-top-left"></div>
-      <div className="decoration-top-right"></div>
-      <div className="decoration-bottom-left"></div>
-      <div className="decoration-bottom-right"></div>
-
       <div className="login-content">
         <div className="illustration-container">
           <div className="people-illustration">
-            <img src="/assets/recuperar-cuenta.png" alt="Recover Account illustration" />
+            <img src="/assets/images/recoverGifIcon.gif" alt="" />
           </div>
         </div>
 
         <h1 className="login-title">Recuperar Cuenta</h1>
 
-        <p style={{ textAlign: 'center', marginBottom: '20px', color: '#555' }}>
+        <p style={{ textAlign: 'center', marginBottom: '10px', color: '#555', userSelect: 'none' }}>
           Ingrese su correo electrónico para recuperar su cuenta
         </p>
 
         <div className="form-container">
           <div className="input-group">
-            <label className="input-label">Correo</label>
+            <label className="input-label select-none">Correo</label>
             <div className="input-wrapper">
-              <span className="input-icon">✉️</span>
               <input
                 type="email"
-                className="input-field"
+                className="input-field ml-10"
                 placeholder="example@gmail.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
+              />
+              <img
+                src="/assets/images/recoverMailIcon.png"
+                alt="Icono de correo"
+                className="absolute pointer-events-none left-3 top-3 w-6 h-6 object-contain"
               />
             </div>
           </div>
 
           <button className="login-button" onClick={handleSendResetEmail}>
             ENVIAR
+            <img
+              src="/assets/images/sentIcon.png"
+              alt="Icono registro"
+              className="w-6 pointer-events-none h-6"
+            />
           </button>
         </div>
       </div>

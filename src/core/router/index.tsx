@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import MainLayout from '@components/MainLayout'
+import VerifyResetCodeScreen from '../../components/auth/VerifyResetCodeScreen'
 
 import HistorialScreen from '@components/Historial/HistorialScreen'
 import HistorialEventDetail from '@components/Historial/HistorialEventDataileScreen'
@@ -27,6 +28,7 @@ export default function AppRouter() {
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/recover-account" element={<RecoverAccountScreen />} />
           <Route path="/reset-password" element={<ResetPasswordScreen />} />
+          <Route path="/verify-reset-code" element={<VerifyResetCodeScreen />} />
         </Route>
 
         <Route element={<ProtectedRoute />}>
