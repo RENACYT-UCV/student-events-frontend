@@ -85,17 +85,7 @@ const ProfileForm: React.FC = () => {
       <form className={`profile-form ${isFormEditable ? 'editing' : ''}`} onSubmit={handleSubmit}>
         <div className="form-header-with-button">
           <h2 className="text-8xl">Información Personal</h2>
-          {!isFormEditable && (
-            <button type="button" className="edit-button-inline" onClick={handleEditClick}>
-              Editar Perfil
-              <img
-                src="/assets/images/editIcon_darkMode.svg"
-                alt="Editar"
-                className="icon-right"
-                width={20}
-              />
-            </button>
-          )}
+          
         </div>
 
         <label htmlFor="nombre">Nombre:</label>
@@ -128,15 +118,7 @@ const ProfileForm: React.FC = () => {
           onChange={handleInputChange}
         />
 
-        <label htmlFor="carrera">Carrera:</label>
-        <input
-          type="text"
-          id="carrera"
-          name="carrera"
-          disabled={true} // Carrera should not be editable
-          value={formData.carrera}
-          onChange={handleInputChange}
-        />
+       
 
         <label htmlFor="telefono">Teléfono:</label>
         <input
@@ -148,15 +130,7 @@ const ProfileForm: React.FC = () => {
           onChange={handleInputChange}
         />
 
-        <label htmlFor="codigo_alumno">Código Alumno:</label>
-        <input
-          type="text"
-          id="codigo_alumno"
-          name="codigo_alumno"
-          disabled={true} // Código Alumno should not be editable
-          value={formData.codigo_alumno}
-          onChange={handleInputChange}
-        />
+        
 
         {isFormEditable && (
           <div className="edit-button-wrapper">

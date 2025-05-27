@@ -44,7 +44,6 @@ const NotificationPage = () => {
           id: announcement.id.toString(),
           title: announcement.title,
           subtitle: announcement.message,
-          imageUrl: announcement.eventDetail?.image || 'ruta/a/imagen/por/defecto.jpg'
         }))
 
         setNotifications(formattedNotifications)

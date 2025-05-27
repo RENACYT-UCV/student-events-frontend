@@ -27,14 +27,7 @@ const NotificationHistory: React.FC<NotificationHistoryProps> = ({ notifications
           ) : (
             notifications.map(n => (
               <div key={n.id} className="notification-item">
-                <img
-                  src={n.imageUrl}
-                  alt="preview"
-                  onError={e => {
-                    const target = e.target as HTMLImageElement
-                    target.src = '/ruta/a/imagen/por/defecto.jpg'
-                  }}
-                />
+                
                 <div>
                   <strong>{n.title}</strong>
                   <p>{n.subtitle}</p>
