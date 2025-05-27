@@ -12,6 +12,11 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
     if (onClose) onClose()
   }
 
+  const handleEventTypeClick = (typeTitle: string) => {
+    navigate(`/eventos?tipo=${encodeURIComponent(typeTitle)}`)
+    if (onClose) onClose()
+  }
+
   return (
     <div className="w-full h-screen flex flex-col z-[100] ">
       <div className="bg-[#DD2324] text-white p-[22px] flex items-center gap-2">
@@ -33,7 +38,11 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
               <p>Cargando...</p>
             ) : (
               eventTypes.map(type => (
-                <SidebarItem key={type.id} label={type.title} to={`/eventos/${type.id}`} />
+                <SidebarItem 
+                  key={type.id} 
+                  label={type.title} 
+                  onClick={() => handleEventTypeClick(type.title)} 
+                />
               ))
             )}
           </div>

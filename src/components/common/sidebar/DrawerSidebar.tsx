@@ -23,13 +23,19 @@ type Props = {
 
 export default function DrawerSidebar({ open, onClose }: Props) {
   const [showSubmenu, setShowSubmenu] = useState(false)
-  const navigate = useNavigate() // <-- añadí esto
+  const navigate = useNavigate() 
   const { eventTypes, loading } = useEventTypes()
 
   const handleLogout = () => {
     // localStorage.removeItem('token') // si estás usando autenticación
     onClose()
-    navigate('/login') // <-- redirige al login
+    navigate('/login') 
+  }
+
+  // Nueva función para manejar la navegación por tipo de evento
+  const handleEventTypeClick = (typeTitle: string) => {
+    navigate(`/eventos?tipo=${encodeURIComponent(typeTitle)}`)
+    onClose()
   }
 
   return (
@@ -76,14 +82,14 @@ export default function DrawerSidebar({ open, onClose }: Props) {
                 ) : (
                   <>
                     {eventTypes.map(type => (
-                      <NavItem
+                      <div
                         key={type.id}
-                        icon={<CalendarDaysIcon className="w-4 h-4" />} // Puedes personalizar el icono según el tipo de evento
-                        to={`/eventos/${type.id}`}
-                        onClick={onClose}
+                        className="flex items-center gap-2 hover:font-medium hover:text-red-600 cursor-pointer"
+                        onClick={() => handleEventTypeClick(type.title)}
                       >
+                        <CalendarDaysIcon className="w-4 h-4" />
                         {type.title}
-                      </NavItem>
+                      </div>
                     ))}
                   </>
                 )}
@@ -105,7 +111,7 @@ export default function DrawerSidebar({ open, onClose }: Props) {
 
         <div className="absolute bottom-0 w-full p-6 border-t text-red-600">
           <button
-            onClick={handleLogout} // <-- usamos la función
+            onClick={handleLogout}
             className="flex items-center gap-2 hover:font-medium w-full text-lg text-left hover:text-red-800 cursor-pointer"
           >
             <ArrowRightOnRectangleIcon className="w-5 h-5" />

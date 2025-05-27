@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Button from '../common/Button'
 import EventTypeSelect from './EventTypeSelect'
 import EventCard from './EventCard'
 import { getAllEvents, getAllEventTypes, Event, EventType } from '../../services/event.service'
 
 export default function EventList() {
-  const [selectedFilter, setSelectedFilter] = useState('Tipo de Evento')
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const tipoFromUrl = queryParams.get('tipo')
+
+  const [selectedFilter, setSelectedFilter] = useState(tipoFromUrl || 'Tipo de Evento')
   const [events, setEvents] = useState<Event[]>([])
   const [eventTypes, setEventTypes] = useState<EventType[]>([])
   const [loading, setLoading] = useState(true)
@@ -26,6 +31,13 @@ export default function EventList() {
 
     fetchData()
   }, [])
+
+  // Actualizar el filtro cuando cambia la URL
+  useEffect(() => {
+    if (tipoFromUrl) {
+      setSelectedFilter(tipoFromUrl)
+    }
+  }, [tipoFromUrl])
 
   const filteredEvents = events.filter(
     event => selectedFilter === 'Tipo de Evento' || event.eventType.title === selectedFilter
