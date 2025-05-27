@@ -1,59 +1,61 @@
 import { useState, useEffect } from 'react'
-import { getAllEvents } from '@/services/event.service'
+import { getAllEventsByUserId } from '@/services/event.service'
 import { Event } from '@/types/events'
+import { useProfile } from '@/hooks/user/use-profile'
 
 export default function Home() {
   const [allEvents, setAllEvents] = useState<Event[]>([])
+  const { profile } = useProfile()
 
   useEffect(() => {
     const fetchEvents = async () => {
+      if (!profile?.id) return
       try {
-        const events = await getAllEvents()
-        console.log('Fetched events:', events)
-        setAllEvents(events)
+        const events = await getAllEventsByUserId(profile.id)
+        console.log('Fetched user events:', events)
+        setAllEvents(events as Event[])
       } catch (error) {
-        // Handle error appropriately
-        console.error('Failed to fetch events:', error)
+        console.error('Failed to fetch user events:', error)
       }
     }
 
     fetchEvents()
-  }, [])
+  }, [profile])
 
-  // You might want to filter allEvents into eventosHoy and proximosEventos based on date
-  const proximosEventos: Event[] = allEvents // For now, display all events as upcoming
+  // Display all events as upcoming since they are already filtered by user registration
+  const proximosEventos: Event[] = allEvents
 
   return (
     <div className="home-events-container">
       {/* Contenedor principal */}
       <div className="bg-white top-0 relative z-10 rounded-3xl mt-[-1rem] p-8 mx-auto max-w-3xl">
-
-
         {/* Próximos eventos */}
-        <h2 className="text-2xl font-extrabold text-red-500 mt-8 mb-4 select-none">MIS PRÓXIMOS EVENTOS</h2>
+        <h2 className="text-2xl font-extrabold text-red-500 mt-8 mb-4 select-none">
+          MIS PRÓXIMOS EVENTOS
+        </h2>
         <div className="flex flex-col gap-4 px-3">
           {proximosEventos &&
             proximosEventos.length > 0 &&
             proximosEventos.map(evento => (
-              <div key={evento.id} className="flex cursor-pointer items-start shadow-xl rounded-xl p-4 transition-transform duration-300 ease-in-out hover:scale-102">
+              <div
+                key={evento.id}
+                className="flex cursor-pointer items-start shadow-xl rounded-xl p-4 transition-transform duration-300 ease-in-out hover:scale-102"
+              >
                 <div>
                   <h3 className="text-indigo-900 font-bold">{evento.name}</h3>
                   {evento.eventDetails?.length > 0 && (
                     <div className="mt-2 space-y-1 text-sm text-gray-600">
                       <div className="flex items-center gap-1">
-                        {/* <CalendarMonthIcon className="w-4 h-4" /> */}
                         <span>
                           {evento.eventDetails[0].startDate} - {evento.eventDetails[0].endDate}
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
-                        {/* <AccessTimeIcon className="w-4 h-4" /> */}
                         <span>
                           {evento.eventDetails[0].startTime} - {evento.eventDetails[0].endTime}
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
-                        {/* <LocationOnIcon className="w-4 h-4" /> */}
                         <span>{evento.eventDetails[0].location}</span>
                       </div>
                     </div>

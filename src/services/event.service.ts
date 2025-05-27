@@ -77,6 +77,17 @@ export const getAllEventTypes = async (): Promise<EventType[]> => {
   }
 }
 
-// export const getAllEventsByUserId = async (userId: number): Promise<Event[]> => {
-//   // return client.get('/events/user', {)
-// }
+export const getAllEventsByUserId = async (userId: number): Promise<Event[]> => {
+  try {
+    const token = getAccessToken()
+    const response = await axios.get<Event[]>(`${API_URL}/events/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user events:', error)
+    throw error
+  }
+}
