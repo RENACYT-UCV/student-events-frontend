@@ -34,10 +34,9 @@ export default function EventDetail() {
 
       // First, create a registration
       const registrationResponse = await axios.post(
-        'https://student-events-backend-kypp.onrender.com/api/registration',
+        `https://student-events-backend-kypp.onrender.com/api/events/register/${profile.id}`,
         {
-          eventId: event.id,
-          userId: profile.id
+          eventId: event.id
         },
         {
           headers: {
@@ -45,21 +44,9 @@ export default function EventDetail() {
           }
         }
       )
-      const registrationId = registrationResponse.data.id
 
       // Then, mark assistance
-      const assistanceResponse = await axios.post(
-        'https://student-events-backend-kypp.onrender.com/assistance/mark',
-        {
-          registrationId: registrationId
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }
-      )
-      return assistanceResponse.data
+      return registrationResponse.data
     },
     onSuccess: () => {
       localStorage.setItem(
