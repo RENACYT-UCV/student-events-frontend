@@ -44,7 +44,6 @@ const ProfileHeader: React.FC = () => {
                 </div>
               )}
 
-              <img src="/assets/images/userPhoto.svg" alt="Foto de usuario" className="pin-photo" />
               <img src="/assets/images/userFrame.svg" alt="Marco de perfil" className="pin-frame" />
 
               {/* Hidden file input */}
@@ -58,9 +57,7 @@ const ProfileHeader: React.FC = () => {
             </div>
 
             <div className="profile-text">
-              <h1>
-               
-              </h1>
+              <h1></h1>
             </div>
           </div>
         </div>
